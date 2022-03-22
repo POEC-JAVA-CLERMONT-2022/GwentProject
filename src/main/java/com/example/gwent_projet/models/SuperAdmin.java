@@ -1,4 +1,4 @@
-package gwent.model;
+package com.example.gwent_projet.models;
 
 public class SuperAdmin extends Admin {
 

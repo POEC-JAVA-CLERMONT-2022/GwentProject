@@ -1,12 +1,12 @@
-package gwent.service;
+package com.example.gwent_projet.web;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import gwent.model.Admin;
-import gwent.util.consoleDisplay;
+import com.example.gwent_projet.models.Admin;
+import com.example.gwent_utils.consoleDisplay;
 
 public class UserService {
 
