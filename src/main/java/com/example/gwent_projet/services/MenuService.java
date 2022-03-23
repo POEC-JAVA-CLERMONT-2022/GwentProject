@@ -1,4 +1,4 @@
-package com.example.gwent_projet.web;
+package com.example.gwent_projet.services;
 
 public enum MenuService {
 

@@ -3,7 +3,7 @@ package com.example.gwent_projet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.gwent_projet.web.UserService;
+import com.example.gwent_projet.services.UserService;
 import com.example.gwent_utils.consoleDisplay;
 
 @SpringBootApplication

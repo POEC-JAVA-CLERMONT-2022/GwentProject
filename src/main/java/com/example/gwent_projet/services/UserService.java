@@ -1,4 +1,4 @@
-package com.example.gwent_projet.web;
+package com.example.gwent_projet.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -333,4 +333,5 @@ public class UserService {
 		// consoleDisplay.consoleLineBreak();
 	}
 
+	
 }
