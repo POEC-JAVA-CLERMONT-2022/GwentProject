@@ -9,5 +9,4 @@ public class GwentProjetApplication {
     public static void main(String[] args) {
         SpringApplication.run(GwentProjetApplication.class, args);
     }
-
 }
