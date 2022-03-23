@@ -10,5 +10,4 @@ public interface DataProvider {
 
     public void add(Card card);
 
-
 }

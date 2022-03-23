@@ -22,6 +22,7 @@ public class CardService {
         return dataProvider.getAll();
     }
 
+
     public void add(Card card) {
         if(card == null || card.getName() == null) {
             throw new IllegalArgumentException("Card name is invalid");
