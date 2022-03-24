@@ -15,7 +15,7 @@ public class CardController {
 
     private CardService cardService = new CardService();
 
-    @GetMapping("/cards")
+    /*@GetMapping("/cards")
     public ArrayList<Card> getCards() {
         return cardService.getAll();
     }
@@ -26,5 +26,6 @@ public class CardController {
                 "Skelidge", Ability.COMMANDER, Row.CLOSE_COMBAT, Type.HERO));
         return "OK";
     }
+     */
 
 }
