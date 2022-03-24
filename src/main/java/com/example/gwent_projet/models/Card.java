@@ -1,37 +1,49 @@
 package com.example.gwent_projet.models;
 
-import java.util.LinkedList;
-import java.util.List;
+import javax.persistence.*;
 
+@Entity
+@Table (name = "card")
 public class Card {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
     private String name;
     private String picture;
+
+    @Column(name = "power_lvl")
     private Integer powerLvl;
+
     private String description;
     private String location;
 
-    private List<CardList> cardsLists;
 
+    @Enumerated(EnumType.STRING)
     private Ability ability;
-    private Row row;
+
+    @Enumerated(EnumType.STRING)
+    private Row rowName;
+
+    @Enumerated(EnumType.STRING)
     private Type type;
 
 
-
-
     public Card(String name, String picture, Integer powerLvl, String description,
-                String location, Ability ability, Row row, Type type) {
+                String location, Ability ability, Row rowName, Type type) {
         this.name = name;
         this.picture = picture;
         this.powerLvl = powerLvl;
         this.description = description;
         this.location = location;
         this.ability = ability;
-        this.row = row;
+        this.rowName = rowName;
         this.type = type;
-        this.cardsLists = new LinkedList<CardList>();
+    }
 
+    public Card() {
     }
 
     @Override
@@ -42,15 +54,11 @@ public class Card {
                 ", powerLvl=" + powerLvl +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", ability='" +  ability.getShortName() + '\''+
-                ", row='" + row.getRowName() + '\''+
-                ", type='" + type.getTypeName() + '\''+
-                ", loans=" + cardsLists +
+                ", ability=" + ability +
+                ", row=" + rowName +
+                ", type=" + type +
                 '}';
     }
-
-
-
 
     //getter setter
     public String getName() {
@@ -73,13 +81,7 @@ public class Card {
         return location;
     }
 
-    public List<CardList> getCardsList() {
-        return cardsLists;
+    public Long getId() {
+        return id;
     }
-
-    public void addCardlist(CardList cardList) {
-        this.cardsLists.add(cardList);
-    }
-
-
 }
