@@ -1,5 +1,6 @@
 package com.example.gwent_projet.models;
 
+
 public enum Ability {
 
 
