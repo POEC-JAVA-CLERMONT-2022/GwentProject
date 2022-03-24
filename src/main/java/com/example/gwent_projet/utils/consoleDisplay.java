@@ -1,4 +1,4 @@
-package com.example.gwent_utils;
+package com.example.gwent_projet.utils;
 
 import java.util.Scanner;
 

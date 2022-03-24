@@ -5,13 +5,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.example.gwent_projet.models.Admin;
-import com.example.gwent_utils.consoleDisplay;
+import org.springframework.stereotype.Service;
 
+import com.example.gwent_projet.models.User;
+import com.example.gwent_projet.utils.consoleDisplay;
+
+@Service
 public class UserService {
 
 	consoleDisplay consoleDisplay = new consoleDisplay();
-	public List<Admin> adminList = new ArrayList<>();
+	public List<User> adminList = new ArrayList<>();
 	int createAccountIndex = 0; // needs to be separate
 	int index = 0;
 
@@ -55,7 +58,7 @@ public class UserService {
 		if (consoleDisplay.userYN() == true) {
 			try {
 				// create new admin object
-				Admin admin = new Admin(inputUsername, inputEmail, inputPwd);
+				User admin = new User(inputUsername, inputEmail, inputPwd);
 				adminList.add(admin);
 				// book existence check
 				if (adminList.contains(admin)) {
