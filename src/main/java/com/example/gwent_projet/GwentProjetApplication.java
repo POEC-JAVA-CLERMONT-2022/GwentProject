@@ -15,7 +15,6 @@ public class GwentProjetApplication {
         SpringApplication.run(GwentProjetApplication.class, args);
         
 		UserService userService = new UserService();
-		consoleDisplay consoleDisplay = new consoleDisplay();
 		
 		// ------------------------------------------------------------------
 		/* temporary console display for user handling
@@ -24,7 +23,6 @@ public class GwentProjetApplication {
 		// execute method "run" that prints the menu and handles actions per user choice
 		userService.run();
 		// line break because Java sucks at handling line breaks
-		consoleDisplay.consoleLineBreak();
 		
     }
 
