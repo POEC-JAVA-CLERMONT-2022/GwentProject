@@ -20,6 +20,10 @@ public class Card {
     private String description;
     private String location;
 
+    @JoinColumn(name = "cardDeck_id")
+    @ManyToOne
+    private CardDeck cardDeck;
+
 
     @Enumerated(EnumType.STRING)
     private Ability ability;
@@ -32,7 +36,7 @@ public class Card {
 
 
     public Card(String name, String picture, Integer powerLvl, String description,
-                String location, Ability ability, Row rowName, Type type) {
+                String location, Ability ability, Row rowName, Type type, CardDeck cardDeck) {
         this.name = name;
         this.picture = picture;
         this.powerLvl = powerLvl;
@@ -41,6 +45,7 @@ public class Card {
         this.ability = ability;
         this.rowName = rowName;
         this.type = type;
+        this.cardDeck = cardDeck;
     }
 
     public Card() {
