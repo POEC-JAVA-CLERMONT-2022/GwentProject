@@ -46,7 +46,7 @@ public class CardController {
     }
 
     // Create card
-    @PostMapping("/cards")
+    @PostMapping("/new/card")
     public ResponseEntity<Card> createCard(@RequestBody Card card) {
         try {
             Card _card = cardRepository
