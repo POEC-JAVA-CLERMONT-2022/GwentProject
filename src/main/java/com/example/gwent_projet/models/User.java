@@ -31,7 +31,8 @@ public class User {
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "owner")
 	private List<UserDeck> userDecks;
 	
-	public User (String username, String email, String password) {
+	public User (int role, String username, String email, String password) {
+		this.role = role;
 		this.username = username;
 		this.email = email;
 		this.password = password;
