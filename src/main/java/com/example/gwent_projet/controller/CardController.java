@@ -1,10 +1,7 @@
 package com.example.gwent_projet.controller;
 
 
-import com.example.gwent_projet.models.Ability;
-import com.example.gwent_projet.models.Card;
-import com.example.gwent_projet.models.Row;
-import com.example.gwent_projet.models.Type;
+import com.example.gwent_projet.models.*;
 import com.example.gwent_projet.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,7 +51,7 @@ public class CardController {
         try {
             Card _card = cardRepository
                     .save(new Card(card.getName(), card.getPicture(), card.getPowerLvl(), card.getDescription(),
-                            card.getLocation(), Ability.BERSERKER, Row.AGILE, Type.HERO ));
+                            card.getLocation(), Ability.BERSERKER, Row.AGILE, Type.HERO, new CardDeck("zozo")));
             return new ResponseEntity<>(_card, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
