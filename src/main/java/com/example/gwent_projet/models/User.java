@@ -1,16 +1,13 @@
 package com.example.gwent_projet.models;
 
+import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table (name = "user")
+@Inheritance (strategy = InheritanceType.JOINED)
 public class User {
 
 	@Id
@@ -29,6 +26,10 @@ public class User {
 	
 	@Column (name = "password", nullable = false)
 	private String password;
+	
+	@Column (name = "userDeck")
+	@OneToMany (fetch = FetchType.LAZY, mappedBy = "owner")
+	private List<UserDeck> userDecks;
 	
 	public User (String username, String email, String password) {
 		this.username = username;
