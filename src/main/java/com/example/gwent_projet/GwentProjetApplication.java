@@ -40,7 +40,9 @@ public class GwentProjetApplication {
 
     @EventListener(classes = {ApplicationStartedEvent.class})
     public void applicationStarted() {
+        System.out.println("--------------------");
         System.out.println("GwentApp is started !");
+        System.out.println("--------------------");
         List<Card> cards = cardService.findAll();
     }
 }
