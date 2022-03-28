@@ -25,16 +25,6 @@ public class GwentProjetApplication {
     public static void main(String[] args) {
         SpringApplication.run(GwentProjetApplication.class, args);
         
-		
-		
-		// ------------------------------------------------------------------
-		/* temporary console display for user handling
-		 * feel free to delete once integrated into framework 
-		 */
-		// execute method "run" that prints the menu and handles actions per user choice
-		
-		// line break because Java sucks at handling line breaks
-		
     }
 
     @EventListener(classes = {ApplicationStartedEvent.class})
@@ -43,6 +33,10 @@ public class GwentProjetApplication {
         System.out.println("GwentApp is started !");
         System.out.println("--------------------");
         List<Card> cards = cardService.findAll();
+     // ------------------------------------------------------------------
+     		/* temporary console display for user handling
+     		 * feel free to delete
+     		 */
         this.userCommand.run();
     }
 }

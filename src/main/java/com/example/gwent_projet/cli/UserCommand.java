@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.gwent_projet.dto.CreateUser;
+import com.example.gwent_projet.dto.UserDTO;
 import com.example.gwent_projet.models.User;
 import com.example.gwent_projet.services.MenuService;
 import com.example.gwent_projet.services.UserService;
@@ -30,7 +30,7 @@ public class UserCommand {
 		Matcher matcher;
 
 		consoleDisplay consoleDisplay = new consoleDisplay();
-		CreateUser createUser = new CreateUser();
+		UserDTO createUser = new UserDTO();
 		
 		printTitle("Create an account");
 

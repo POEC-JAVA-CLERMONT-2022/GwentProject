@@ -1,7 +1,7 @@
 package com.example.gwent_projet.dto;
 
 // ORM
-public class CreateUser {
+public class UserDTO {
 
 	public int role;
 	public String username;
