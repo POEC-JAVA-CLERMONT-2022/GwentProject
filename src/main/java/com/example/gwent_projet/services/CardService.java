@@ -1,24 +1,21 @@
 package com.example.gwent_projet.services;
 
-import com.example.gwent_projet.models.*;
-import com.example.gwent_projet.repository.CardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.gwent_projet.entity.*;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CardService {
+public interface CardService {
 
-    //// Emeric LiveCoding
-    @Autowired
-    private CardRepository cardRepository;
+    List<Card> getAllCards();
 
-    public List<Card> findAll() {
-      return cardRepository.findAll();
-    }
+    Card saveCard(Card card);
 
-    public Card findById(Long id) {
-        return cardRepository.getById(id);
-    }
+    Card getCardById(Long id);
+
+    Card updateCard(Card card);
+
+    void deleteCardById(Long id);
 
 }
+

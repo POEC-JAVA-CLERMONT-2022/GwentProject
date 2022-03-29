@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
-import com.example.gwent_projet.models.User;
+import com.example.gwent_projet.entity.User;
 import com.example.gwent_projet.utils.consoleDisplay;
 
 @Service

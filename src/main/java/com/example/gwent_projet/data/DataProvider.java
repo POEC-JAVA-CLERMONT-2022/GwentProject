@@ -1,6 +1,6 @@
 package com.example.gwent_projet.data;
 
-import com.example.gwent_projet.models.Card;
+import com.example.gwent_projet.entity.Card;
 
 import java.util.ArrayList;
 

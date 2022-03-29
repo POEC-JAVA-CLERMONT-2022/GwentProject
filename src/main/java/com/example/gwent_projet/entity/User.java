@@ -1,4 +1,4 @@
-package com.example.gwent_projet.models;
+package com.example.gwent_projet.entity;
 
 import java.util.List;
 import java.util.UUID;

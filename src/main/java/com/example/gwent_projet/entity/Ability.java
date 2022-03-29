@@ -1,4 +1,4 @@
-package com.example.gwent_projet.models;
+package com.example.gwent_projet.entity;
 
 
 public enum Ability {
