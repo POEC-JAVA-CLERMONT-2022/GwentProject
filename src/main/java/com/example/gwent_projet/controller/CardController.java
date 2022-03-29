@@ -38,7 +38,7 @@ public class CardController {
     }
 
     // Get card by id
-    @GetMapping("/card/{id}")
+    @GetMapping("/cards/{id}")
     public ResponseEntity<Card> getCardById(@PathVariable("id") long id) {
         Optional<Card> cardData = cardRepository.findById(id);
         return cardData.map(card -> new ResponseEntity<>
@@ -46,7 +46,7 @@ public class CardController {
     }
 
     // Create card
-    @PostMapping("/new/card")
+    @PostMapping("/cards")
     public ResponseEntity<Card> createCard(@RequestBody Card card) {
         try {
             Card _card = cardRepository
@@ -60,20 +60,10 @@ public class CardController {
 
 
     // Delete by id
-    @DeleteMapping("/delete/cards/{id}")
+    @DeleteMapping("/cards/{id}")
     public ResponseEntity<HttpStatus> deleteCard(@PathVariable("id") long id) {
         try {
             cardRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    // Delette all cards
-    @DeleteMapping("/delete/all/cards")
-    public ResponseEntity<HttpStatus> deleteAllCards() {
-        try {
-            cardRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
