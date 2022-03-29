@@ -1,6 +1,7 @@
 package com.example.gwent_projet.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table (name = "card")
@@ -64,6 +65,22 @@ public class Card {
                 ", type=" + type +
                 '}';
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return Objects.equals(id, card.id) && Objects.equals(name, card.name) && Objects.equals(picture, card.picture) && Objects.equals(powerLvl, card.powerLvl) && Objects.equals(description, card.description) && Objects.equals(location, card.location) && Objects.equals(cardDeck, card.cardDeck) && ability == card.ability && rowName == card.rowName && type == card.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, picture, powerLvl, description, location, cardDeck, ability, rowName, type);
+    }
+
+
 
     //getter setter
     public String getName() {
