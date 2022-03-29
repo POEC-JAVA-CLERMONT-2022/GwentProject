@@ -4,15 +4,12 @@ import com.example.gwent_projet.entity.Card;
 import com.example.gwent_projet.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-
-
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
-
 import java.util.List;
-
 import com.example.gwent_projet.services.UserService;
+
 
 @SpringBootApplication
 public class GwentProjetApplication {
@@ -32,7 +29,6 @@ public class GwentProjetApplication {
 		// execute method "run" that prints the menu and handles actions per user choice
 		userService.run();
 		// line break because Java sucks at handling line breaks
-		
     }
 
     @EventListener(classes = {ApplicationStartedEvent.class})
@@ -40,6 +36,8 @@ public class GwentProjetApplication {
         System.out.println("--------------------");
         System.out.println("GwentApp is started !");
         System.out.println("--------------------");
+
         List<Card> cards = cardService.getAllCards();
+        System.out.println(cards);
     }
 }
