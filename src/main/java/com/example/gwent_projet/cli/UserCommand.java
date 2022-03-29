@@ -78,12 +78,8 @@ public class UserCommand {
 		}
 	}
 
-	public void deleteAccount() {
-		// exit if the list is empty
+	public void deleteUser() {
 		printTitle("Delete an account");
-		if (consoleDisplay.checkIfEmpty(adminList.size())) {
-			return;
-		}
 		consoleDisplay.printToConsole("Enter the ID of the user to delete: ", true);
 
 		// subtract one to account for displaced index
@@ -126,7 +122,7 @@ public class UserCommand {
 		}
 	}
 	// wip
-	public void editAccount() {
+	public void editUser() {
 		printTitle("Edit an account");
 
 		if (consoleDisplay.checkIfEmpty(adminList.size())) {
@@ -245,9 +241,11 @@ public class UserCommand {
 		}
 	}
 
-	public void listAccount() {
-		printTitle("List of all accounts");
-
+	public void listUser() {
+		printTitle("List of all users");
+		userService.getAllUsers();
+		
+/*
 		if (consoleDisplay.checkIfEmpty(adminList.size())) {
 			return;
 		}
@@ -257,6 +255,8 @@ public class UserCommand {
 			// must account for this during operations.
 			consoleDisplay.printToConsole((sweeper + 1) + ". " +  adminList.get(sweeper).getUsername(), true);
 		}
+		
+*/
 	}
 
 	// menu handling -------------------------------------------------------------------
@@ -319,15 +319,15 @@ public class UserCommand {
 		}
 
 		if (answer.equalsIgnoreCase(MenuService.DELETE_ACCOUNT.getValue())) {
-			deleteAccount();
+			deleteUser();
 		}
 
 		if (answer.equalsIgnoreCase(MenuService.EDIT_ACCOUNT.getValue())) {
-			editAccount();
+			editUser();
 		}
 
 		if (answer.equalsIgnoreCase(MenuService.LIST_ACCOUNT.getValue())) {
-			listAccount();
+			listUser();
 		}
 	}
 

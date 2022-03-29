@@ -22,25 +22,30 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@GetMapping("/HelloWorld")
 	public String test() {
-	    return "helloworld";
+		return "helloworld";
 	}
-	
-	  @GetMapping("/user/new")
-	  public String createUserForm(Model model) {
-		  
-		// new user via DTO to hold data to be passed  
+
+	// ?
+	@GetMapping("/user/new")
+	public String createUserForm(Model model) {
 		UserDTO createUser = new UserDTO();
-		// passing data to model
-	    model.addAttribute("username", createUser.username);
-	    model.addAttribute("email", createUser.email);
-	    model.addAttribute("password", createUser.password);
-	    return "user/new";
-	  }
-	
-/*
+		model.addAttribute("createUser", createUser);
+		return "user/new";
+	}
+
+	/*
+
+	// new user via DTO to hold data to be passed  
+	UserDTO createUser = new UserDTO();
+	// passing data to model
+    model.addAttribute("username", createUser.username);
+    model.addAttribute("email", createUser.email);
+    model.addAttribute("password", createUser.password);
+	 */
+	/*
 	// map GET requests from this web page to this method
 	@GetMapping("/users/new")
 	public String createUserForm(HttpServletRequest req, Model model) {
@@ -52,14 +57,14 @@ public class UserController {
 		createUser.username=req.getParameter("username"); 
 		createUser.email=req.getParameter("email"); 
 		createUser.password=req.getParameter("password"); 
-		
-		
+
+
 		// add user to model
 		model.addAttribute("user", createUser);
 		return "create_user";
 	}
-*/
-/*
+	 */
+	/*
 	// Map ONLY POST Requests
 	// path is the corresponding URL address for the operation
 	@PostMapping(path="/newAccount")
@@ -81,6 +86,6 @@ public class UserController {
 		return "User created successfully.";
 	}
 
-*/
+	 */
 
 }
