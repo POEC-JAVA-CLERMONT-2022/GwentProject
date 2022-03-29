@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,12 +48,12 @@ public class CardController {
 
     // Create card
     @PostMapping("/cards")
-    public ResponseEntity<Card> createCard(@RequestBody Card card) {
+    public ResponseEntity<HttpStatus> createCard(@RequestBody Card card) {
         try {
             Card _card = cardRepository
                     .save(new Card(card.getName(), card.getPicture(), card.getPowerLvl(), card.getDescription(),
                             card.getLocation(), Ability.BERSERKER, Row.AGILE, Type.HERO, new CardDeck("zozo")));
-            return new ResponseEntity<>(_card, HttpStatus.CREATED);
+            return ResponseEntity.created( new URI("cards")).build();
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -64,7 +65,8 @@ public class CardController {
     public ResponseEntity<HttpStatus> deleteCard(@PathVariable("id") long id) {
         try {
             cardRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            //return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
