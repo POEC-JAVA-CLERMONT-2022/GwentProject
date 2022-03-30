@@ -75,7 +75,8 @@ public class CardController {
         if (cardOptional.isEmpty())
             return ResponseEntity.notFound().build();
         card.setId(id);
-        cardRepository.save(card);
+        //cardRepository.save(card);
+        cardService.updateCard(card);
         return ResponseEntity.noContent().build();
     }
 
