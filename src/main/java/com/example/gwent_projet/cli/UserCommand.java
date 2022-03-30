@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.gwent_projet.dto.UserDTO;
 import com.example.gwent_projet.models.User;
 import com.example.gwent_projet.services.MenuService;
 import com.example.gwent_projet.services.UserService;
@@ -19,7 +18,7 @@ public class UserCommand {
 	// command input for testing
 	@Autowired
 	private UserService userService;
-	
+
 	consoleDisplay consoleDisplay = new consoleDisplay();
 	public List<User> adminList = new ArrayList<>();
 	int createAccountIndex = 0; // needs to be separate
@@ -30,19 +29,19 @@ public class UserCommand {
 		Matcher matcher;
 
 		consoleDisplay consoleDisplay = new consoleDisplay();
-		UserDTO createUser = new UserDTO();
-		
+		User createUser = new User();
+
 		printTitle("Create an account");
 
 		// enter user name
 		consoleDisplay.printToConsole("Enter an username for your user: ", true);
-		createUser.username = consoleDisplay.readUserInput();
+		createUser.setUsername(consoleDisplay.readUserInput());
 
 		// enter email
 		do {
 			consoleDisplay.printToConsole("Enter the email of your user: ", true);
-			createUser.email = consoleDisplay.readUserInput();
-			matcher = emailValidation.matcher(createUser.email);
+			createUser.setEmail(consoleDisplay.readUserInput());
+			matcher = emailValidation.matcher(createUser.getEmail());
 
 			// validate email input with regex
 			if (!matcher.matches()) {
@@ -54,10 +53,10 @@ public class UserCommand {
 		// enter password
 		// come back to this later
 		consoleDisplay.printToConsole("Enter a password for your user: ", true);
-		createUser.password = consoleDisplay.readUserInput();
+		createUser.setPassword(consoleDisplay.readUserInput());
 
 		// confirm
-		consoleDisplay.printToConsole("Create user " + createUser.username + " with these settings? (Yes/No)", true);
+		consoleDisplay.printToConsole("Create user " + createUser.getUsername() + " with these settings? (Yes/No)", true);
 		// check for yes or no answer
 		if (consoleDisplay.userYN() == true) {
 			try {
@@ -81,42 +80,26 @@ public class UserCommand {
 	public void deleteUser() {
 		printTitle("Delete an account");
 		consoleDisplay.printToConsole("Enter the ID of the user to delete: ", true);
+		index = consoleDisplay.readUserInputInteger();
 
-		// subtract one to account for displaced index
-		index = consoleDisplay.readUserInputInteger() - 1;
-
+		Long longindex = (long) index;
+		
 		// exit if the user types zero
 		// TBD: move to ConsoleDisplay
-		if (index == -1) {
+		if (index == 0) {
 			consoleDisplay.printToConsole("Zero is not a valid ID.", true);
 			// reinitialize to zero
 			index = 0;
 			return;
 		}
-		// exit if index exceeds array length
-		// TBD: move to ConsoleDisplay
-		if (index + 1 > adminList.size()) {
-			consoleDisplay.printToConsole("No such user in database.", true);
-			// reinitialize to zero
-			index = 0;
-			return;
-		}
 
-		for (int sweeper = 0; sweeper < adminList.size(); sweeper++) {
-			if (sweeper == index) {
-				String nameTemp = adminList.get(sweeper).getUsername();
-				consoleDisplay.printToConsole("Do you wish to delete " + adminList.get(sweeper).getUsername() + " ?", true);
-				if (consoleDisplay.userYN() == true) {
-					try {
-						adminList.remove(index);
-						consoleDisplay.printToConsole("User \"" + nameTemp + "\" was deleted.", true);
-					} catch (Exception IndexOutOfBoundsException) {
-						consoleDisplay.printToConsole("Error while attempting to delete. Please try again.", true);
-						return;
-					}
-				}
-			} else {
-				consoleDisplay.printToConsole("No such user in database.", true);
+		consoleDisplay.printToConsole("Do you wish to delete " + index + " ?", true);
+		if (consoleDisplay.userYN() == true) {
+			try {
+				userService.deleteUserById(longindex);
+				consoleDisplay.printToConsole("User was deleted.", true);
+			} catch (Exception IndexOutOfBoundsException) {
+				consoleDisplay.printToConsole("Error while attempting to delete. Please try again.", true);
 				return;
 			}
 		}
@@ -244,8 +227,8 @@ public class UserCommand {
 	public void listUser() {
 		printTitle("List of all users");
 		userService.getAllUsers();
-		
-/*
+
+		/*
 		if (consoleDisplay.checkIfEmpty(adminList.size())) {
 			return;
 		}
@@ -255,8 +238,8 @@ public class UserCommand {
 			// must account for this during operations.
 			consoleDisplay.printToConsole((sweeper + 1) + ". " +  adminList.get(sweeper).getUsername(), true);
 		}
-		
-*/
+
+		 */
 	}
 
 	// menu handling -------------------------------------------------------------------

@@ -1,6 +1,5 @@
 package com.example.gwent_projet.models;
 
-import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -10,8 +9,8 @@ public class UserDeck {
 
 	@Id
 	@Column (name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@Column (name = "name", length = 100, nullable = false)
 	private String name;

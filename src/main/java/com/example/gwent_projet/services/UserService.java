@@ -1,7 +1,6 @@
 package com.example.gwent_projet.services;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -10,18 +9,15 @@ import com.example.gwent_projet.models.User;
 
 @Service
 public interface UserService {
-	
 
-	void createUser(UserDTO createUser);
-	
-	// WIP ------------------------------------------------------------------------
-	
-    User updateUser(User user);
+	UserDTO createUser(User createUser);
 
-    void deleteUserById(UUID id);
-	
-	List<User> getAllUsers();
-	
-	User getUserById(int id);
-	
+	List<UserDTO> getAllUsers();
+
+	UserDTO getUserById(Long id);
+
+	UserDTO updateUser(Long id, User user);
+
+	void deleteUserById(Long id);
+
 }

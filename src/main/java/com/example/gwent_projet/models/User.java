@@ -1,7 +1,6 @@
 package com.example.gwent_projet.models;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -11,9 +10,9 @@ import javax.persistence.*;
 public class User {
 
 	@Id
-	@Column (name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	private Long id;
 
 	@Column (name = "role", length = 50, nullable = false)
 	private int role;
@@ -36,6 +35,10 @@ public class User {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+	}
+
+	public User() {
+
 	}
 
 	// overrides -----------------------------------------------------------------------------
