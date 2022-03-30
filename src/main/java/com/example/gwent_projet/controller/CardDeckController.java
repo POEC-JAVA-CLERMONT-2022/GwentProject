@@ -67,7 +67,8 @@ public class CardDeckController {
         if (cardDeckOptional.isEmpty())
             return ResponseEntity.notFound().build();
         cardDeck.setId(id);
-        cardDeckRepository.save(cardDeck);
+        //cardDeckRepository.save(cardDeck);
+        cardDeckService.updateCardDeck(cardDeck);
         return ResponseEntity.noContent().build();
     }
 
