@@ -66,6 +66,20 @@ public class CardController {
         }
     }
 
+
+
+    @PutMapping("/cards/{id}")
+    public ResponseEntity<Object> updateCard(@RequestBody Card card, @PathVariable long id) {
+
+        Optional<Card> cardOptional = cardRepository.findById(id);
+        if (cardOptional.isEmpty())
+            return ResponseEntity.notFound().build();
+        card.setId(id);
+        cardRepository.save(card);
+        return ResponseEntity.noContent().build();
+    }
+
+
     // Delete by id
     @DeleteMapping("/cards/{id}")
     public ResponseEntity<Card> deleteCard(@RequestBody @PathVariable("id") Long id) {

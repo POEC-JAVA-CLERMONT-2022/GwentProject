@@ -122,4 +122,9 @@ public class Card {
     public Type getType() {
         return type;
     }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
