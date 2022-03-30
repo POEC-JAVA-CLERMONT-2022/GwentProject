@@ -2,6 +2,9 @@ package com.example.gwent_projet.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table (name = "card")
@@ -12,13 +15,25 @@ public class Card {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Size(min=2, max=10)
     private String name;
+
+    @NotNull
+    @Size(min=2, max=10)
     private String picture;
 
+    @NotNull
+    @Min(1)
     @Column(name = "power_lvl")
     private Integer powerLvl;
 
+    @NotNull
+    @Size(min=10, max=50)
     private String description;
+
+    @NotNull
+    @Size(min=5, max=20)
     private String location;
 
     @JoinColumn(name = "cardDeck_id")
@@ -35,19 +50,6 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-
-    public Card(String name, String picture, Integer powerLvl, String description,
-                String location, Ability ability, Row rowName, Type type, CardDeck cardDeck) {
-        this.name = name;
-        this.picture = picture;
-        this.powerLvl = powerLvl;
-        this.description = description;
-        this.location = location;
-        this.ability = ability;
-        this.rowName = rowName;
-        this.type = type;
-        this.cardDeck = cardDeck;
-    }
 
     public Card() {
     }
@@ -80,8 +82,6 @@ public class Card {
         return Objects.hash(id, name, picture, powerLvl, description, location, cardDeck, ability, rowName, type);
     }
 
-
-
     //getter setter
     public String getName() {
         return name;
@@ -103,7 +103,23 @@ public class Card {
         return location;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
+    }
+
+    public CardDeck getCardDeck() {
+        return cardDeck;
+    }
+
+    public Ability getAbility() {
+        return ability;
+    }
+
+    public Row getRowName() {
+        return rowName;
+    }
+
+    public Type getType() {
+        return type;
     }
 }

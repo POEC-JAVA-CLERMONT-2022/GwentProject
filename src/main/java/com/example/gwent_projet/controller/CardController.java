@@ -3,11 +3,14 @@ package com.example.gwent_projet.controller;
 
 import com.example.gwent_projet.entity.*;
 import com.example.gwent_projet.repository.CardRepository;
+import com.example.gwent_projet.services.CardService;
+import com.example.gwent_projet.services.impl.CardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,8 @@ public class CardController {
 
     @Autowired
     CardRepository cardRepository;
-
+    @Autowired
+    CardService cardService;
 
     // Get all cards
     @GetMapping("/cards")
@@ -27,16 +31,18 @@ public class CardController {
         try {
             List<Card> cards = new ArrayList<Card>();
             if (id == null)
-                //cardRepository.findAll().forEach(cards::add);
                 cards.addAll(cardRepository.findAll());
             if (cards.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(400).build();
+            //catch (Exception e) {
+            //return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     // Get card by id
     @GetMapping("/cards/{id}")
@@ -46,29 +52,30 @@ public class CardController {
                 (card, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Create card
+
     @PostMapping("/cards")
-    public ResponseEntity<HttpStatus> createCard(@RequestBody Card card) {
+    public ResponseEntity<Card> createCard(@RequestBody Card card) {
         try {
-            Card _card = cardRepository
-                    .save(new Card(card.getName(), card.getPicture(), card.getPowerLvl(), card.getDescription(),
-                            card.getLocation(), Ability.BERSERKER, Row.AGILE, Type.HERO, new CardDeck("zozo")));
-            return ResponseEntity.created( new URI("cards")).build();
+            if (card != null){
+                cardService.saveCard(card);
+            }
+            return ResponseEntity.status(201).build();
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return ResponseEntity.status(400).build();
         }
     }
 
-
     // Delete by id
     @DeleteMapping("/cards/{id}")
-    public ResponseEntity<HttpStatus> deleteCard(@PathVariable("id") long id) {
+    public ResponseEntity<Card> deleteCard(@RequestBody @PathVariable("id") Long id) {
         try {
-            cardRepository.deleteById(id);
-            //return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            return ResponseEntity.noContent().build();
+            if (id != null){
+                cardService.deleteCardById(id);
+            }
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(400).build();
         }
     }
 }
