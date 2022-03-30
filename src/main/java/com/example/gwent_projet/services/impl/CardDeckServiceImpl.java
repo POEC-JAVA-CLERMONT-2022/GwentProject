@@ -25,21 +25,21 @@ public class CardDeckServiceImpl implements CardDeckService {
 
     @Override
     public CardDeck saveCardDeck(CardDeck cardDeck) {
-        return null;
+        return cardDeckRepository.save(cardDeck);
     }
 
     @Override
     public CardDeck getCardDeckById(Long id) {
-        return null;
+        return cardDeckRepository.findById(id).get();
     }
 
     @Override
     public CardDeck updateCardDeck(CardDeck cardDeck) {
-        return null;
+        return cardDeckRepository.save(cardDeck);
     }
 
     @Override
     public void deleteCardDeckById(Long id) {
-
+        cardDeckRepository.deleteById(id);
     }
 }
