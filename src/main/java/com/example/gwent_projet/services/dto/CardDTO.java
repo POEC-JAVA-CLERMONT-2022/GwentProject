@@ -40,7 +40,9 @@ public class CardDTO {
         this.type = type;
     }
 
+    public CardDTO() {
 
+    }
 
     public String getName() {
         return name;

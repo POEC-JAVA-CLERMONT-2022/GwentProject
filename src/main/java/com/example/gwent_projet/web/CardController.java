@@ -9,11 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 @RestController
 public class CardController {
@@ -68,11 +73,11 @@ public class CardController {
     @PostMapping("/cards")
     public ResponseEntity<CardDTO> createCard(@RequestBody Card card) {
         try {
-            // create user in repository with data provided by method
-            CardDTO newUser = cardService.saveCard(card);
-            // user to be returned (TEMP)
-            // then return a response entity with this user, and the CREATED HTTP status
-            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+            // create card in repository with data provided by method
+            CardDTO newCard = cardService.saveCard(card);
+            // card to be returned (TEMP)
+            // then return a response entity with this card, and the CREATED HTTP status
+            return new ResponseEntity<>(newCard, HttpStatus.CREATED);
         } catch (Exception e) {
             // return null value with ERROR HTTP status
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,7 +85,7 @@ public class CardController {
     }
 
 
-    @PutMapping("/cards/{id}")
+   /* @PutMapping("/cards/{id}")
     public ResponseEntity<Object> updateCard(@RequestBody Card card, @PathVariable long id) {
 
         Optional<Card> cardOptional = cardRepository.findById(id);
@@ -91,16 +96,17 @@ public class CardController {
         cardService.updateCard(card);
         return ResponseEntity.noContent().build();
     }
-    /*@PutMapping("/cards/{id}")
-    public ResponseEntity<CardDTO> updateCardById(@PathVariable long id, @RequestBody Card card) {
+    */
+    @PutMapping("/cards/{id}")
+    public ResponseEntity<CardDTO> updateCardById( @PathVariable("id") Long id, @RequestBody Card card) {
         try {
-            CardDTO updatedUser = cardService.updateCard(id, card);
-            return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
+            CardDTO updatedCard = cardService.updateCard(id, card);
+            return new ResponseEntity<>(updatedCard, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }*/
+    }
 
 
     // Delete by id

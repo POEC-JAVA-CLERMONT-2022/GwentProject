@@ -1,7 +1,6 @@
 package com.example.gwent_projet.services.impl;
 
 import com.example.gwent_projet.entity.Card;
-import com.example.gwent_projet.entity.User;
 import com.example.gwent_projet.repository.CardRepository;
 import com.example.gwent_projet.services.CardService;
 import com.example.gwent_projet.services.dto.CardDTO;
@@ -73,29 +72,24 @@ public class CardServiceImpl implements CardService {
         return searchResult;
     }
 
-    @Override
+    /*@Override
     public Card updateCard(Card card) {
         return cardRepository.save(card);
-    }
-    /*@Override
+    }*/
+    @Override
     public CardDTO updateCard(Long id, Card editCard) {
 
-        BeanUtils.copyProperties(editCard, cardRepository.getById(id));
-        cardRepository.save(cardRepository.getById(id));
+        Card card = cardRepository.getById(id);
 
-        CardDTO newCardReturn = new CardDTO(
-                editCard.getName(),
-                editCard.getPicture(),
-                editCard.getPowerLvl(),
-                editCard.getDescription(),
-                editCard.getLocation(),
-                editCard.getCardDeck(),
-                editCard.getAbility(),
-                editCard.getRowName(),
-                editCard.getType() );
+        BeanUtils.copyProperties(editCard, card);
+        cardRepository.save(card);
 
-        return newCardReturn;
-    }*/
+        CardDTO cardDTO = new CardDTO();
+        BeanUtils.copyProperties(card, cardDTO);
+
+        return cardDTO;
+    }
+
 
     @Override
     public void deleteCardById(Long id) {

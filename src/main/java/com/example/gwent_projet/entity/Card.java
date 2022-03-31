@@ -140,4 +140,40 @@ public class Card {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public void setPowerLvl(Integer powerLvl) {
+        this.powerLvl = powerLvl;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setCardDeck(CardDeck cardDeck) {
+        this.cardDeck = cardDeck;
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
+    }
+
+    public void setRowName(Row rowName) {
+        this.rowName = rowName;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
 }
