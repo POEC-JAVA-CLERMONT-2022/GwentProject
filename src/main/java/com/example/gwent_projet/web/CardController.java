@@ -1,17 +1,15 @@
-package com.example.gwent_projet.controller;
+package com.example.gwent_projet.web;
 
 
 import com.example.gwent_projet.entity.*;
 import com.example.gwent_projet.repository.CardRepository;
 import com.example.gwent_projet.services.CardService;
-import com.example.gwent_projet.services.impl.CardServiceImpl;
+import com.example.gwent_projet.services.dto.CardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +51,9 @@ public class CardController {
     }
 
 
-    @PostMapping("/cards")
+
+
+    /*@PostMapping("/cards")
     public ResponseEntity<Card> createCard(@RequestBody Card card) {
         try {
             if (card != null){
@@ -64,8 +64,20 @@ public class CardController {
             e.printStackTrace();
             return ResponseEntity.status(400).build();
         }
+    }*/
+    @PostMapping("/cards")
+    public ResponseEntity<CardDTO> createCard(@RequestBody Card card) {
+        try {
+            // create user in repository with data provided by method
+            CardDTO newUser = cardService.saveCard(card);
+            // user to be returned (TEMP)
+            // then return a response entity with this user, and the CREATED HTTP status
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            // return null value with ERROR HTTP status
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
 
 
     @PutMapping("/cards/{id}")
@@ -79,6 +91,16 @@ public class CardController {
         cardService.updateCard(card);
         return ResponseEntity.noContent().build();
     }
+    /*@PutMapping("/cards/{id}")
+    public ResponseEntity<CardDTO> updateCardById(@PathVariable long id, @RequestBody Card card) {
+        try {
+            CardDTO updatedUser = cardService.updateCard(id, card);
+            return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
 
 
     // Delete by id

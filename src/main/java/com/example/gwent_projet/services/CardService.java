@@ -1,6 +1,7 @@
 package com.example.gwent_projet.services;
 
 import com.example.gwent_projet.entity.*;
+import com.example.gwent_projet.services.dto.CardDTO;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -9,11 +10,13 @@ public interface CardService {
 
     List<Card> getAllCards();
 
-    Card saveCard(Card card);
+    CardDTO saveCard(Card createCard);
+    //Card saveCard(Card card);
 
-    Card getCardById(Long id);
+    CardDTO getCardById(Long id);
 
-    Card updateCard(Card card);
+    //CardDTO updateCard(Long id, Card editCard);
+     Card updateCard(Card card);
 
     void deleteCardById(Long id);
 
