@@ -299,6 +299,7 @@ public class UserCommand {
 
 		if (answer.equalsIgnoreCase(MenuService.CREATE_ACCOUNT.getValue())) {
 			createUser();
+			
 		}
 
 		if (answer.equalsIgnoreCase(MenuService.DELETE_ACCOUNT.getValue())) {

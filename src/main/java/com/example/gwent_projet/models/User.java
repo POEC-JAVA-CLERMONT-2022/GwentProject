@@ -55,6 +55,16 @@ public class User {
 
 	// getters & setters ----------------------------------------------------------------------
 
+	public Long getId() {
+		return id;
+	}
+	
+	public int getRole() {
+		return role;
+	}
+
+	// ------------------------------------------------------
+	
 	public String getUsername() {
 		return username;
 	}
