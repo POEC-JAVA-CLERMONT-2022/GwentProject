@@ -12,7 +12,7 @@ public interface CardService {
     List<Card> getAllCards();
 
     CardDTO saveCard(Card createCard);
-    //Card saveCard(Card card);
+    //Card testSaveCard(Card card);
 
     CardDTO getCardById(Long id);
 
@@ -20,6 +20,5 @@ public interface CardService {
     //Card updateCard(Card card);
 
     void deleteCardById(Long id);
-
 }
 

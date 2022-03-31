@@ -70,17 +70,18 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", picture='" + picture + '\'' +
                 ", powerLvl=" + powerLvl +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
+                ", cardDeck=" + cardDeck +
                 ", ability=" + ability +
-                ", row=" + rowName +
+                ", rowName=" + rowName +
                 ", type=" + type +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
