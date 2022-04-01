@@ -5,10 +5,8 @@ import com.example.gwent_projet.entity.CardDeck;
 import com.example.gwent_projet.entity.Row;
 import com.example.gwent_projet.entity.Type;
 
-public class CardDTO {
+public class CreateCardDTO {
 
-
-    private Long id;
 
     private String name;
 
@@ -28,8 +26,7 @@ public class CardDTO {
 
     private Type type;
 
-    public CardDTO(Long id, String name, String picture, Integer powerLvl, String description, String location, CardDeck cardDeck, Ability ability, Row rowName, Type type) {
-        this.id = id;
+    public CreateCardDTO(String name, String picture, Integer powerLvl, String description, String location, CardDeck cardDeck, Ability ability, Row rowName, Type type) {
         this.name = name;
         this.picture = picture;
         this.powerLvl = powerLvl;
@@ -39,18 +36,6 @@ public class CardDTO {
         this.ability = ability;
         this.rowName = rowName;
         this.type = type;
-    }
-
-    public CardDTO() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

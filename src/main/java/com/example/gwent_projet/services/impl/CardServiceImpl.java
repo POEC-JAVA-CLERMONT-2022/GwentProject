@@ -4,16 +4,22 @@ import com.example.gwent_projet.entity.Card;
 import com.example.gwent_projet.repository.CardRepository;
 import com.example.gwent_projet.services.CardService;
 import com.example.gwent_projet.services.dto.CardDTO;
+import com.example.gwent_projet.services.dto.CreateCardDTO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class CardServiceImpl implements CardService {
 
+    @Autowired
     private CardRepository cardRepository;
 
     public CardServiceImpl(CardRepository cardRepository) {
@@ -27,39 +33,35 @@ public class CardServiceImpl implements CardService {
     }
 
 
-   /* @Override
-    public Card testSaveCard(Card card) {
-        return cardRepository.save(card);
-    }*/
-    @Override
-    public CardDTO saveCard(Card createCard) {
+    @Transactional()
+    public CardDTO saveCard(CreateCardDTO createCardDTO) {
 
-        cardRepository.save(createCard);
-        // DTO to be returned, populated with new card values
-        CardDTO newCard = new CardDTO(
-                createCard.getName(),
-                createCard.getPicture(),
-                createCard.getPowerLvl(),
-                createCard.getDescription(),
-                createCard.getLocation(),
-                createCard.getCardDeck(),
-                createCard.getAbility(),
-                createCard.getRowName(),
-                createCard.getType() );
-        return newCard;
+        Card card = new Card(
+                createCardDTO.getName(),
+                createCardDTO.getPicture(),
+                createCardDTO.getPowerLvl(),
+                createCardDTO.getDescription(),
+                createCardDTO.getLocation(),
+                createCardDTO.getCardDeck(),
+                createCardDTO.getAbility(),
+                createCardDTO.getRowName(),
+                createCardDTO.getType() );
+
+        card = this.cardRepository.save(card);
+        CardDTO cardDTO = new CardDTO();
+        BeanUtils.copyProperties(card, cardDTO);
+
+        return cardDTO;
     }
 
 
-    /*@Override
-    public Card getCardById(Long id) {
-        return cardRepository.findById(id).get();
-    }*/
+
     @Override
-    public CardDTO getCardById(Long id) {
+    public CreateCardDTO getCardById(Long id) {
 
         Card cardSearch = cardRepository.findById(id).orElse(null);
 
-        CardDTO searchResult = new CardDTO(
+        CreateCardDTO searchResult = new CreateCardDTO(
                 cardSearch.getName(),
                 cardSearch.getPicture(),
                 cardSearch.getPowerLvl(),
@@ -73,10 +75,7 @@ public class CardServiceImpl implements CardService {
         return searchResult;
     }
 
-    /*@Override
-    public Card updateCard(Card card) {
-        return cardRepository.save(card);
-    }*/
+
     @Override
     public CardDTO updateCard(Long id, Card editCard) {
 

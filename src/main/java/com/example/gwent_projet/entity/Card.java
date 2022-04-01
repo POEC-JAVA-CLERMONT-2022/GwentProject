@@ -1,17 +1,21 @@
 package com.example.gwent_projet.entity;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.util.Objects;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+//@Proxy(lazy=false)
 @Entity
 @Table (name = "card")
 public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -19,7 +23,7 @@ public class Card {
     private String name;
 
     @NotNull
-    @Size(min=2, max=10)
+    @Size(min=2, max=20)
     private String picture;
 
     @NotNull
@@ -28,7 +32,7 @@ public class Card {
     private Integer powerLvl;
 
     @NotNull
-    @Size(min=10, max=50)
+    @Size(min=5, max=50)
     private String description;
 
     @NotNull
@@ -51,10 +55,12 @@ public class Card {
 
 
     public Card() {
+
     }
 
 
-    public Card(String name, String picture, Integer powerLvl, String description, String location, CardDeck cardDeck, Ability ability, Row rowName, Type type) {
+    public Card(String name, String picture, Integer powerLvl, String description,
+                String location, CardDeck cardDeck, Ability ability, Row rowName, Type type) {
         this.name = name;
         this.picture = picture;
         this.powerLvl = powerLvl;
@@ -66,21 +72,6 @@ public class Card {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "Card{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", picture='" + picture + '\'' +
-                ", powerLvl=" + powerLvl +
-                ", description='" + description + '\'' +
-                ", location='" + location + '\'' +
-                ", cardDeck=" + cardDeck +
-                ", ability=" + ability +
-                ", rowName=" + rowName +
-                ", type=" + type +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -96,6 +87,10 @@ public class Card {
     }
 
     //getter setter
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -116,10 +111,6 @@ public class Card {
         return location;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public CardDeck getCardDeck() {
         return cardDeck;
     }
@@ -134,11 +125,6 @@ public class Card {
 
     public Type getType() {
         return type;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setName(String name) {

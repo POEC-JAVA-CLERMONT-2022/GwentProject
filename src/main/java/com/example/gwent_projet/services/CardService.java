@@ -2,22 +2,27 @@ package com.example.gwent_projet.services;
 
 import com.example.gwent_projet.entity.*;
 import com.example.gwent_projet.services.dto.CardDTO;
+import com.example.gwent_projet.services.dto.CreateCardDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 import java.util.List;
 
-
+@Validated
 @Service
 public interface CardService {
 
+    @Transactional(readOnly = true)
     List<Card> getAllCards();
 
-    CardDTO saveCard(Card createCard);
-    //Card testSaveCard(Card card);
+    @Transactional()
+    CardDTO saveCard(CreateCardDTO createCardDTO);
 
-    CardDTO getCardById(Long id);
+    @Transactional(readOnly = true)
+    CreateCardDTO getCardById(Long id);
 
     CardDTO updateCard(Long id, Card editCard);
-    //Card updateCard(Card card);
 
     void deleteCardById(Long id);
 

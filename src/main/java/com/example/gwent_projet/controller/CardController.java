@@ -1,10 +1,11 @@
-package com.example.gwent_projet.web;
+package com.example.gwent_projet.controller;
 
 
 import com.example.gwent_projet.entity.*;
 import com.example.gwent_projet.repository.CardRepository;
 import com.example.gwent_projet.services.CardService;
 import com.example.gwent_projet.services.dto.CardDTO;
+import com.example.gwent_projet.services.dto.CreateCardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,18 +45,11 @@ public class CardController {
     }
 
 
-    /*// Get card by id
-    @GetMapping("/cards/{id}")
-    public ResponseEntity<Card> getCardById(@PathVariable("id") long id) {
-        Optional<Card> cardData = cardRepository.findById(id);
-        return cardData.map(card -> new ResponseEntity<>
-                (card, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }*/
     // Get card by id
     @GetMapping("/cards/{id}")
-    public ResponseEntity<CardDTO> getCardById(@PathVariable("id") long id) {
+    public ResponseEntity<CreateCardDTO> getCardById(@PathVariable("id") long id) {
         try {
-            CardDTO findCard = cardService.getCardById(id);
+            CreateCardDTO findCard = cardService.getCardById(id);
             return new ResponseEntity<>(findCard, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,45 +59,18 @@ public class CardController {
 
 
 
-    /*@PostMapping("/cards")
-    public ResponseEntity<Card> createCard(@RequestBody Card card) {
-        try {
-            if (card != null){
-                cardService.saveCard(card);
-            }
-            return ResponseEntity.status(201).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(400).build();
-        }
-    }*/
     @PostMapping("/cards")
-    public ResponseEntity<CardDTO> createCard(@RequestBody Card card) {
+    public ResponseEntity<CardDTO> createCard(@RequestBody CreateCardDTO createCardDTO) {
         try {
-            // create card in repository with data provided by method
-            CardDTO newCard = cardService.saveCard(card);
-            // card to be returned (TEMP)
-            // then return a response entity with this card, and the CREATED HTTP status
+            CardDTO newCard = cardService.saveCard(createCardDTO);
             return new ResponseEntity<>(newCard, HttpStatus.CREATED);
         } catch (Exception e) {
-            // return null value with ERROR HTTP status
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
-   /* @PutMapping("/cards/{id}")
-    public ResponseEntity<Object> updateCard(@RequestBody Card card, @PathVariable long id) {
-
-        Optional<Card> cardOptional = cardRepository.findById(id);
-        if (cardOptional.isEmpty())
-            return ResponseEntity.notFound().build();
-        card.setId(id);
-        //cardRepository.save(card);
-        cardService.updateCard(card);
-        return ResponseEntity.noContent().build();
-    }
-    */
     @PutMapping("/cards/{id}")
     public ResponseEntity<CardDTO> updateCardById( @PathVariable("id") Long id, @RequestBody Card card) {
         try {

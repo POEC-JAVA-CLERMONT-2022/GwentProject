@@ -1,4 +1,4 @@
-package com.example.gwent_projet.web;
+package com.example.gwent_projet.controller;
 
 
 import com.example.gwent_projet.entity.Card;

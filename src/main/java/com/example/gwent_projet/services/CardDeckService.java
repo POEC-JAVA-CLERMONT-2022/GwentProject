@@ -16,5 +16,4 @@ public interface CardDeckService {
     CardDeck updateCardDeck(CardDeck cardDeck);
 
     void deleteCardDeckById(Long id);
-
 }
