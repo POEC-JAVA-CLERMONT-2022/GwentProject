@@ -70,7 +70,7 @@ class CardServiceTest {
     void testGetCards() {
         List<Card> cards = cardService.getAllCards();
 
-        assertEquals(2, cards.size(), "La liste ne contient pas 2 photos");
+        assertEquals(2, cards.size(), "La liste ne contient pas 2 cartes");
     }*/
 
     /*@Test
