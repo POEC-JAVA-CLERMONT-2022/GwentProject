@@ -1,6 +1,8 @@
 package com.example.gwent_projet.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "card_deck")
@@ -13,11 +15,11 @@ public class CardDeck {
 
     private String name;
 
-
     // Constructeur
     public CardDeck(String name) {
         this.name = name;
     }
+
     public CardDeck() {
     }
 

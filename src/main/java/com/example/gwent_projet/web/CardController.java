@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CardController {
@@ -41,20 +40,28 @@ public class CardController {
             return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.status(400).build();
-            //catch (Exception e) {
-            //return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
-    // Get card by id
+    /*// Get card by id
     @GetMapping("/cards/{id}")
     public ResponseEntity<Card> getCardById(@PathVariable("id") long id) {
         Optional<Card> cardData = cardRepository.findById(id);
         return cardData.map(card -> new ResponseEntity<>
                 (card, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }*/
+    // Get card by id
+    @GetMapping("/cards/{id}")
+    public ResponseEntity<CardDTO> getCardById(@PathVariable("id") long id) {
+        try {
+            CardDTO findCard = cardService.getCardById(id);
+            return new ResponseEntity<>(findCard, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
 
 
 
@@ -118,7 +125,26 @@ public class CardController {
             }
             return ResponseEntity.ok().build();
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(400).build();
         }
     }
+
+    // Get card by card deck id
+    @GetMapping("/cards/card-deck/{id}")
+    public ResponseEntity<List<Card>> findAllByCardDeckId(@PathVariable("id") long id) {
+        //List<Card> cards = new ArrayList<Card>(cardRepository.findAllByCardDeckId(id));
+        try {
+            List<Card> cards = new ArrayList<Card>();
+            if (id > 0)
+                cards.addAll(cardService.findCardsByCardDeck(id));
+                if (cards.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                }
+            return new ResponseEntity<>(cards, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).build();
+        }
+    }
+
 }

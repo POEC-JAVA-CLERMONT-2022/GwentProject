@@ -20,5 +20,7 @@ public interface CardService {
     //Card updateCard(Card card);
 
     void deleteCardById(Long id);
+
+    List<Card> findCardsByCardDeck(Long id);
 }
 

@@ -6,6 +6,8 @@ import com.example.gwent_projet.services.CardService;
 import com.example.gwent_projet.services.dto.CardDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,7 +25,6 @@ public class CardServiceImpl implements CardService {
     public List<Card> getAllCards() {
         return cardRepository.findAll();
     }
-
 
 
    /* @Override
@@ -94,5 +95,13 @@ public class CardServiceImpl implements CardService {
     @Override
     public void deleteCardById(Long id) {
         cardRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Card> findCardsByCardDeck(Long id) {
+
+        List<Card> cards = new ArrayList<Card>(cardRepository.findByCardDeck_Id(id));
+
+        return cards;
     }
 }

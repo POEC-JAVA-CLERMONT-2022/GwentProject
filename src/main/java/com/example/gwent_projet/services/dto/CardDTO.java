@@ -27,8 +27,8 @@ public class CardDTO {
     private Type type;
 
     public CardDTO( String name, String picture, Integer powerLvl,
-                   String description, String location, CardDeck cardDeck,
-                   Ability ability, Row rowName, Type type) {
+                    String description, String location, CardDeck cardDeck,
+                    Ability ability, Row rowName, Type type) {
         this.name = name;
         this.picture = picture;
         this.powerLvl = powerLvl;
