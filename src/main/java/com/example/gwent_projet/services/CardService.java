@@ -1,6 +1,6 @@
 package com.example.gwent_projet.services;
 
-import com.example.gwent_projet.models.*;
+import com.example.gwent_projet.entity.*;
 import com.example.gwent_projet.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

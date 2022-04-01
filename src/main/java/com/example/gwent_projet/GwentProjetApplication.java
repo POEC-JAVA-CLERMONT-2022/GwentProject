@@ -28,6 +28,6 @@ public class GwentProjetApplication {
 		/* temporary console display for user handling
 		 * feel free to delete
 		 */
-		this.userCommand.run();
+		// this.userCommand.run();
 	}
 }

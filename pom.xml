@@ -74,13 +74,25 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.28.2</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>2.28.2</version>
+			<scope>test</scope>
+		</dependency>
 		
 		<dependency>
     		<groupId>org.jeasy</groupId>
     		<artifactId>easy-random-core</artifactId>
     		<version>4.0.0</version>
 		</dependency>
-		
 <!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
 <!-- common validators for user form checks -->
    		<dependency>

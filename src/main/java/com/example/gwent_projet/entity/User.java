@@ -1,4 +1,4 @@
-package com.example.gwent_projet.models;
+package com.example.gwent_projet.entity;
 
 import java.util.List;
 
@@ -25,11 +25,11 @@ public class User {
 
 	@Column (name = "password", nullable = false)
 	private String password;
-
+/*
 	@Column (name = "userDeck")
-	@OneToMany (fetch = FetchType.LAZY, mappedBy = "owner")
-	private List<UserDeck> userDecks;
-
+	@OneToMany (fetch = FetchType.EAGER, mappedBy = "owner")
+	private List<UserDeck> userDeck;
+*/
 	public User (int role, String username, String email, String password) {
 		this.role = role;
 		this.username = username;
@@ -59,8 +59,16 @@ public class User {
 		return id;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public int getRole() {
 		return role;
+	}
+	
+	public void setRole(int role) {
+		this.role = role;
 	}
 
 	// ------------------------------------------------------
@@ -88,5 +96,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+/*
+	public List<UserDeck> getUserDecks() {
+		return userDeck;
+	}
 
+	public void setUserDecks(List<UserDeck> userDeck) {
+		this.userDeck = userDeck;
+	}
+*/
 }

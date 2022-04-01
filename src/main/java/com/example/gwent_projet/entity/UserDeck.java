@@ -1,5 +1,7 @@
-package com.example.gwent_projet.models;
+package com.example.gwent_projet.entity;
 
+
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -18,10 +20,25 @@ public class UserDeck {
 	@JoinColumn (name = "user_id")
 	@ManyToOne (fetch = FetchType.LAZY)
 	private User owner;
+	/*
+	@Column (name = "cards")
+	// @OneToMany (fetch = FetchType.LAZY, mappedBy = "card_id")
+	private List<Card> cards;
+	
+	public UserDeck(String name, User owner, List<Card> cards) {
+		this.name = name;
+		this.owner = owner;
+		this.cards = cards;
+	}
+	*/
 	
 	public UserDeck(String name, User owner) {
 		this.name = name;
 		this.owner = owner;
+	}
+	
+	public UserDeck() {
+
 	}
 	
 	// getters & setters ---------------------------
@@ -41,5 +58,4 @@ public class UserDeck {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
-
 }

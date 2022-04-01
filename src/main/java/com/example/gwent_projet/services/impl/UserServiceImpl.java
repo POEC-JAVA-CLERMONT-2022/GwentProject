@@ -7,7 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.gwent_projet.dto.UserDTO;
-import com.example.gwent_projet.models.User;
+import com.example.gwent_projet.entity.User;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
 

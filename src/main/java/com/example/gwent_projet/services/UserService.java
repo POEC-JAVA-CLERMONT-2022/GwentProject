@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.gwent_projet.dto.UserDTO;
-import com.example.gwent_projet.models.User;
+import com.example.gwent_projet.entity.User;
 
 @Service
 public interface UserService {

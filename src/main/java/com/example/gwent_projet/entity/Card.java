@@ -1,4 +1,4 @@
-package com.example.gwent_projet.models;
+package com.example.gwent_projet.entity;
 
 import javax.persistence.*;
 
@@ -23,7 +23,6 @@ public class Card {
     @JoinColumn(name = "cardDeck_id")
     @ManyToOne
     private CardDeck cardDeck;
-
 
     @Enumerated(EnumType.STRING)
     private Ability ability;

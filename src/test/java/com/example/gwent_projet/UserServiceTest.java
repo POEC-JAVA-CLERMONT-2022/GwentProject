@@ -16,50 +16,77 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.gwent_projet.dto.UserDTO;
-import com.example.gwent_projet.models.User;
+import com.example.gwent_projet.entity.User;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
+import com.example.gwent_projet.utils.consoleDisplay;
 
 @SpringBootTest
 public class UserServiceTest {
 
 	@Autowired
-	UserService userService;
-	
+	private UserService userService;
+
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
+
+	private User globalUser = new User();
+
+	private Long tableLength;
 	
+	private EasyRandom RNGenerator = new EasyRandom();
+
+	private consoleDisplay consoleDisplay = new consoleDisplay();
+
 	// --------------------------------------------------------------------------------
 
 	@BeforeEach
-	public User initUser() {
-		EasyRandom RNGenerator = new EasyRandom();
-		User user = RNGenerator.nextObject(User.class);
-		return user;
+	public void initUser() {
+		globalUser = RNGenerator.nextObject(User.class);
+		globalUser.setId(null);
+		globalUser.setRole(0);
 	}
-	
+
 	@BeforeEach
-	public Long initRepo() {
-		// random values to fill our objects
-		EasyRandom RNGenerator = new EasyRandom();
-		
+	public void initRepo() {
 		// random index for table length
 		Random random = new Random();
-		Long tableLength = random.nextLong(50);
+		tableLength = random.nextLong(50);
+		
+		
+
+		consoleDisplay.separator();
+		System.out.println("initRepo - List of all users");
+		consoleDisplay.separator();
+		
+		System.out.println("Table length: " + tableLength);
+		
 		
 		// populate repository
-		for (int sweeper = 0; sweeper < tableLength; sweeper++) {
-			User newUser = RNGenerator.nextObject(User.class);
-			userRepository.save(newUser);
+		for (Long sweeper = 0l; sweeper < tableLength; sweeper++) {
+			// new random user
+			User tempUser = RNGenerator.nextObject(User.class);
+			tempUser.setId(null);
+			tempUser.setRole(0);
+			
+			userRepository.save(tempUser);
+			
+			User repoReturnValue = userRepository.findById(tempUser.getId()).orElse(null);
+			
+			System.out.println("Name: " + repoReturnValue.getUsername());
+			System.out.println("Email: " + repoReturnValue.getEmail());
+			System.out.println("Password: " + repoReturnValue.getPassword());
+			System.out.println("Role: " + repoReturnValue.getRole());
+			System.out.println("Id: " + repoReturnValue.getId());
+			
 		}
-		return tableLength;
 	}
-	
+
 	@AfterEach
 	public void cleanupData() {
 		userRepository.deleteAll();
 	}
-	
+
 	// --------------------------------------------------------------------------------
 
 	public void userAssertions(User repoReturnValue, User testUser) {
@@ -74,78 +101,102 @@ public class UserServiceTest {
 		assertThat(repoReturnValue.getPassword()).isNotNull();
 		assertThat(repoReturnValue.getPassword()).isEqualTo(testUser.getPassword());
 	}
-	
-	
+
+
 	// --------------------------------------------------------------------------------
 
 	@Test
 	@DisplayName ("User - Creation")
 	public void createUserTest() {
-		// initialize test data
-		User testUser = initUser();
+		consoleDisplay.separator();
+		System.out.println("User - Creation");
+		consoleDisplay.separator();
+		// new random user
+		initUser();
+		// populate repository
+		initRepo();
 		
 		// method to test
 		// create the testUser in the repository
-		UserDTO newUser = userService.createUser(testUser);
-		
+		UserDTO newUser = userService.createUser(globalUser);
+
 		// assertions
 		// assert that data is not empty and corresponding fields are matching
 		assertThat(newUser).isNotNull();
 		assertThat(newUser.username).isNotNull();
 		assertThat(newUser.email).isNotNull();
-		assertThat(newUser.username).isEqualTo(testUser.getUsername());
-		assertThat(newUser.email).isEqualTo(testUser.getEmail());
+		assertThat(newUser.username).isEqualTo(globalUser.getUsername());
+		assertThat(newUser.email).isEqualTo(globalUser.getEmail());
+
+		System.out.println(newUser.username);
+		System.out.println(newUser.email);
+		System.out.println(globalUser.getId());
+		
 		
 		// DB entry
 		// get the user just saved at this ID from the repository
-		User repoReturnValue = this.userRepository.findById(testUser.getId()).orElse(null);
+		User repoReturnValue = userRepository.findById(globalUser.getId()).orElse(null);
 		// then test all fields with userAssertions
-		userAssertions(repoReturnValue, testUser);
+		userAssertions(repoReturnValue, globalUser);
+
+		// clean up the repository
+		cleanupData();
 	}
-	
+
 	// --------------------------------------------------------------------------------
-	
+
 	@Test
 	@DisplayName ("User - Retrieve All")
 	public void getAllUsersTest() {
+		consoleDisplay.separator();
+		System.out.println("User - Retrieve All");
+		consoleDisplay.separator();
+		// populate repository
+		initRepo();
+		
 		// get all users from the repository
 		List<UserDTO> users = new ArrayList<UserDTO>();
 		users.addAll(userService.getAllUsers());
-		
+
 		assertThat(users).isNotEmpty();
-		
+
 		// assert that both arrays are of the same size
 		assertThat(users.size()).isEqualTo(userRepository.findAll().size());
-		
+
 		// for each entry in the list, check if it matches with its corresponding entry in the repo
 		int shortSweeper = 0;
 		for (Long longSweeper = 0l; longSweeper < users.size(); longSweeper++) {
-			Assertions.assertEquals(users.get(shortSweeper).username, userRepository.getById(longSweeper).getUsername());
-			Assertions.assertEquals(users.get(shortSweeper).email, userRepository.getById(longSweeper).getEmail());
-			
-			// assertThat(users.get(shortSweeper).username).isEqualTo(userRepository.getById(longSweeper).getUsername());
-			// assertThat(users.get(shortSweeper).email).isEqualTo(userRepository.getById(longSweeper).getEmail());
+			// Assertions.assertEquals(users.get(shortSweeper).username, userRepository.getById(longSweeper).getUsername());
+			// Assertions.assertEquals(users.get(shortSweeper).email, userRepository.getById(longSweeper).getEmail());
+
+			assertThat(users.get(shortSweeper).username).isEqualTo(userRepository.getById(longSweeper).getUsername());
+			assertThat(users.get(shortSweeper).email).isEqualTo(userRepository.getById(longSweeper).getEmail());
 			shortSweeper++;
 		}
+		// clean up the repository
+		cleanupData();
 	}
-	
+
 	// --------------------------------------------------------------------------------
-	
+
 	@Test
 	@DisplayName ("User - Retrieve One")
 	public void getUserByIdTest() {
-		// get the table length
-		Long tableLength = initRepo();
+		consoleDisplay.separator();
+		System.out.println("User - Retrieve One");
+		consoleDisplay.separator();
+		// populate repository
+		initRepo();
 		
 		// random index to search for, that is within table length boundaries
 		Random random = new Random();
 		Long RNGindex = random.nextLong(tableLength);
-		
+
 		// method to test
 		UserDTO searchResult = userService.getUserById(RNGindex);
 		// get User object from repository
-		User repoReturnValue = this.userRepository.findById(RNGindex).orElse(null);
-		
+		User repoReturnValue = userRepository.findById(RNGindex).orElse(null);
+
 		// assertions
 		// assert that data is not empty and corresponding fields are matching
 		assertThat(searchResult).isNotNull();
@@ -153,39 +204,78 @@ public class UserServiceTest {
 		assertThat(searchResult.email).isNotNull();
 		assertThat(searchResult.username).isEqualTo(repoReturnValue.getUsername());
 		assertThat(searchResult.email).isEqualTo(repoReturnValue.getEmail());
+		
+		// clean up the repository
+		cleanupData();
 	}
 
-	
+
 	// --------------------------------------------------------------------------------
-	
+
 	@Test
 	@DisplayName ("User - Deletion")
 	public void deleteUserByIdTest() {
-		// get the table length
-		Long tableLength = initRepo();
+		consoleDisplay.separator();
+		System.out.println("User - Deletion");
+		consoleDisplay.separator();
+		// populate repository
+		initRepo();
 		
 		// random index to search for, that is within table length boundaries
 		Random random = new Random();
 		Long RNGindex = random.nextLong(tableLength);
-		
+
 		// get User from repository
-		User repoReturnValue = this.userRepository.findById(RNGindex).orElse(null);
+		User repoReturnValue = userRepository.findById(RNGindex).orElse(null);
+
+		// assert that this is the same user
+		assertThat(userRepository.findById(RNGindex).orElse(null)).isEqualTo(repoReturnValue);
+
+		// method to be tested
 		// delete this user at this ID
 		userService.deleteUserById(RNGindex);
 		// get non existing User from repository
-		User repoReturnValueNull = this.userRepository.findById(RNGindex).orElse(null);
-		
+		User repoReturnValueNull = userRepository.findById(RNGindex).orElse(null);
+
 		// assertions
 		assertThat(repoReturnValueNull).isNull();
-		// wip........
+		assertThat(repoReturnValueNull).isNotEqualTo(repoReturnValue);
 		
+		// clean up the repository
+		cleanupData();
 	}
-	
+
 	// --------------------------------------------------------------------------------
-	
+
 	@Test
 	@DisplayName ("User - Update")
 	public void updateUserTest() {
-		// wip......
+		consoleDisplay.separator();
+		System.out.println("User - Update");
+		consoleDisplay.separator();
+		// populate repository
+		initRepo();
+		
+		// random index to search for, that is within table length boundaries
+		Random random = new Random();
+		Long RNGindex = random.nextLong(tableLength);
+
+		// get User from repository
+		User repoReturnValue = userRepository.findById(RNGindex).orElse(null);
+
+		// assert that this is the same user
+		assertThat(userRepository.findById(RNGindex).orElse(null)).isEqualTo(repoReturnValue);
+
+		// new user to test the update method
+		User testUser = new User(0, "updatedName", "updatedEmail", "updatedPassword");
+
+		// method to be tested
+		userService.updateUser(RNGindex, testUser);
+
+		// test all fields with userAssertions
+		userAssertions(repoReturnValue, testUser);
+		
+		// clean up the repository
+		cleanupData();
 	}
 }

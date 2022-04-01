@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gwent_projet.dto.UserDTO;
-import com.example.gwent_projet.models.User;
+import com.example.gwent_projet.entity.User;
 import com.example.gwent_projet.services.UserService;
 
 @RestController 
