@@ -33,7 +33,7 @@ import static org.mockito.Mockito.doReturn;
 @ExtendWith(MockitoExtension.class)
 class CardServiceTest {
 
-   /* @Mock private CardRepository cardRepository;
+    @Mock private CardRepository cardRepository;
 
     @Autowired
     CardService cardService;
@@ -63,7 +63,7 @@ class CardServiceTest {
         cardService.saveCard(card);
 
         Assertions.assertNotNull(card);
-        Assertions.assertEquals("boris", card.getName());
+        Assertions.assertEquals("Gerald", card.getName());
     }
 
     /*@Test
