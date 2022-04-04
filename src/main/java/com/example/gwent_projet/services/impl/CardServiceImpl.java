@@ -9,10 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +31,7 @@ public class CardServiceImpl implements CardService {
 
 
     @Transactional()
-    public CardDTO saveCard(CreateCardDTO createCardDTO) {
+    public CardDTO createCard(CreateCardDTO createCardDTO) {
 
         Card card = new Card(
                 createCardDTO.getName(),
@@ -53,7 +50,6 @@ public class CardServiceImpl implements CardService {
 
         return cardDTO;
     }
-
 
 
     @Override
@@ -77,7 +73,7 @@ public class CardServiceImpl implements CardService {
 
 
     @Override
-    public CardDTO updateCard(Long id, Card editCard) {
+    public CardDTO updateCard(Long id, CreateCardDTO editCard) {
 
         Card card = cardRepository.getById(id);
 

@@ -17,12 +17,12 @@ public interface CardService {
     List<Card> getAllCards();
 
     @Transactional()
-    CardDTO saveCard(CreateCardDTO createCardDTO);
+    CardDTO createCard(CreateCardDTO createCardDTO);
 
     @Transactional(readOnly = true)
     CreateCardDTO getCardById(Long id);
 
-    CardDTO updateCard(Long id, Card editCard);
+    CardDTO updateCard(Long id, CreateCardDTO editCard);
 
     void deleteCardById(Long id);
 

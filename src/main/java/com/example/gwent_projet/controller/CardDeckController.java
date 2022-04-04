@@ -5,6 +5,10 @@ import com.example.gwent_projet.entity.Card;
 import com.example.gwent_projet.entity.CardDeck;
 import com.example.gwent_projet.repository.CardDeckRepository;
 import com.example.gwent_projet.services.CardDeckService;
+import com.example.gwent_projet.services.dto.CardDTO;
+import com.example.gwent_projet.services.dto.CardDeckDTO;
+import com.example.gwent_projet.services.dto.CreateCardDTO;
+import com.example.gwent_projet.services.dto.CreateCardDeckDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,42 +43,44 @@ public class CardDeckController {
 
     // Get CD by id
     @GetMapping("/cardDecks/{id}")
-    public ResponseEntity<CardDeck> getCardDeckById(@PathVariable("id") long id) {
-        Optional<CardDeck> cardDeckData = cardDeckRepository.findById(id);
-        return cardDeckData.map(card -> new ResponseEntity<>
-                (card, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-
-    @PostMapping("/cardDecks")
-    public ResponseEntity<CardDeck> createCardDeck(@RequestBody CardDeck cardDeck) {
+    public ResponseEntity<CreateCardDeckDTO> getCardDeckById(@PathVariable("id") long id) {
         try {
-            if (cardDeck != null){
-                cardDeckService.saveCardDeck(cardDeck);
-            }
-            return ResponseEntity.status(201).build();
+            CreateCardDeckDTO findCardDeck = cardDeckService.getCardDeckById(id);
+            return new ResponseEntity<>(findCardDeck, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/cardDecks")
+    public ResponseEntity<CardDeckDTO> createCardDeck(@RequestBody CreateCardDeckDTO createCardDeckDTO) {
+        try {
+            CardDeckDTO newCardDeck = cardDeckService.createCardDeck(createCardDeckDTO);
+            return new ResponseEntity<>(newCardDeck, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
     @PutMapping("/cardDecks/{id}")
-    public ResponseEntity<Object> updateCardDeck(@RequestBody CardDeck cardDeck, @PathVariable long id) {
+    public ResponseEntity<CardDeckDTO> updateCardDeckById(@PathVariable("id") Long id, @RequestBody CreateCardDeckDTO cardDeck) {
 
-        Optional<CardDeck> cardDeckOptional = cardDeckRepository.findById(id);
-        if (cardDeckOptional.isEmpty())
-            return ResponseEntity.notFound().build();
-        cardDeck.setId(id);
-        //cardDeckRepository.save(cardDeck);
-        cardDeckService.updateCardDeck(cardDeck);
-        return ResponseEntity.noContent().build();
+        try {
+            CardDeckDTO updatedCardDeck = cardDeckService.updateCardDeck(id, cardDeck);
+            return new ResponseEntity<>(updatedCardDeck, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     // Delete by id
     @DeleteMapping("/cardDecks/{id}")
-    public ResponseEntity<Card> deleteCardDeck(@RequestBody @PathVariable("id") Long id) {
+    public ResponseEntity<CardDeck> deleteCardDeck(@RequestBody @PathVariable("id") Long id) {
         try {
             if (id != null){
                 cardDeckService.deleteCardDeckById(id);

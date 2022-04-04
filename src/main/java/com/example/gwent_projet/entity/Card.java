@@ -18,25 +18,20 @@ public class Card {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
-    @Size(min=2, max=10)
+    //@Size(min=2, max=10)
     private String name;
 
-    @NotNull
-    @Size(min=2, max=20)
+    //@Size(min=2, max=20)
     private String picture;
 
-    @NotNull
-    @Min(1)
+    //@Min(1)
     @Column(name = "power_lvl")
     private Integer powerLvl;
 
-    @NotNull
-    @Size(min=5, max=50)
+    //@Size(min=5, max=50)
     private String description;
 
-    @NotNull
-    @Size(min=5, max=20)
+    //@Size(min=5, max=20)
     private String location;
 
     @JoinColumn(name = "cardDeck_id")
@@ -71,7 +66,6 @@ public class Card {
         this.rowName = rowName;
         this.type = type;
     }
-
 
     @Override
     public boolean equals(Object o) {

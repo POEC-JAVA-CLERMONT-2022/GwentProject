@@ -45,6 +45,23 @@ public class CardDTO {
 
     }
 
+
+    @Override
+    public String toString() {
+        return "CardDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", picture='" + picture + '\'' +
+                ", powerLvl=" + powerLvl +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", cardDeck=" + cardDeck +
+                ", ability=" + ability +
+                ", rowName=" + rowName +
+                ", type=" + type +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

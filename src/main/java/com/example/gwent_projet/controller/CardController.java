@@ -62,7 +62,7 @@ public class CardController {
     @PostMapping("/cards")
     public ResponseEntity<CardDTO> createCard(@RequestBody CreateCardDTO createCardDTO) {
         try {
-            CardDTO newCard = cardService.saveCard(createCardDTO);
+            CardDTO newCard = cardService.createCard(createCardDTO);
             return new ResponseEntity<>(newCard, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +72,7 @@ public class CardController {
 
 
     @PutMapping("/cards/{id}")
-    public ResponseEntity<CardDTO> updateCardById( @PathVariable("id") Long id, @RequestBody Card card) {
+    public ResponseEntity<CardDTO> updateCardById( @PathVariable("id") Long id, @RequestBody CreateCardDTO card) {
         try {
             CardDTO updatedCard = cardService.updateCard(id, card);
             return new ResponseEntity<>(updatedCard, HttpStatus.CREATED);

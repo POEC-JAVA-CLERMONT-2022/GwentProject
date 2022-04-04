@@ -26,7 +26,8 @@ public class CreateCardDTO {
 
     private Type type;
 
-    public CreateCardDTO(String name, String picture, Integer powerLvl, String description, String location, CardDeck cardDeck, Ability ability, Row rowName, Type type) {
+    public CreateCardDTO(String name, String picture, Integer powerLvl, String description,
+                         String location, CardDeck cardDeck, Ability ability, Row rowName, Type type) {
         this.name = name;
         this.picture = picture;
         this.powerLvl = powerLvl;
@@ -36,6 +37,25 @@ public class CreateCardDTO {
         this.ability = ability;
         this.rowName = rowName;
         this.type = type;
+    }
+
+    public CreateCardDTO() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "CreateCardDTO{" +
+                "name='" + name + '\'' +
+                ", picture='" + picture + '\'' +
+                ", powerLvl=" + powerLvl +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", cardDeck=" + cardDeck +
+                ", ability=" + ability +
+                ", rowName=" + rowName +
+                ", type=" + type +
+                '}';
     }
 
     public String getName() {
