@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.example.gwent_projet.services.CardDeckService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,10 +28,15 @@ public class CardDeckServiceImpl implements CardDeckService {
         this.cardDeckRepository = cardDeckRepository;
     }
 
-
     @Override
-    public List<CardDeck> getAllCardDecks() {
-        return cardDeckRepository.findAll();
+    public List<CardDeckDTO> getAllCardDecks() {
+        ArrayList<CardDeckDTO> cardDeckDTOList = new ArrayList<>();
+        for (CardDeck cardDeck : cardDeckRepository.findAll()) {
+            CardDeckDTO cardDeckDTO = new CardDeckDTO();
+            BeanUtils.copyProperties(cardDeck, cardDeckDTO);
+            cardDeckDTOList.add(cardDeckDTO);
+        }
+        return cardDeckDTOList;
     }
 
     @Transactional()

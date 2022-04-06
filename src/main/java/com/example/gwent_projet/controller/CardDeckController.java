@@ -27,11 +27,11 @@ public class CardDeckController {
 
     // Get all cardDeck
     @GetMapping("/cardDecks")
-    public ResponseEntity<List<CardDeck>> getAllCardDeck(@RequestParam(required = false) Long id) {
+    public ResponseEntity<List<CardDeckDTO>> getAllCardDeck(@RequestParam(required = false) Long id) {
         try {
-            List<CardDeck> cardDecks = new ArrayList<CardDeck>();
+            List<CardDeckDTO> cardDecks = new ArrayList<CardDeckDTO>();
             if (id == null)
-                cardDecks.addAll(cardDeckRepository.findAll());
+                cardDecks = cardDeckService.getAllCardDecks();
             if (cardDecks.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -40,6 +40,7 @@ public class CardDeckController {
             return ResponseEntity.status(400).build();
         }
     }
+
 
     // Get CD by id
     @GetMapping("/cardDecks/{id}")

@@ -30,11 +30,11 @@ public class CardController {
 
     // Get all cards
     @GetMapping("/cards")
-    public ResponseEntity<List<Card>> getAllCards(@RequestParam(required = false) Long id) {
+    public ResponseEntity<List<CardDTO>> getAllCards(@RequestParam(required = false) Long id) {
         try {
-            List<Card> cards = new ArrayList<Card>();
+            List<CardDTO> cards = new ArrayList<CardDTO>();
             if (id == null)
-                cards.addAll(cardRepository.findAll());
+                cards = cardService.getAllCards();
             if (cards.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }

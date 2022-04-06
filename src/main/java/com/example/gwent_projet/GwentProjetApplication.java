@@ -2,6 +2,7 @@ package com.example.gwent_projet;
 
 import com.example.gwent_projet.entity.Card;
 import com.example.gwent_projet.services.CardService;
+import com.example.gwent_projet.services.dto.CardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,7 +38,7 @@ public class GwentProjetApplication {
         System.out.println("GwentApp is started !");
         System.out.println("--------------------");
 
-        List<Card> cards = cardService.getAllCards();
+        List<CardDTO> cards = cardService.getAllCards();
         System.out.println(cards);
     }
 }

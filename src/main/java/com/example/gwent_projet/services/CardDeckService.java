@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface CardDeckService {
 
-    List<CardDeck> getAllCardDecks();
+    List<CardDeckDTO> getAllCardDecks();
 
     CardDeckDTO createCardDeck(CreateCardDeckDTO createCardDeckDTO);
 

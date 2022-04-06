@@ -25,8 +25,14 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<Card> getAllCards() {
-        return cardRepository.findAll();
+    public List<CardDTO> getAllCards() {
+        ArrayList<CardDTO> cardDTOList = new ArrayList<>();
+        for (Card card : cardRepository.findAll()) {
+            CardDTO cardDTO = new CardDTO();
+            BeanUtils.copyProperties(card, cardDTO);
+            cardDTOList.add(cardDTO);
+        }
+        return cardDTOList;
     }
 
 

@@ -7,12 +7,15 @@ import com.example.gwent_projet.services.CardService;
 import com.example.gwent_projet.services.dto.CardDTO;
 import com.example.gwent_projet.services.dto.CreateCardDTO;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.not;
@@ -27,6 +30,22 @@ class CardApplicationTests {
 
     CreateCardDTO createCardDTO1 = new CreateCardDTO("name", "picture", 1, "description",
             "location", null, Ability.BERSERKER, Row.AGILE, Type.HERO);
+
+
+    @Test
+    @DisplayName("Test findAll Success")
+    void testCardFinfAll() {
+
+        List<CardDTO> cardDTOCard = cardService.getAllCards();
+
+        // test des valeurs
+        for (CardDTO card : cardDTOCard) {
+            Assertions.assertNotNull(card.getName(), "UserName");
+            Assertions.assertNotNull(card.getId(), "id");
+        }
+
+    }
+
 
 
     @Test

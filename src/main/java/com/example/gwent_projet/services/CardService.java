@@ -14,7 +14,7 @@ import java.util.List;
 public interface CardService {
 
     @Transactional(readOnly = true)
-    List<Card> getAllCards();
+    List<CardDTO> getAllCards();
 
     @Transactional()
     CardDTO createCard(CreateCardDTO createCardDTO);
