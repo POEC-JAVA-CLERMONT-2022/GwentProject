@@ -5,6 +5,7 @@ import com.example.gwent_projet.entity.*;
 import com.example.gwent_projet.repository.CardRepository;
 import com.example.gwent_projet.services.CardService;
 import com.example.gwent_projet.services.dto.CardDTO;
+import com.example.gwent_projet.services.dto.CardDeckDTO;
 import com.example.gwent_projet.services.dto.CreateCardDTO;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Assertions;
@@ -82,48 +83,19 @@ class CardApplicationTests {
     void testCardEdit() {
 
         System.out.println("---------------------------------");
-        System.out.println("Get by id :");
 
-        CreateCardDTO getByIdCard =  this.cardService.getCardById(1L);
-
-
-        CreateCardDTO searchResult = new CreateCardDTO(
-                getByIdCard.getName(),
-                getByIdCard.getPicture(),
-                getByIdCard.getPowerLvl(),
-                getByIdCard.getDescription(),
-                getByIdCard.getLocation(),
-                getByIdCard.getCardDeck(),
-                getByIdCard.getAbility(),
-                getByIdCard.getRowName(),
-                getByIdCard.getType() );
-
-        System.out.println(searchResult.toString());
-
-        ///////
-        System.out.println("---------------------------------");
-        System.out.println("Modify before :");
-
-        //Carte a modifier
-        //System.out.println(createdCard.toString());
-
-        // carte modifier
-        CreateCardDTO editCard = new CreateCardDTO("name", "picture", 1, "description",
-                "location", null, Ability.BERSERKER, Row.AGILE, Type.HERO);
+        CardDTO createdCard = cardService.createCard(createCardDTO1);
+        System.out.println(createdCard.toString());
 
 
-        //id de la carte a modifier
-        //Long id = createdCard.getId();
-
-        //Card cardToChange = cardRepository.getById(id);
-        //BeanUtils.copyProperties(cardModify, createCardDTO1);
-
-        ////CardDTO cardDTO = cardService.updateCard(id, editCard);
-
-        System.out.println("---------------------------------");
-        System.out.println("Modify after :");
+        // modifier
+       CreateCardDTO cardUpdate = new CreateCardDTO(
+               "Momo", "Mama", 2, "description",
+               "location", null, null, null, null);
 
 
+        List<CardDTO> cardDTOS = cardService.getAllCards();
+        //this.cardService.updateCard(1L, cardUpdate);
     }
 
 
@@ -133,6 +105,9 @@ class CardApplicationTests {
 
         System.out.println("---------------------------------");
         System.out.println("Delete by id :");
+
+        CardDTO createdCard = cardService.createCard(createCardDTO1);
+        System.out.println(createdCard.toString());
 
         cardService.deleteCardById(1L);
     }
