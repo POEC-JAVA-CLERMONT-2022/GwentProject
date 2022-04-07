@@ -41,8 +41,8 @@ class CardApplicationTests {
 
         // test des valeurs
         for (CardDTO card : cardDTOCard) {
-            Assertions.assertNotNull(card.getName(), "UserName");
             Assertions.assertNotNull(card.getId(), "id");
+            Assertions.assertNotNull(card.getName(), "Name");
         }
 
     }
@@ -87,6 +87,7 @@ class CardApplicationTests {
         CardDTO createdCard = cardService.createCard(createCardDTO1);
         System.out.println(createdCard.toString());
 
+        Long id = createdCard.getId();
 
         // modifier
        CreateCardDTO cardUpdate = new CreateCardDTO(
@@ -95,7 +96,7 @@ class CardApplicationTests {
 
 
         List<CardDTO> cardDTOS = cardService.getAllCards();
-        //this.cardService.updateCard(1L, cardUpdate);
+        this.cardService.updateCard(id, cardUpdate);
     }
 
 
@@ -108,8 +109,9 @@ class CardApplicationTests {
 
         CardDTO createdCard = cardService.createCard(createCardDTO1);
         System.out.println(createdCard.toString());
+        Long id = createdCard.getId();
 
-        cardService.deleteCardById(1L);
+        cardService.deleteCardById(id);
     }
 }
 
