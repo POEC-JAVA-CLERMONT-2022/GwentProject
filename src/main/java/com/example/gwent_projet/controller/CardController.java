@@ -1,82 +1,117 @@
 package com.example.gwent_projet.controller;
 
 
-import com.example.gwent_projet.models.*;
+import com.example.gwent_projet.entity.*;
 import com.example.gwent_projet.repository.CardRepository;
+import com.example.gwent_projet.services.CardService;
+import com.example.gwent_projet.services.dto.CardDTO;
+import com.example.gwent_projet.services.dto.CreateCardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 
 @RestController
 public class CardController {
 
     @Autowired
     CardRepository cardRepository;
-
+    @Autowired
+    CardService cardService;
 
     // Get all cards
     @GetMapping("/cards")
-    public ResponseEntity<List<Card>> getAllCards(@RequestParam(required = false) Long id) {
+    public ResponseEntity<List<CardDTO>> getAllCards(@RequestParam(required = false) Long id) {
         try {
-            List<Card> cards = new ArrayList<Card>();
+            List<CardDTO> cards = new ArrayList<CardDTO>();
             if (id == null)
-                //cardRepository.findAll().forEach(cards::add);
-                cards.addAll(cardRepository.findAll());
+                cards = cardService.getAllCards();
             if (cards.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
+            return ResponseEntity.status(400).build();
+        }
+    }
+
+
+    // Get card by id
+    @GetMapping("/cards/{id}")
+    public ResponseEntity<CreateCardDTO> getCardById(@PathVariable("id") long id) {
+        try {
+            CreateCardDTO findCard = cardService.getCardById(id);
+            return new ResponseEntity<>(findCard, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // Get card by id
-    @GetMapping("/card/{id}")
-    public ResponseEntity<Card> getCardById(@PathVariable("id") long id) {
-        Optional<Card> cardData = cardRepository.findById(id);
-        return cardData.map(card -> new ResponseEntity<>
-                (card, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+
+    @PostMapping("/cards")
+    public ResponseEntity<CardDTO> createCard(@RequestBody CreateCardDTO createCardDTO) {
+        try {
+            CardDTO newCard = cardService.createCard(createCardDTO);
+            return new ResponseEntity<>(newCard, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    // Create card
-    @PostMapping("/new/card")
-    public ResponseEntity<Card> createCard(@RequestBody Card card) {
+
+    @PutMapping("/cards/{id}")
+    public ResponseEntity<CardDTO> updateCardById( @PathVariable("id") Long id, @RequestBody CreateCardDTO card) {
         try {
-            Card _card = cardRepository
-                    .save(new Card(card.getName(), card.getPicture(), card.getPowerLvl(), card.getDescription(),
-                            card.getLocation(), Ability.BERSERKER, Row.AGILE, Type.HERO, new CardDeck("zozo")));
-            return new ResponseEntity<>(_card, HttpStatus.CREATED);
+            CardDTO updatedCard = cardService.updateCard(id, card);
+            return new ResponseEntity<>(updatedCard, HttpStatus.CREATED);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
     // Delete by id
-    @DeleteMapping("/delete/cards/{id}")
-    public ResponseEntity<HttpStatus> deleteCard(@PathVariable("id") long id) {
+    @DeleteMapping("/cards/{id}")
+    public ResponseEntity<Card> deleteCard(@RequestBody @PathVariable("id") Long id) {
         try {
-            cardRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            if (id != null){
+                cardService.deleteCardById(id);
+            }
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return ResponseEntity.status(400).build();
         }
     }
-    // Delette all cards
-    @DeleteMapping("/delete/all/cards")
-    public ResponseEntity<HttpStatus> deleteAllCards() {
+
+    // Get card by card deck id
+    @GetMapping("/cards/card-deck/{id}")
+    public ResponseEntity<List<Card>> findAllByCardDeckId(@PathVariable("id") long id) {
+        //List<Card> cards = new ArrayList<Card>(cardRepository.findAllByCardDeckId(id));
         try {
-            cardRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            List<Card> cards = new ArrayList<Card>();
+            if (id > 0)
+                cards.addAll(cardService.findCardsByCardDeck(id));
+                if (cards.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                }
+            return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(400).build();
         }
     }
+
 }

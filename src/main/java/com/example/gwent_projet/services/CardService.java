@@ -1,24 +1,31 @@
 package com.example.gwent_projet.services;
 
-import com.example.gwent_projet.models.*;
-import com.example.gwent_projet.repository.CardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.gwent_projet.entity.*;
+import com.example.gwent_projet.services.dto.CardDTO;
+import com.example.gwent_projet.services.dto.CreateCardDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 import java.util.List;
 
+@Validated
 @Service
-public class CardService {
+public interface CardService {
 
-    //// Emeric LiveCoding
-    @Autowired
-    private CardRepository cardRepository;
+    @Transactional(readOnly = true)
+    List<CardDTO> getAllCards();
 
-    public List<Card> findAll() {
-      return cardRepository.findAll();
-    }
+    @Transactional()
+    CardDTO createCard(CreateCardDTO createCardDTO);
 
-    public Card findById(Long id) {
-        return cardRepository.getById(id);
-    }
+    @Transactional(readOnly = true)
+    CreateCardDTO getCardById(Long id);
 
+    CardDTO updateCard(Long id, CreateCardDTO editCard);
+
+    void deleteCardById(Long id);
+
+    List<Card> findCardsByCardDeck(Long id);
 }
+
