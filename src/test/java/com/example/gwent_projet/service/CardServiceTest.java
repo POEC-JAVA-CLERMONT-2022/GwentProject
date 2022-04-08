@@ -2,11 +2,14 @@ package com.example.gwent_projet.service;
 
 
 import com.example.gwent_projet.entity.*;
+import com.example.gwent_projet.repository.CardDeckRepository;
 import com.example.gwent_projet.repository.CardRepository;
+import com.example.gwent_projet.services.CardDeckService;
 import com.example.gwent_projet.services.CardService;
 import com.example.gwent_projet.services.dto.CardDTO;
 import com.example.gwent_projet.services.dto.CardDeckDTO;
 import com.example.gwent_projet.services.dto.CreateCardDTO;
+import com.example.gwent_projet.services.dto.CreateCardDeckDTO;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,6 +32,12 @@ class CardApplicationTests {
     private CardService cardService;
     @Autowired
     private CardRepository cardRepository;
+
+    @Autowired
+    private CardDeckService cardDeckService;
+    @Autowired
+    private CardDeckRepository cardDeckRepository;
+    CreateCardDeckDTO createCardDeckDTO = new CreateCardDeckDTO("card deck");
 
     CreateCardDTO createCardDTO1 = new CreateCardDTO("name", "picture", 1, "description",
             "location", null, Ability.BERSERKER, Row.AGILE, Type.HERO);
@@ -47,6 +57,17 @@ class CardApplicationTests {
 
     }
 
+    @Test
+    @DisplayName("Test find by id Success")
+    void testCardFindById() {
+
+        CardDTO createdCard = cardService.createCard(createCardDTO1);
+
+        CreateCardDTO card = cardService.getCardById(1L);
+
+        System.out.println(card.toString());
+
+    }
 
 
     @Test
@@ -88,11 +109,12 @@ class CardApplicationTests {
         System.out.println(createdCard.toString());
 
         Long id = createdCard.getId();
+        System.out.println(id);
 
         // modifier
        CreateCardDTO cardUpdate = new CreateCardDTO(
                "Momo", "Mama", 2, "description",
-               "location", null, null, null, null);
+               "location", null, Ability.DECOY, null, null);
 
 
         List<CardDTO> cardDTOS = cardService.getAllCards();
@@ -113,6 +135,34 @@ class CardApplicationTests {
 
         cardService.deleteCardById(id);
     }
+
+    @Test
+    @DisplayName("Test get card by deck")
+    void testGetCardByDeck() {
+
+        System.out.println("---------------------------------");
+        System.out.println("get card by deck id :");
+
+        CardDeckDTO createCardDeck = cardDeckService.createCardDeck(createCardDeckDTO);
+        Long deckId = createCardDeck.getId();
+        CardDeck cardDeck = new CardDeck();
+        BeanUtils.copyProperties(createCardDeck, cardDeck);
+
+        CreateCardDTO createCardDTO = new CreateCardDTO("name", "picture", 1, "description",
+                "location", cardDeck, Ability.BERSERKER, Row.AGILE, Type.HERO);
+
+        CardDTO createdCard = cardService.createCard(createCardDTO);
+
+        List<Card> cards = new ArrayList<>(cardService.findCardsByCardDeck(deckId));
+
+        //System.out.println(cards);
+        for (Card card : cards) {
+            Assertions.assertNotNull(card.getId(), "id");
+            Assertions.assertNotNull(card.getName(), "Name");
+            System.out.println(card.getName());
+        }
+    }
+
 }
 
 
