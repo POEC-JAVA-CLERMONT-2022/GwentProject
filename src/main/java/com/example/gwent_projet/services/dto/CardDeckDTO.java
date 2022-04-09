@@ -9,6 +9,14 @@ public class CardDeckDTO {
     public CardDeckDTO() {
     }
 
+    @Override
+    public String toString() {
+        return "CardDeckDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

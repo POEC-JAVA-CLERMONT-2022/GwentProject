@@ -47,12 +47,16 @@ class CardApplicationTests {
     @DisplayName("Test findAll Success")
     void testCardFinfAll() {
 
+        CardDTO createdCard = cardService.createCard(createCardDTO1);
+        CardDTO createdCard1 = cardService.createCard(createCardDTO1);
         List<CardDTO> cardDTOCard = cardService.getAllCards();
 
         // test des valeurs
         for (CardDTO card : cardDTOCard) {
             Assertions.assertNotNull(card.getId(), "id");
             Assertions.assertNotNull(card.getName(), "Name");
+            System.out.println(card.getId());
+            System.out.println(card.getName());
         }
 
     }
@@ -66,7 +70,6 @@ class CardApplicationTests {
         CreateCardDTO card = cardService.getCardById(1L);
 
         System.out.println(card.toString());
-
     }
 
 
