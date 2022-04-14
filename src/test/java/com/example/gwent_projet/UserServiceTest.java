@@ -54,13 +54,11 @@ public class UserServiceTest {
 		tableLength = random.nextLong(50);
 		
 		
-
 		consoleDisplay.separator();
 		System.out.println("initRepo - List of all users");
 		consoleDisplay.separator();
 		
 		System.out.println("Table length: " + tableLength);
-		
 		
 		// populate repository
 		for (Long sweeper = 0l; sweeper < tableLength; sweeper++) {
@@ -111,10 +109,6 @@ public class UserServiceTest {
 		consoleDisplay.separator();
 		System.out.println("User - Creation");
 		consoleDisplay.separator();
-		// new random user
-		initUser();
-		// populate repository
-		initRepo();
 		
 		// method to test
 		// create the testUser in the repository
@@ -151,8 +145,6 @@ public class UserServiceTest {
 		consoleDisplay.separator();
 		System.out.println("User - Retrieve All");
 		consoleDisplay.separator();
-		// populate repository
-		initRepo();
 		
 		// get all users from the repository
 		List<UserDTO> users = new ArrayList<UserDTO>();
@@ -185,17 +177,21 @@ public class UserServiceTest {
 		consoleDisplay.separator();
 		System.out.println("User - Retrieve One");
 		consoleDisplay.separator();
-		// populate repository
-		initRepo();
-		
-		// random index to search for, that is within table length boundaries
-		Random random = new Random();
-		Long RNGindex = random.nextLong(tableLength);
 
+
+		System.out.println("Table length: " + tableLength);
+		
 		// method to test
-		UserDTO searchResult = userService.getUserById(RNGindex);
+		UserDTO searchResult = userService.getUserById(tableLength - 1);
+		
+		System.out.println("Name: " + searchResult.username);
+		System.out.println("Email: " + searchResult.email);
+		
 		// get User object from repository
-		User repoReturnValue = userRepository.findById(RNGindex).orElse(null);
+		User repoReturnValue = userRepository.findById(tableLength - 1).orElse(null);
+		
+		System.out.println("Name: " + repoReturnValue.getUsername());
+		System.out.println("Email: " + repoReturnValue.getEmail());
 
 		// assertions
 		// assert that data is not empty and corresponding fields are matching
@@ -218,24 +214,19 @@ public class UserServiceTest {
 		consoleDisplay.separator();
 		System.out.println("User - Deletion");
 		consoleDisplay.separator();
-		// populate repository
-		initRepo();
-		
-		// random index to search for, that is within table length boundaries
-		Random random = new Random();
-		Long RNGindex = random.nextLong(tableLength);
 
 		// get User from repository
-		User repoReturnValue = userRepository.findById(RNGindex).orElse(null);
+		User repoReturnValue = userRepository.findById(tableLength - 1).orElse(null);
 
 		// assert that this is the same user
-		assertThat(userRepository.findById(RNGindex).orElse(null)).isEqualTo(repoReturnValue);
-
+		assertThat((userRepository.findById(tableLength - 1).orElse(null)).getUsername()).isEqualTo(repoReturnValue.getUsername());
+		assertThat((userRepository.findById(tableLength - 1).orElse(null)).getEmail()).isEqualTo(repoReturnValue.getEmail());
+		
 		// method to be tested
 		// delete this user at this ID
-		userService.deleteUserById(RNGindex);
+		userService.deleteUserById(tableLength - 1);
 		// get non existing User from repository
-		User repoReturnValueNull = userRepository.findById(RNGindex).orElse(null);
+		User repoReturnValueNull = userRepository.findById(tableLength - 1).orElse(null);
 
 		// assertions
 		assertThat(repoReturnValueNull).isNull();
@@ -253,8 +244,6 @@ public class UserServiceTest {
 		consoleDisplay.separator();
 		System.out.println("User - Update");
 		consoleDisplay.separator();
-		// populate repository
-		initRepo();
 		
 		// random index to search for, that is within table length boundaries
 		Random random = new Random();
