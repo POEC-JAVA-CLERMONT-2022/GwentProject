@@ -27,5 +27,7 @@ public interface CardService {
     void deleteCardById(Long id);
 
     List<Card> findCardsByCardDeck(Long id);
+
+    List<Card> findCardsByName(String name);
 }
 

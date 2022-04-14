@@ -114,4 +114,20 @@ public class CardController {
         }
     }
 
+    // Get card by card deck id
+    @GetMapping("/cards/card-name/{name}")
+    public ResponseEntity<List<Card>> findCardsByName( String name) {
+        try {
+            List<Card> cards = new ArrayList<Card>();
+            if (name != null)
+                cards.addAll(cardService.findCardsByName(name));
+            if (cards.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(cards, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).build();
+        }
+    }
+
 }
