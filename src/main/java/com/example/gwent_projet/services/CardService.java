@@ -26,8 +26,10 @@ public interface CardService {
 
     void deleteCardById(Long id);
 
+    @Transactional(readOnly = true)
     List<Card> findCardsByCardDeck(Long id);
 
+    @Transactional(readOnly = true)
     List<Card> findCardsByName(String name);
 }
 

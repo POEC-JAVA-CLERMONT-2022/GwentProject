@@ -114,7 +114,7 @@ public class CardController {
         }
     }
 
-    // Get card by card deck id
+    // Get cards by name LIKE
     @GetMapping("/cards/card-name/{name}")
     public ResponseEntity<List<Card>> findCardsByName( String name) {
         try {
