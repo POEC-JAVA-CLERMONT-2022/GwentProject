@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.not;
 
 @SpringBootTest
-@Transactional()
+@Transactional
 class CardApplicationTests {
 
     @Autowired
@@ -40,6 +40,7 @@ class CardApplicationTests {
     private CardDeckService cardDeckService;
     @Autowired
     private CardDeckRepository cardDeckRepository;
+
     CreateCardDeckDTO createCardDeckDTO = new CreateCardDeckDTO("card deck");
 
     CreateCardDTO createCardDTO1 = new CreateCardDTO("name", "picture", 1, "description",
@@ -100,10 +101,6 @@ class CardApplicationTests {
     void testCardCreation() {
 
         long nbCards = this.cardRepository.count();
-
-        System.out.println("---------------------------------");
-        System.out.println("Create card :");
-
         CardDTO createdCard = cardService.createCard(createCardDTO1);
 
         // assertions
@@ -125,11 +122,9 @@ class CardApplicationTests {
     @Test
     @DisplayName("Test edit Success")
     void testCardEdit() {
-        System.out.println("---------------------------------");
 
         CardDTO createdCard = cardService.createCard(createCardDTO1);
         Long id = createdCard.getId();
-        System.out.println(createdCard.toString());
 
         // modifier
        CreateCardDTO cardUpdate = new CreateCardDTO(
@@ -146,9 +141,6 @@ class CardApplicationTests {
     @DisplayName("Test delete Success")
     void testCardDelete() {
 
-        System.out.println("---------------------------------");
-        System.out.println("Delete by id :");
-
         //Création et verif en BDD
         CardDTO createdCard = cardService.createCard(createCardDTO1);
         long nbCards = this.cardRepository.count();
@@ -161,11 +153,8 @@ class CardApplicationTests {
     }
 
     @Test
-    @DisplayName("Test get card by deck")
+    @DisplayName("Test get card by deck id")
     void testGetCardByDeck() {
-
-        System.out.println("---------------------------------");
-        System.out.println("get card by deck id :");
 
         //création de cardDeck
         CardDeckDTO createCardDeck = cardDeckService.createCardDeck(createCardDeckDTO);
