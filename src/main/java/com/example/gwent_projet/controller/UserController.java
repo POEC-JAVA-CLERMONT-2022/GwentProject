@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.gwent_projet.dto.UserDTO;
+import com.example.gwent_projet.services.dto.UserDTO;
 import com.example.gwent_projet.entity.User;
 import com.example.gwent_projet.services.UserService;
 
@@ -34,6 +34,7 @@ public class UserController {
 			return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
+			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

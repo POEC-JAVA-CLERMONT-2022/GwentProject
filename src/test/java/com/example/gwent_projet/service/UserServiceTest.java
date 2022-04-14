@@ -1,4 +1,4 @@
-package com.example.gwent_projet;
+package com.example.gwent_projet.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,14 +8,13 @@ import java.util.Random;
 
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.gwent_projet.dto.UserDTO;
+import com.example.gwent_projet.services.dto.UserDTO;
 import com.example.gwent_projet.entity.User;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
