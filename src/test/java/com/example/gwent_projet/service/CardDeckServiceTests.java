@@ -1,11 +1,8 @@
 package com.example.gwent_projet.service;
 
-import com.example.gwent_projet.entity.Ability;
 import com.example.gwent_projet.repository.CardDeckRepository;
 import com.example.gwent_projet.services.CardDeckService;
-import com.example.gwent_projet.services.dto.CardDTO;
 import com.example.gwent_projet.services.dto.CardDeckDTO;
-import com.example.gwent_projet.services.dto.CreateCardDTO;
 import com.example.gwent_projet.services.dto.CreateCardDeckDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +15,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class CardDeckServiceTest {
+public class CardDeckServiceTests {
 
     @Autowired
     private CardDeckService cardDeckService;

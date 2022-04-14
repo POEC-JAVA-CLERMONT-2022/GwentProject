@@ -1,3 +1,33 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+
+@SevauxL
+POEC-JAVA-CLERMONT-2022
+/
+GwentProject
+Public
+Code
+Issues
+Pull requests
+1
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+GwentProject/.gitignore
+
+maoherve spring adaptation projet
+Latest commit ac79055 1 hour ago
+ History
+ 1 contributor
+94 lines (76 sloc)  1.32 KB
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -90,6 +120,18 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-#Properties files
-*.properties
-application.properties
+# ignore bdd setting before find better method
+src/main/resources/application.properties
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
