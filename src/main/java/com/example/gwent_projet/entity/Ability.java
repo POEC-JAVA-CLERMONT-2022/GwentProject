@@ -11,12 +11,12 @@ public enum Ability {
     DECOY( "Decoy"),
     MEDIC( "Medic"),
     MORALE_BOOST( "Morale boost"),
-    MARDROEME("mardroeme"),
-    MUSTER( "muster"),
-    SCORCH( "scorch"),
-    SPY( "spy"),
-    TIGHT_BOND( "tightBond"),
-    SUMMON_AVENGER( "summonAvenger");
+    MARDROEME("Mardroeme"),
+    MUSTER( "Muster"),
+    SCORCH( "Scorch"),
+    SPY( "Spy"),
+    TIGHT_BOND( "TightBond"),
+    SUMMON_AVENGER( "SummonAvenger");
 
 
     private final String abilityName;

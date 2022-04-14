@@ -4,8 +4,13 @@ Pull requests
 Issues
 Marketplace
 Explore
+<<<<<<< HEAD
 
 @SevauxL
+=======
+ 
+@SevauxL 
+>>>>>>> origin/dev
 POEC-JAVA-CLERMONT-2022
 /
 GwentProject
@@ -27,7 +32,11 @@ Latest commit ac79055 1 hour ago
  History
  1 contributor
 94 lines (76 sloc)  1.32 KB
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> origin/dev
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
