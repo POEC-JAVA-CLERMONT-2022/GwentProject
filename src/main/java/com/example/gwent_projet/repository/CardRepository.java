@@ -1,8 +1,7 @@
 package com.example.gwent_projet.repository;
 
-import com.example.gwent_projet.entity.Card;
+import com.example.gwent_projet.entity.card.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.gwent_projet.services.dto;
+package com.example.gwent_projet.services.dto.cardDeck;
 
 public class CreateCardDeckDTO {
 

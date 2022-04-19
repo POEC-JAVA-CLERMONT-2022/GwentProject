@@ -1,21 +1,17 @@
 package com.example.gwent_projet.controller;
 
 
-import com.example.gwent_projet.entity.Card;
-import com.example.gwent_projet.entity.CardDeck;
+import com.example.gwent_projet.entity.card.CardDeck;
 import com.example.gwent_projet.repository.CardDeckRepository;
 import com.example.gwent_projet.services.CardDeckService;
-import com.example.gwent_projet.services.dto.CardDTO;
-import com.example.gwent_projet.services.dto.CardDeckDTO;
-import com.example.gwent_projet.services.dto.CreateCardDTO;
-import com.example.gwent_projet.services.dto.CreateCardDeckDTO;
+import com.example.gwent_projet.services.dto.cardDeck.CardDeckDTO;
+import com.example.gwent_projet.services.dto.cardDeck.CreateCardDeckDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CardDeckController {

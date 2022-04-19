@@ -1,12 +1,7 @@
-package com.example.gwent_projet.entity;
-
-import org.hibernate.annotations.Proxy;
+package com.example.gwent_projet.entity.card;
 
 import javax.persistence.*;
 import java.util.Objects;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 //@Proxy(lazy=false)
 @Entity
