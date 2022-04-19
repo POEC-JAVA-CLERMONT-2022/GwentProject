@@ -1,9 +1,9 @@
-package com.example.gwent_projet.services.dto;
+package com.example.gwent_projet.services.dto.card;
 
-import com.example.gwent_projet.entity.Ability;
-import com.example.gwent_projet.entity.CardDeck;
-import com.example.gwent_projet.entity.Row;
-import com.example.gwent_projet.entity.Type;
+import com.example.gwent_projet.entity.card.Ability;
+import com.example.gwent_projet.entity.card.CardDeck;
+import com.example.gwent_projet.entity.card.Row;
+import com.example.gwent_projet.entity.card.Type;
 
 public class CardDTO {
 

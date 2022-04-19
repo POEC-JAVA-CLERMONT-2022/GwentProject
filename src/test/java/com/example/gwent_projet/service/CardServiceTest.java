@@ -1,21 +1,19 @@
 package com.example.gwent_projet.service;
 
 
-import com.example.gwent_projet.entity.*;
+import com.example.gwent_projet.entity.card.*;
 import com.example.gwent_projet.repository.CardDeckRepository;
 import com.example.gwent_projet.repository.CardRepository;
 import com.example.gwent_projet.services.CardDeckService;
 import com.example.gwent_projet.services.CardService;
-import com.example.gwent_projet.services.dto.CardDTO;
-import com.example.gwent_projet.services.dto.CardDeckDTO;
-import com.example.gwent_projet.services.dto.CreateCardDTO;
-import com.example.gwent_projet.services.dto.CreateCardDeckDTO;
-import org.jeasy.random.EasyRandom;
+import com.example.gwent_projet.services.dto.card.CardDTO;
+import com.example.gwent_projet.services.dto.cardDeck.CardDeckDTO;
+import com.example.gwent_projet.services.dto.card.CreateCardDTO;
+import com.example.gwent_projet.services.dto.cardDeck.CreateCardDeckDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +38,7 @@ class CardApplicationTests {
     private CardDeckService cardDeckService;
     @Autowired
     private CardDeckRepository cardDeckRepository;
+
 
     CreateCardDeckDTO createCardDeckDTO = new CreateCardDeckDTO("card deck");
 
@@ -93,6 +92,7 @@ class CardApplicationTests {
         assertThat(createdCard.getRowName()).isEqualTo(createCardDTO1.getRowName());
         assertThat(createdCard.getType()).isEqualTo(createCardDTO1.getType());
         assertThat(this.cardRepository.getById(createdCard.getId())).isNotNull();
+
     }
 
 

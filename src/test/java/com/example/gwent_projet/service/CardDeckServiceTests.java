@@ -2,8 +2,8 @@ package com.example.gwent_projet.service;
 
 import com.example.gwent_projet.repository.CardDeckRepository;
 import com.example.gwent_projet.services.CardDeckService;
-import com.example.gwent_projet.services.dto.CardDeckDTO;
-import com.example.gwent_projet.services.dto.CreateCardDeckDTO;
+import com.example.gwent_projet.services.dto.cardDeck.CardDeckDTO;
+import com.example.gwent_projet.services.dto.cardDeck.CreateCardDeckDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

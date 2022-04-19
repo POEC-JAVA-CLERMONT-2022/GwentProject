@@ -1,11 +1,11 @@
 package com.example.gwent_projet.controller;
 
 
-import com.example.gwent_projet.entity.*;
+import com.example.gwent_projet.entity.card.Card;
 import com.example.gwent_projet.repository.CardRepository;
 import com.example.gwent_projet.services.CardService;
-import com.example.gwent_projet.services.dto.CardDTO;
-import com.example.gwent_projet.services.dto.CreateCardDTO;
+import com.example.gwent_projet.services.dto.card.CardDTO;
+import com.example.gwent_projet.services.dto.card.CreateCardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class CardController {
 
@@ -27,6 +28,7 @@ public class CardController {
     CardRepository cardRepository;
     @Autowired
     CardService cardService;
+
 
     // Get all cards
     @GetMapping("/cards")
@@ -40,7 +42,7 @@ public class CardController {
             }
             return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -92,8 +94,7 @@ public class CardController {
             }
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -110,7 +111,7 @@ public class CardController {
                 }
             return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -126,7 +127,8 @@ public class CardController {
             }
             return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(400).build();
+            //return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

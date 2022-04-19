@@ -1,4 +1,4 @@
-package com.example.gwent_projet.entity;
+package com.example.gwent_projet.entity.card;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

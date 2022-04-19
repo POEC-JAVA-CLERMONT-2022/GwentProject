@@ -1,8 +1,8 @@
 package com.example.gwent_projet.services;
 
-import com.example.gwent_projet.entity.*;
-import com.example.gwent_projet.services.dto.CardDTO;
-import com.example.gwent_projet.services.dto.CreateCardDTO;
+import com.example.gwent_projet.entity.card.Card;
+import com.example.gwent_projet.services.dto.card.CardDTO;
+import com.example.gwent_projet.services.dto.card.CreateCardDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
