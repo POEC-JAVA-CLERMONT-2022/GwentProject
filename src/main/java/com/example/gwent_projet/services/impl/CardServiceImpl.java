@@ -105,4 +105,12 @@ public class CardServiceImpl implements CardService {
 
         return cards;
     }
+
+    @Override
+    public List<Card> findCardsByName(String name) {
+
+        List<Card> cards = new ArrayList<Card>(cardRepository.findByNameContaining(name));
+
+        return cards;
+    }
 }

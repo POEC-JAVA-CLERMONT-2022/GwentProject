@@ -9,23 +9,26 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 public class CardDeckServiceTests {
 
     @Autowired
     private CardDeckService cardDeckService;
     @Autowired
     private CardDeckRepository cardDeckRepository;
+
     CreateCardDeckDTO createCardDeckDTO = new CreateCardDeckDTO("card deck");
 
     @Test
     @DisplayName("Test findAll Success")
-    void testCardDeckFinfAll() {
+    void testCardDeckFindAll() {
 
         CardDeckDTO cardDeckDTO = cardDeckService.createCardDeck(createCardDeckDTO);
 
@@ -35,8 +38,10 @@ public class CardDeckServiceTests {
         for (CardDeckDTO cardDeckDTO1 : cardDeckDTOS) {
             Assertions.assertNotNull(cardDeckDTO1.getId(), "id");
             Assertions.assertNotNull(cardDeckDTO1.getName(), "Name");
-            System.out.println(cardDeckDTO1.getId());
-            System.out.println(cardDeckDTO1.getName());
+
+            assertThat(cardDeckDTO1).isNotNull();
+            assertThat(cardDeckDTO1.getId()).isNotNull();
+            assertThat(cardDeckDTO1.getName()).isEqualTo(createCardDeckDTO.getName());
         }
     }
 
@@ -48,7 +53,10 @@ public class CardDeckServiceTests {
 
         CreateCardDeckDTO createCardDeckDTO = cardDeckService.getCardDeckById(1L);
 
-        System.out.println(createCardDeckDTO.toString());
+        // assertions
+        assertThat(cardDeckDTO).isNotNull();
+        assertThat(cardDeckDTO.getId()).isNotNull();
+        assertThat(cardDeckDTO.getName()).isEqualTo(createCardDeckDTO.getName());
     }
 
     @Test
@@ -56,10 +64,6 @@ public class CardDeckServiceTests {
     void testCardDeckCreation() {
 
         long nbCardDecks = this.cardDeckRepository.count();
-
-        System.out.println("---------------------------------");
-        System.out.println("Create :");
-
         CardDeckDTO cardDeckDTO = cardDeckService.createCardDeck(createCardDeckDTO);
 
         // assertions
@@ -67,36 +71,26 @@ public class CardDeckServiceTests {
         assertThat(cardDeckDTO.getId()).isNotNull();
         assertThat(cardDeckDTO.getName()).isEqualTo(createCardDeckDTO.getName());
         assertThat(this.cardDeckRepository.count()).isGreaterThan(nbCardDecks);
-
-        System.out.println(cardDeckDTO.toString());
     }
 
     @Test
     @DisplayName("Test edit Success")
     void testCardDeckEdit() {
 
-        System.out.println("---------------------------------");
-
         CardDeckDTO cardDeckDTO = cardDeckService.createCardDeck(createCardDeckDTO);
-        System.out.println(cardDeckDTO.toString());
-
         Long id = cardDeckDTO.getId();
-        System.out.println(id);
 
         // modifier
         CreateCardDeckDTO createCardDeckDTO = new CreateCardDeckDTO("neoMomo");
 
         //List<CardDTO> cardDTOS = cardService.getAllCards();
         this.cardDeckService.updateCardDeck(id, createCardDeckDTO);
-        System.out.println(createCardDeckDTO.toString());
+
     }
 
     @Test
     @DisplayName("Test delete Success")
     void testCardDeckDelete() {
-
-        System.out.println("---------------------------------");
-        System.out.println("Delete by id :");
 
         CardDeckDTO cardDeckDTO = cardDeckService.createCardDeck(createCardDeckDTO);
         long nbCardDecks = this.cardDeckRepository.count();
@@ -106,6 +100,6 @@ public class CardDeckServiceTests {
         Long id = cardDeckDTO.getId();
 
         cardDeckService.deleteCardDeckById(id);
-        System.out.println(nbCardDecks);
+        assertThat(this.cardDeckRepository.count()).isLessThan(nbCardDecks);
     }
 }
