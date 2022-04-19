@@ -3,8 +3,6 @@ package com.example.gwent_projet;
 import com.example.gwent_projet.cli.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-
-
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
@@ -30,4 +28,6 @@ public class GwentProjetApplication {
 		 */
 		// this.userCommand.run();
 	}
+
+
 }

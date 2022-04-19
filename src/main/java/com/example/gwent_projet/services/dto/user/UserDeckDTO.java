@@ -2,7 +2,7 @@ package com.example.gwent_projet.services.dto.user;
 
 import java.util.List;
 
-import com.example.gwent_projet.entity.Card;
+import com.example.gwent_projet.entity.card.Card;
 
 public class UserDeckDTO {
 

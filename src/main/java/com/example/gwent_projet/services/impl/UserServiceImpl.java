@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.gwent_projet.entity.user.User;
+import com.example.gwent_projet.services.dto.user.UserDTO;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
-import com.example.gwent_projet.services.dto.user.UserDTO;
 
 @Service
 public class UserServiceImpl implements UserService {

@@ -1,7 +1,7 @@
 package com.example.gwent_projet.entity.user;
 
 
-import java.util.List;
+import com.example.gwent_projet.entity.user.User;
 
 import javax.persistence.*;
 

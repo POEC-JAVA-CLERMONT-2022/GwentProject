@@ -1,4 +1,4 @@
-package com.example.gwent_projet;
+package com.example.gwent_projet.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.gwent_projet.entity.user.User;
+import com.example.gwent_projet.services.dto.user.UserDTO;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
-import com.example.gwent_projet.services.dto.user.UserDTO;
 import com.example.gwent_projet.utils.consoleDisplay;
 
 @SpringBootTest

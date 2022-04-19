@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gwent_projet.entity.user.User;
-import com.example.gwent_projet.services.UserService;
 import com.example.gwent_projet.services.dto.user.UserDTO;
+import com.example.gwent_projet.services.UserService;
 
 @RestController 
 public class UserController {
@@ -34,6 +34,7 @@ public class UserController {
 			return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
+			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
