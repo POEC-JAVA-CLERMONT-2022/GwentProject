@@ -1,12 +1,10 @@
 package com.example.gwent_projet.entity.user;
 
-import java.util.List;
-
 import javax.persistence.*;
 
 @Entity
 @Table (name = "user")
-@Inheritance (strategy = InheritanceType.JOINED)
+// @Inheritance (strategy = InheritanceType.JOINED)
 public class User {
 
 	@Id
@@ -25,11 +23,7 @@ public class User {
 
 	@Column (name = "password", nullable = false)
 	private String password;
-/*
-	@Column (name = "userDeck")
-	@OneToMany (fetch = FetchType.EAGER, mappedBy = "owner")
-	private List<UserDeck> userDeck;
-*/
+
 	public User (int role, String username, String email, String password) {
 		this.role = role;
 		this.username = username;
