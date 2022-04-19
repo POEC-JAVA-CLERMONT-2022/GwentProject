@@ -1,8 +1,8 @@
 package com.example.gwent_projet.data;
 
-import com.example.gwent_projet.models.Card;
-
 import java.util.ArrayList;
+
+import com.example.gwent_projet.entity.Card;
 
 public interface DataProvider {
 

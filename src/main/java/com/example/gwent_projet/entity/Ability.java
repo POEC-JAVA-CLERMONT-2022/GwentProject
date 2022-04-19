@@ -1,6 +1,8 @@
-package com.example.gwent_projet.models;
+package com.example.gwent_projet.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(name = "Ability card values", description = "Ability card values")
 public enum Ability {
 
 
@@ -9,18 +11,15 @@ public enum Ability {
     DECOY( "Decoy"),
     MEDIC( "Medic"),
     MORALE_BOOST( "Morale boost"),
-    MARDROEME("mardroeme"),
-    MUSTER( "muster"),
-    SCORCH( "scorch"),
-    SPY( "spy"),
-    TIGHT_BOND( "tightBond"),
-    SUMMON_AVENGER( "summonAvenger");
-
-
+    MARDROEME("Mardroeme"),
+    MUSTER( "Muster"),
+    SCORCH( "Scorch"),
+    SPY( "Spy"),
+    TIGHT_BOND( "TightBond"),
+    SUMMON_AVENGER( "SummonAvenger");
 
 
     private final String abilityName;
-
 
     private Ability(String abilityName) {
         this.abilityName = abilityName;
