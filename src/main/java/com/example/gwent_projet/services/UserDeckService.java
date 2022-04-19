@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.gwent_projet.dto.UserDTO;
-import com.example.gwent_projet.dto.UserDeckDTO;
-import com.example.gwent_projet.entity.User;
-import com.example.gwent_projet.entity.UserDeck;
+import com.example.gwent_projet.entity.user.User;
+import com.example.gwent_projet.entity.user.UserDeck;
+import com.example.gwent_projet.services.dto.user.UserDTO;
+import com.example.gwent_projet.services.dto.user.UserDeckDTO;
 
 @Service
 public interface UserDeckService {

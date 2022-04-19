@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.gwent_projet.dto.UserDTO;
-import com.example.gwent_projet.entity.User;
+import com.example.gwent_projet.entity.user.User;
 import com.example.gwent_projet.services.UserService;
+import com.example.gwent_projet.services.dto.user.UserDTO;
 
 @RestController 
 public class UserController {

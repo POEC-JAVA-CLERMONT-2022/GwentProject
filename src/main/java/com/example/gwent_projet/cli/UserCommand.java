@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.gwent_projet.entity.User;
+import com.example.gwent_projet.entity.user.User;
 import com.example.gwent_projet.services.MenuService;
 import com.example.gwent_projet.services.UserService;
 import com.example.gwent_projet.utils.consoleDisplay;

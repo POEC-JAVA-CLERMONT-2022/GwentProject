@@ -1,4 +1,4 @@
-package com.example.gwent_projet.dto;
+package com.example.gwent_projet.services.dto.user;
 
 // ORM
 public class UserDTO {

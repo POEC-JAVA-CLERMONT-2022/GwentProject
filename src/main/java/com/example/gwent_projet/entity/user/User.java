@@ -1,4 +1,4 @@
-package com.example.gwent_projet.entity;
+package com.example.gwent_projet.entity.user;
 
 import java.util.List;
 
