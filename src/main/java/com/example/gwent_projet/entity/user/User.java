@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table (name = "user")
-// @Inheritance (strategy = InheritanceType.JOINED)
 public class User {
 
 	@Id
@@ -45,7 +44,6 @@ public class User {
 				", password=" + password +
 				'}';
 	}
-
 
 	// getters & setters ----------------------------------------------------------------------
 
@@ -90,13 +88,4 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-/*
-	public List<UserDeck> getUserDecks() {
-		return userDeck;
-	}
-
-	public void setUserDecks(List<UserDeck> userDeck) {
-		this.userDeck = userDeck;
-	}
-*/
 }

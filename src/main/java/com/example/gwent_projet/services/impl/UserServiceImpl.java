@@ -3,6 +3,9 @@ package com.example.gwent_projet.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.gwent_projet.entity.user.User;
@@ -70,26 +73,16 @@ public class UserServiceImpl implements UserService {
     }
 	
 	@Override
-    public UserDTO updateUser(Long id, User newUser) {
+	@Transactional
+    public UserDTO updateUser(Long id, UserDTO newUser) {
+		User user = userRepository.getById(id);
 		
-	    User userDB = userRepository.findById(id).orElse(null);
-	    // save new values in userDB
-	    userDB.setId(id); 
-	    userDB.setUsername(newUser.getUsername()); 
-	    userDB.setEmail(newUser.getEmail());
-	    userDB.setPassword(newUser.getPassword());
-	    
-	    // then save
-	    userRepository.save(userDB);
-		
-		// copy at the specified index the newUser received as parameter
-	    // not working
-		// BeanUtils.copyProperties(newUser, userRepository.getById(id));
-		// userRepository.save(userRepository.getById(id));
-		
-		// DTO to be returned, populated with new user values
-		UserDTO newUserReturn = new UserDTO(newUser.getUsername(), newUser.getEmail());
-		
-		return newUserReturn;
+        BeanUtils.copyProperties(newUser, user); // important: DTO needs getters and setters for this to work
+        userRepository.save(user);
+
+        UserDTO userReturn = new UserDTO();
+        BeanUtils.copyProperties(user, userReturn);
+
+        return userReturn;
     }
 }

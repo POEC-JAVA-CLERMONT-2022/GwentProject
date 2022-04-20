@@ -1,18 +1,16 @@
 package com.example.gwent_projet.services.dto.user;
 
 // ORM
-public class UserDTO {
+public class UserUsernameDTO {
 
 	public String username;
-	public String email;
 
-	public UserDTO(String username, String email) {
+	public UserUsernameDTO(String username) {
 		// TODO Auto-generated constructor stub
 		this.username = username;
-		this.email = email;
 	}
 
-	public UserDTO() {
+	public UserUsernameDTO() {
 
 	}
 
@@ -29,14 +27,4 @@ public class UserDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
 }

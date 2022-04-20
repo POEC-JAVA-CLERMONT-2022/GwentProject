@@ -201,7 +201,7 @@ public class UserServiceTest {
 		User updatedUserBefore = userRepository.findById(userRepository.count()).orElse(null);
 
 		// new user to test the update method
-		User testUser = new User(0, "test", "testEmail", "testPwd");
+		UserDTO testUser = new UserDTO("testUsername", "testEmail");
 		
 		// method to be tested
 		userService.updateUser(userRepository.count(), testUser);
