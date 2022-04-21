@@ -1,12 +1,9 @@
 package com.example.gwent_projet.entity.user;
 
-import java.util.List;
-
 import javax.persistence.*;
 
 @Entity
 @Table (name = "user")
-@Inheritance (strategy = InheritanceType.JOINED)
 public class User {
 
 	@Id
@@ -25,11 +22,7 @@ public class User {
 
 	@Column (name = "password", nullable = false)
 	private String password;
-/*
-	@Column (name = "userDeck")
-	@OneToMany (fetch = FetchType.EAGER, mappedBy = "owner")
-	private List<UserDeck> userDeck;
-*/
+
 	public User (int role, String username, String email, String password) {
 		this.role = role;
 		this.username = username;
@@ -51,7 +44,6 @@ public class User {
 				", password=" + password +
 				'}';
 	}
-
 
 	// getters & setters ----------------------------------------------------------------------
 
@@ -96,13 +88,4 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-/*
-	public List<UserDeck> getUserDecks() {
-		return userDeck;
-	}
-
-	public void setUserDecks(List<UserDeck> userDeck) {
-		this.userDeck = userDeck;
-	}
-*/
 }

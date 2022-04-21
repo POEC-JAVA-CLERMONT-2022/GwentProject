@@ -3,9 +3,13 @@ package com.example.gwent_projet.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.gwent_projet.entity.user.User;
+import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
@@ -23,10 +27,15 @@ public class UserServiceImpl implements UserService {
 	// ---------------------------------------------------------------------------------------
 
 	@Override
-	public UserDTO createUser(User createUser) {
-		userRepository.save(createUser);
+	public UserDTO createUser(UserCreationDTO createUser) {
+		
+		User user = new User(0, "", "", ""); // always set role to 0 on creation. might change if more roles are added
+		BeanUtils.copyProperties(createUser, user);
+		
+		userRepository.save(user);
 		// DTO to be returned, populated with new user values
-		UserDTO newUser = new UserDTO(createUser.getUsername(), createUser.getEmail());
+		UserDTO newUser = new UserDTO();
+		BeanUtils.copyProperties(user, newUser);
 		return newUser;
 	}
 	
@@ -43,8 +52,7 @@ public class UserServiceImpl implements UserService {
 			// get user at index
 			repoUser = repoList.get(sweeper);
 			// populate DTO values with retrieved user values
-			returnUserDTO.username = repoUser.getUsername();
-			returnUserDTO.email = repoUser.getEmail();
+			BeanUtils.copyProperties(repoUser, returnUserDTO);
 			// add newly populated DTO to DTO list
 			returnList.add(sweeper, returnUserDTO);
 		}
@@ -59,7 +67,8 @@ public class UserServiceImpl implements UserService {
     	// instead we use findById which also lets us return a null value if nothing is found
     	User userSearch = userRepository.findById(id).orElse(null);
 		// DTO to be returned, populated with new user values
-    	UserDTO searchResult = new UserDTO(userSearch.getUsername(), userSearch.getEmail());
+    	UserDTO searchResult = new UserDTO();
+    	BeanUtils.copyProperties(userSearch, searchResult);
     	return searchResult;
 	}
     
@@ -70,26 +79,16 @@ public class UserServiceImpl implements UserService {
     }
 	
 	@Override
-    public UserDTO updateUser(Long id, User newUser) {
+	@Transactional
+    public UserDTO updateUser(Long id, UserCreationDTO newUser) {
+		User user = userRepository.getById(id);
 		
-	    User userDB = userRepository.findById(id).orElse(null);
-	    // save new values in userDB
-	    userDB.setId(id); 
-	    userDB.setUsername(newUser.getUsername()); 
-	    userDB.setEmail(newUser.getEmail());
-	    userDB.setPassword(newUser.getPassword());
-	    
-	    // then save
-	    userRepository.save(userDB);
-		
-		// copy at the specified index the newUser received as parameter
-	    // not working
-		// BeanUtils.copyProperties(newUser, userRepository.getById(id));
-		// userRepository.save(userRepository.getById(id));
-		
-		// DTO to be returned, populated with new user values
-		UserDTO newUserReturn = new UserDTO(newUser.getUsername(), newUser.getEmail());
-		
-		return newUserReturn;
+        BeanUtils.copyProperties(newUser, user); // important: DTO needs getters and setters for this to work
+        userRepository.save(user);
+
+        UserDTO userReturn = new UserDTO();
+        BeanUtils.copyProperties(user, userReturn);
+
+        return userReturn;
     }
 }
