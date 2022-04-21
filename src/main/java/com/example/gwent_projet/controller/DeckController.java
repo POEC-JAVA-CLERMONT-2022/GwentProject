@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.gwent_projet.entity.deck.Deck;
 import com.example.gwent_projet.services.DeckService;
+import com.example.gwent_projet.services.dto.deck.DeckCreationDTO;
 import com.example.gwent_projet.services.dto.deck.DeckDTO;
 
 @RestController
@@ -26,10 +26,10 @@ public class DeckController {
 
 	// Create deck -----------------------------------------------------------------------------------------------------------------
 	@PostMapping("/deck/new")
-	public ResponseEntity<DeckDTO> createDeck(@RequestBody Deck deck) {
+	public ResponseEntity<DeckDTO> createDeck(Long userId, @RequestBody DeckCreationDTO deck) {
 		try {
 			// create deck in repository with data provided by method
-			DeckDTO newDeck = deckService.createDeck(deck);
+			DeckDTO newDeck = deckService.createDeck(userId, deck);
 			// then return a response entity with this deck, and the CREATED HTTP status
 			return new ResponseEntity<>(newDeck, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class DeckController {
 	// Update deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
 	@PutMapping("/deck/update/{id}")
-	public ResponseEntity<DeckDTO> updateDeckById(@PathVariable("id") Long id, @RequestBody Deck deck) {
+	public ResponseEntity<DeckDTO> updateDeckById(@PathVariable("id") Long id, @RequestBody DeckCreationDTO deck) {
 		try {
 			// replace user at this ID with the new user
 			DeckDTO updatedDeck = deckService.updateDeck(id, deck);
@@ -102,7 +102,7 @@ public class DeckController {
 	// Card actions in deck
 	// Add card to deck ------------------------------------------------------------------------------------------------------------
 	
-	@PutMapping("/deck/{id}/add")
+	@PutMapping("/deck/{id}/addCard")
 	public ResponseEntity<DeckDTO> addCardToDeck(/* deck id, card id */) {
 		try {
 			// add card to deck
@@ -115,7 +115,7 @@ public class DeckController {
 	
 	// Delete card from deck -------------------------------------------------------------------------------------------------------
 	
-	@DeleteMapping("/deck/{id}/delete")
+	@DeleteMapping("/deck/{id}/removeCard")
 	public ResponseEntity<HttpStatus> deleteCardFromDeck(/* deck id, card id */) {
 		try {
 			// delete card from deck

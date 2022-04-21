@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.gwent_projet.entity.user.User;
 import com.example.gwent_projet.services.MenuService;
 import com.example.gwent_projet.services.UserService;
+import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.utils.consoleDisplay;
 
 @Service
@@ -30,7 +31,7 @@ public class UserCommand {
 		Matcher matcher;
 
 		consoleDisplay consoleDisplay = new consoleDisplay();
-		User createUser = new User();
+		UserCreationDTO createUser = new UserCreationDTO();
 
 		printTitle("Create an account");
 

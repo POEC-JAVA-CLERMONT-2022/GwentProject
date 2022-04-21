@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
 		User user = new User(0, "", "", ""); // always set role to 0 on creation. might change if more roles are added
 		BeanUtils.copyProperties(createUser, user);
 		
-		
 		userRepository.save(user);
 		// DTO to be returned, populated with new user values
 		UserDTO newUser = new UserDTO();
@@ -53,8 +52,7 @@ public class UserServiceImpl implements UserService {
 			// get user at index
 			repoUser = repoList.get(sweeper);
 			// populate DTO values with retrieved user values
-			returnUserDTO.username = repoUser.getUsername();
-			returnUserDTO.email = repoUser.getEmail();
+			BeanUtils.copyProperties(repoUser, returnUserDTO);
 			// add newly populated DTO to DTO list
 			returnList.add(sweeper, returnUserDTO);
 		}
@@ -69,7 +67,8 @@ public class UserServiceImpl implements UserService {
     	// instead we use findById which also lets us return a null value if nothing is found
     	User userSearch = userRepository.findById(id).orElse(null);
 		// DTO to be returned, populated with new user values
-    	UserDTO searchResult = new UserDTO(userSearch.getUsername(), userSearch.getEmail());
+    	UserDTO searchResult = new UserDTO();
+    	BeanUtils.copyProperties(userSearch, searchResult);
     	return searchResult;
 	}
     
