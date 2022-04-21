@@ -22,6 +22,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
+//TODO: requestmapping
 public class CardController {
 
     @Autowired
@@ -55,6 +56,8 @@ public class CardController {
             return new ResponseEntity<>(findCard, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
+            //TODO: utiliser un logger
+            //TODO: ResponseEntity.internalServerError();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -77,6 +80,7 @@ public class CardController {
     public ResponseEntity<CardDTO> updateCardById( @PathVariable("id") Long id, @RequestBody CreateCardDTO card) {
         try {
             CardDTO updatedCard = cardService.updateCard(id, card);
+            //TODO: ResponseEntity.created();
             return new ResponseEntity<>(updatedCard, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,6 +17,7 @@ import com.example.gwent_projet.services.dto.deck.DeckDTO;
 import com.example.gwent_projet.services.dto.user.UserDeckDTO;
 
 @Service
+//TODO: gestion des exceptions + logger
 public class DeckServiceImpl implements DeckService {
 
 	private DeckRepository deckRepository;

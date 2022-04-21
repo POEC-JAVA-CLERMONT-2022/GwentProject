@@ -47,5 +47,7 @@ public class CardMockServiceTest {
         assertEquals(cards.size(), cardDTOS.size());
         CardDTO cardDTO = cardDTOS.get(1);
         assertNotNull(cardDTO.getName());
+
+        //TODO verify
     }
 }

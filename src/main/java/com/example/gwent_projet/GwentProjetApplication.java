@@ -11,6 +11,7 @@ import org.springframework.context.event.EventListener;
 @SpringBootApplication
 public class GwentProjetApplication {
 
+	//TODO: à supprimer
 	@Autowired
 	private UserCommand userCommand;
 
