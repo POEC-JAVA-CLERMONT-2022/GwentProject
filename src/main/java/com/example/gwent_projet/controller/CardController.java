@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/")
+@RequestMapping("cards")
 @RestController
 public class CardController {
 
@@ -31,7 +32,7 @@ public class CardController {
 
 
     // Get all cards
-    @GetMapping("/cards")
+    @GetMapping("")
     public ResponseEntity<List<CardDTO>> getAllCards(@RequestParam(required = false) Long id) {
         try {
             List<CardDTO> cards = new ArrayList<CardDTO>();
@@ -48,7 +49,7 @@ public class CardController {
 
 
     // Get card by id
-    @GetMapping("/cards/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CreateCardDTO> getCardById(@PathVariable("id") long id) {
         try {
             CreateCardDTO findCard = cardService.getCardById(id);
@@ -61,7 +62,7 @@ public class CardController {
 
 
 
-    @PostMapping("/cards")
+    @PostMapping("/")
     public ResponseEntity<CardDTO> createCard(@RequestBody CreateCardDTO createCardDTO) {
         try {
             CardDTO newCard = cardService.createCard(createCardDTO);
@@ -73,7 +74,7 @@ public class CardController {
     }
 
 
-    @PutMapping("/cards/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CardDTO> updateCardById( @PathVariable("id") Long id, @RequestBody CreateCardDTO card) {
         try {
             CardDTO updatedCard = cardService.updateCard(id, card);
@@ -86,7 +87,7 @@ public class CardController {
 
 
     // Delete by id
-    @DeleteMapping("/cards/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Card> deleteCard(@RequestBody @PathVariable("id") Long id) {
         try {
             if (id != null){
@@ -99,7 +100,7 @@ public class CardController {
     }
 
     // Get card by card deck id
-    @GetMapping("/cards/card-deck/{id}")
+    @GetMapping("/card-deck/{id}")
     public ResponseEntity<List<Card>> findAllByCardDeckId(@PathVariable("id") long id) {
         //List<Card> cards = new ArrayList<Card>(cardRepository.findAllByCardDeckId(id));
         try {
@@ -116,7 +117,7 @@ public class CardController {
     }
 
     // Get cards by name LIKE
-    @GetMapping("/cards/card-name/{name}")
+    @GetMapping("/card-name/{name}")
     public ResponseEntity<List<Card>> findCardsByName( String name) {
         try {
             List<Card> cards = new ArrayList<Card>();
