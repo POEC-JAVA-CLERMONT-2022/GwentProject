@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.gwent_projet.entity.user.User;
+import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
@@ -27,8 +28,6 @@ public class UserServiceTest {
 
 	@Autowired
 	UserRepository userRepository;
-
-	private User globalUser = new User();
 
 	private Long tableLength;
 
@@ -72,11 +71,10 @@ public class UserServiceTest {
 	}
 
 	// --------------------------------------------------------------------------------
-	public void userAssertions(User repoReturnValue, User testUser) {
+	public void userCreationAssertions(User repoReturnValue, UserCreationDTO testUser) {
 		// for all variables, test if equal to input value
+		// role is not tested since it is always the same
 		assertThat(repoReturnValue).isNotNull();
-		assertThat(repoReturnValue.getRole()).isNotNull();
-		assertThat(repoReturnValue.getRole()).isEqualTo(testUser.getRole());
 		assertThat(repoReturnValue.getUsername()).isNotNull();
 		assertThat(repoReturnValue.getUsername()).isEqualTo(testUser.getUsername());
 		assertThat(repoReturnValue.getEmail()).isNotNull();
@@ -104,25 +102,32 @@ public class UserServiceTest {
 
 		// method to test
 		// create the testUser in the repository
-		globalUser = RNGenerator.nextObject(User.class);
-		globalUser.setId(null);
-		globalUser.setRole(0);
+		UserCreationDTO creationUser = new UserCreationDTO("newUsername", "newEmail", "newPassword");
 
-		UserDTO newUser = userService.createUser(globalUser);
+		/*
+		System.out.println(creationUser.username);
+		System.out.println(creationUser.email);
+		System.out.println(creationUser.password);
+		*/
+		
+		UserDTO newUser = userService.createUser(creationUser);
 
 		// assertions
 		// assert that data is not empty and corresponding fields are matching
 		assertThat(newUser).isNotNull();
 		assertThat(newUser.username).isNotNull();
 		assertThat(newUser.email).isNotNull();
-		assertThat(newUser.username).isEqualTo(globalUser.getUsername());
-		assertThat(newUser.email).isEqualTo(globalUser.getEmail());
+		assertThat(newUser.username).isEqualTo(creationUser.getUsername());
+		assertThat(newUser.email).isEqualTo(creationUser.getEmail());
 
 		// DB entry
 		// get the user just saved at this ID from the repository
-		User repoReturnValue = userRepository.findById(globalUser.getId()).orElse(null);
+		
+		// new user index is always current repo length + one
+		// -- this does not work if the test is run first. the method works but i have no idea how to retrieve the actual id from the repo
+		User repoReturnValue = userRepository.findById(userRepository.count() + 1).orElse(null);
 		// then test all fields with userAssertions
-		userAssertions(repoReturnValue, globalUser);
+		userCreationAssertions(repoReturnValue, creationUser);
 	}
 
 	// --------------------------------------------------------------------------------
@@ -173,18 +178,29 @@ public class UserServiceTest {
 		// get last user in repository
 		Long repoSizeBefore = userRepository.count();
 		UserDTO searchResultBefore = userService.getUserById(userRepository.count());
-
+		
+		/*
+		System.out.println("repo size: " + userRepository.count());
+		System.out.println("User: " + searchResultBefore.username);
+		System.out.println("Email: " + searchResultBefore.email);
+		*/
+		
 		// method to test
 		// delete the last user in the repository
 		userService.deleteUserById(userRepository.count());
 
 		Long repoSizeAfter = userRepository.count();
 		UserDTO searchResultAfter = userService.getUserById(userRepository.count());
+		
+		/*
 		System.out.println("repo size: " + userRepository.count());
 		System.out.println("User: " + searchResultAfter.username);
 		System.out.println("Email: " + searchResultAfter.email);
-
+		 */
+		
 		// assertions
+		// -- seemingly does not pass if there are two users or less in the repo at runtime
+		// -- actual method is working but the test might not be adequate
 		assertThat(searchResultBefore.username).isNotEqualTo(searchResultAfter.username);
 		assertThat(searchResultBefore.email).isNotEqualTo(searchResultAfter.email);
 		assertThat(repoSizeBefore).isNotEqualTo(repoSizeAfter);
@@ -201,10 +217,10 @@ public class UserServiceTest {
 		User updatedUserBefore = userRepository.findById(userRepository.count()).orElse(null);
 
 		// new user to test the update method
-		UserDTO testUser = new UserDTO("testUsername", "testEmail");
+		UserCreationDTO updatedUser = new UserCreationDTO("testUsername", "testEmail", "testPassword");
 		
 		// method to be tested
-		userService.updateUser(userRepository.count(), testUser);
+		userService.updateUser(userRepository.count(), updatedUser);
 
 		User updatedUserAfter = userRepository.findById(userRepository.count()).orElse(null);
 

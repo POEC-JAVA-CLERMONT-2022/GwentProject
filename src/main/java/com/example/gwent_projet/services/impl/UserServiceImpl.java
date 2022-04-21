@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.gwent_projet.entity.user.User;
+import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
@@ -26,10 +27,16 @@ public class UserServiceImpl implements UserService {
 	// ---------------------------------------------------------------------------------------
 
 	@Override
-	public UserDTO createUser(User createUser) {
-		userRepository.save(createUser);
+	public UserDTO createUser(UserCreationDTO createUser) {
+		
+		User user = new User(0, "", "", ""); // always set role to 0 on creation. might change if more roles are added
+		BeanUtils.copyProperties(createUser, user);
+		
+		
+		userRepository.save(user);
 		// DTO to be returned, populated with new user values
-		UserDTO newUser = new UserDTO(createUser.getUsername(), createUser.getEmail());
+		UserDTO newUser = new UserDTO();
+		BeanUtils.copyProperties(user, newUser);
 		return newUser;
 	}
 	
@@ -74,7 +81,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
-    public UserDTO updateUser(Long id, UserDTO newUser) {
+    public UserDTO updateUser(Long id, UserCreationDTO newUser) {
 		User user = userRepository.getById(id);
 		
         BeanUtils.copyProperties(newUser, user); // important: DTO needs getters and setters for this to work

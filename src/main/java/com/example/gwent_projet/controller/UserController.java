@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.gwent_projet.entity.user.User;
+import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
+
 import com.example.gwent_projet.services.UserService;
 
 @RestController 
@@ -29,7 +30,7 @@ public class UserController {
 	// actual object is used instead of DTO so that the password (and more) can be set on creation
 	// -- what about the id?
 	// -- is this a security issue?
-	public ResponseEntity<UserDTO> createUser(@RequestBody User user) {
+	public ResponseEntity<UserDTO> createUser(@RequestBody UserCreationDTO user) {
 		try {
 			// create user in repository with data provided by method
 			UserDTO newUser = userService.createUser(user);
@@ -78,7 +79,7 @@ public class UserController {
 	// Update user -----------------------------------------------------------------------------------------------------------------
 	// By ID
 	@PutMapping("/user/update/{id}")
-	public ResponseEntity<UserDTO> updateUserById(@PathVariable("id") Long id, @RequestBody UserDTO user) {
+	public ResponseEntity<UserDTO> updateUserById(@PathVariable("id") Long id, @RequestBody UserCreationDTO user) {
 		try {
 			// replace user at this ID with the new user
 			UserDTO updatedUser = userService.updateUser(id, user);

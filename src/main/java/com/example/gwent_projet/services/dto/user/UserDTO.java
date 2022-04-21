@@ -1,6 +1,5 @@
 package com.example.gwent_projet.services.dto.user;
 
-// ORM
 public class UserDTO {
 
 	public String username;

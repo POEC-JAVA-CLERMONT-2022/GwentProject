@@ -14,6 +14,7 @@ import com.example.gwent_projet.services.UserService;
 import com.example.gwent_projet.utils.consoleDisplay;
 
 @Service
+@Deprecated
 public class UserCommand {
 	// command input for testing
 	@Autowired
