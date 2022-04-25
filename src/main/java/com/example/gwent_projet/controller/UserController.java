@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gwent_projet.services.dto.user.UserCreationDTO;
@@ -19,6 +20,7 @@ import com.example.gwent_projet.services.dto.user.UserDTO;
 
 import com.example.gwent_projet.services.UserService;
 
+@RequestMapping("/user")
 @RestController 
 public class UserController {
 
@@ -26,7 +28,7 @@ public class UserController {
 	UserService userService;
 
 	// Create user -----------------------------------------------------------------------------------------------------------------
-	@PostMapping("/user/new")
+	@PostMapping("/new")
 	// actual object is used instead of DTO so that the password (and more) can be set on creation
 	// -- what about the id?
 	// -- is this a security issue?
@@ -45,7 +47,7 @@ public class UserController {
 
 	// Get user -----------------------------------------------------------------------------------------------------------------
 	// All users
-	@GetMapping("/user")
+	@GetMapping("")
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
 		try {
 			// new list of users
@@ -65,7 +67,7 @@ public class UserController {
 	}
 
 	// by ID
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
 		try { 
 			UserDTO searchResult = userService.getUserById(id);
@@ -78,7 +80,7 @@ public class UserController {
 
 	// Update user -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@PutMapping("/user/update/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<UserDTO> updateUserById(@PathVariable("id") Long id, @RequestBody UserCreationDTO user) {
 		try {
 			// replace user at this ID with the new user
@@ -93,7 +95,7 @@ public class UserController {
 
 	// Delete user -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@DeleteMapping("/user/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
 		try {
 			userService.deleteUserById(id);

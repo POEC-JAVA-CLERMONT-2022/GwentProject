@@ -1,13 +1,10 @@
 package com.example.gwent_projet.services.dto.deck;
 
-import java.time.LocalDate;
-
 public class DeckCreationDTO {
 	
 	public String name;
 	
 	public DeckCreationDTO(String name) {
-		// TODO Auto-generated constructor stub
 		this.name = name;
 	}
 	

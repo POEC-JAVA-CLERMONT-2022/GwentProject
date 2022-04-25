@@ -22,4 +22,11 @@ public class Favorites {
     @EmbeddedId
     private UserCardPK id;
 
+    public Favorites(UserCardPK id) {
+    	this.id = id;
+    }
+    
+    public Favorites() {
+    }
+    
 }
