@@ -23,7 +23,12 @@ public class UserCardPK implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Card card;
 
-	protected UserCardPK() {
+	public UserCardPK(User user, Card card) {
+		this.user = user;
+		this.card = card;
+	}
+	
+	public UserCardPK() {
 
 	}
 

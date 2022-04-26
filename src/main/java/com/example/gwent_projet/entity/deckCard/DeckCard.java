@@ -1,4 +1,4 @@
-package com.example.gwent_projet.entity.deck;
+package com.example.gwent_projet.entity.deckCard;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
@@ -21,9 +21,12 @@ public class DeckCard {
 
 	@EmbeddedId
 	private DeckCardPK id;
+	
+	private int nbItems;
 
-	public DeckCard(DeckCardPK id) {
+	public DeckCard(DeckCardPK id, int nbItems) {
 		this.id = id;
+		this.nbItems = nbItems;
 	}
 
 	public DeckCard() {
@@ -41,4 +44,14 @@ public class DeckCard {
 	public void setId(DeckCardPK id) {
 		this.id = id;
 	}
+
+	public int getNbItems() {
+		return nbItems;
+	}
+
+	public void setNbItems(int nbItems) {
+		this.nbItems = nbItems;
+	}
+	
+	
 }

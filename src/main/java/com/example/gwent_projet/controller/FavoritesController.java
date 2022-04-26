@@ -11,74 +11,75 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.gwent_projet.services.DeckCardService;
-import com.example.gwent_projet.services.dto.deckCard.DeckCardCreationDTO;
-import com.example.gwent_projet.services.dto.deckCard.DeckCardDTO;
+import com.example.gwent_projet.services.FavoritesService;
+import com.example.gwent_projet.services.dto.favorites.FavoritesDTO;
 
-@RequestMapping("/deck/cards")
+@RequestMapping("/favorites")
 @RestController
-public class DeckCardController {
-	
-	@Autowired
-	DeckCardService deckCardService;
+public class FavoritesController {
 
-	// Add card to deck ------------------------------------------------------------------------------------------------------------
+	@Autowired
+	FavoritesService favoritesService;
+
+	// Add favorite ----------------------------------------------------------------------------------------------------------------
 
 	@PutMapping("/add")
-	public ResponseEntity<DeckCardCreationDTO> addCardToDeck(Long deckId, Long cardId) {
+	public ResponseEntity<FavoritesDTO> addFavorite(Long userId, Long cardId) {
 		try {
-			DeckCardCreationDTO newDeckCard = deckCardService.addCardToDeck(deckId, cardId);
-			return new ResponseEntity<>(newDeckCard, HttpStatus.CREATED);
+			FavoritesDTO newFavorite = favoritesService.addFavorite(userId, cardId);
+			return new ResponseEntity<>(newFavorite, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	// Get all cards from deck -----------------------------------------------------------------------------------------------------
+	// Get all favorites from user -------------------------------------------------------------------------------------------------
 
 	@GetMapping("/")
-	public ResponseEntity<ArrayList<DeckCardDTO>> getAllCardsInDeck(Long deckId) {
+	public ResponseEntity<ArrayList<FavoritesDTO>> getAllUserFavorites(Long userId) {
 		try {
 			// new list of cards
-			ArrayList<DeckCardDTO> cards = new ArrayList<DeckCardDTO>();
+			ArrayList<FavoritesDTO> favorites = new ArrayList<FavoritesDTO>();
 			// get all cards from the repository and add them to the list
-			cards.addAll(deckCardService.getAllCardsInDeck(deckId));
-			if (cards.isEmpty()) {
+			favorites.addAll(favoritesService.getAllUserFavorites(userId));
+			if (favorites.isEmpty()) {
 				// if no results, return NO CONTENT HTTP status
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			// return all cards with OK HTTP status
-			return new ResponseEntity<>(cards, HttpStatus.OK);
+			return new ResponseEntity<>(favorites, HttpStatus.OK);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
+
+
 	// Delete card from deck -------------------------------------------------------------------------------------------------------
 	// All cards
 	@DeleteMapping("/remove")
-	public ResponseEntity<HttpStatus> deleteOneCardFromDeck(Long deckId, Long cardId) {
+	public ResponseEntity<HttpStatus> deleteOneUserFavorite(Long userId, Long cardId) {
 		try {
-			deckCardService.deleteOneCardFromDeck(deckId, cardId);
+			favoritesService.deleteOneUserFavorite(userId, cardId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	// One card
 	@DeleteMapping("/remove/all")
-	public ResponseEntity<HttpStatus> deleteAllCardsFromDeck(Long deckId) {
+	public ResponseEntity<HttpStatus> deleteAllUserFavorites(Long userId) {
 		try {
-			deckCardService.deleteAllCardsFromDeck(deckId);
+			favoritesService.deleteAllUserFavorites(userId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+
 }

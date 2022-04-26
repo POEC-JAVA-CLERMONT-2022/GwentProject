@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.gwent_projet.services.UserService;
 import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
-
-import com.example.gwent_projet.services.UserService;
 
 @RequestMapping("/user")
 @RestController 

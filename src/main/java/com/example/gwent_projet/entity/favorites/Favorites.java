@@ -11,22 +11,38 @@ import com.example.gwent_projet.entity.pk.UserCardPK;
 
 @Entity
 @AssociationOverrides(
-	    {
-	        @AssociationOverride(name = "favorites.user", joinColumns = @JoinColumn(name = "user_id")),
-	        @AssociationOverride(name = "favorites.card", joinColumns = @JoinColumn(name = "card_id")),
-	    }
-	)
+		{
+			@AssociationOverride(name = "favorites.user", joinColumns = @JoinColumn(name = "user_id")),
+			@AssociationOverride(name = "favorites.card", joinColumns = @JoinColumn(name = "card_id")),
+		}
+		)
 @Table(name = "favorites")
 public class Favorites {
 
-    @EmbeddedId
-    private UserCardPK id;
+	@EmbeddedId
+	private UserCardPK id;
 
-    public Favorites(UserCardPK id) {
-    	this.id = id;
-    }
-    
-    public Favorites() {
-    }
-    
+	public Favorites(UserCardPK id) {
+		this.id = id;
+	}
+
+	public Favorites() {
+	}
+
+	// overrides -----------------------------------------------------------------------------
+
+
+	// getters & setters ----------------------------------------------------------------------
+
+
+	public UserCardPK getId() {
+		return id;
+	}
+
+	public void setId(UserCardPK id) {
+		this.id = id;
+	}
+
+
+
 }
