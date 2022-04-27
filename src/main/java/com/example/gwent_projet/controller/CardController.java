@@ -50,9 +50,9 @@ public class CardController {
 
     // Get card by id
     @GetMapping("/{id}")
-    public ResponseEntity<CreateCardDTO> getCardById(@PathVariable("id") long id) {
+    public ResponseEntity<CardDTO> getCardById(@PathVariable("id") long id) {
         try {
-            CreateCardDTO findCard = cardService.getCardById(id);
+            CardDTO findCard = cardService.getCardById(id);
             return new ResponseEntity<>(findCard, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();

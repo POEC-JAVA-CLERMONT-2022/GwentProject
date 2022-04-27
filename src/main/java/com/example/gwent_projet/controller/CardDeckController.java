@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*")
 @RequestMapping("cardDecks")
 @RestController
 public class CardDeckController {
@@ -42,9 +42,9 @@ public class CardDeckController {
 
     // Get CD by id
     @GetMapping("/{id}")
-    public ResponseEntity<CreateCardDeckDTO> getCardDeckById(@PathVariable("id") long id) {
+    public ResponseEntity<CardDeckDTO> getCardDeckById(@PathVariable("id") long id) {
         try {
-            CreateCardDeckDTO findCardDeck = cardDeckService.getCardDeckById(id);
+            CardDeckDTO findCardDeck = cardDeckService.getCardDeckById(id);
             return new ResponseEntity<>(findCardDeck, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();

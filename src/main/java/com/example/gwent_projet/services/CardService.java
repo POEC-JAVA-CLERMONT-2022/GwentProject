@@ -20,7 +20,7 @@ public interface CardService {
     CardDTO createCard(CreateCardDTO createCardDTO);
 
     @Transactional(readOnly = true)
-    CreateCardDTO getCardById(Long id);
+    CardDTO getCardById(Long id);
 
     CardDTO updateCard(Long id, CreateCardDTO editCard);
 

@@ -6,7 +6,13 @@ public class CardDeckDTO {
 
     private String name;
 
+    public CardDeckDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public CardDeckDTO() {
+
     }
 
     @Override
