@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gwent_projet.services.FavoritesService;
+import com.example.gwent_projet.services.dto.card.CardDTO;
 import com.example.gwent_projet.services.dto.favorites.FavoritesDTO;
 
 @RequestMapping("/favorites")
@@ -37,10 +38,10 @@ public class FavoritesController {
 	// Get all favorites from user -------------------------------------------------------------------------------------------------
 
 	@GetMapping("/")
-	public ResponseEntity<ArrayList<FavoritesDTO>> getAllUserFavorites(Long userId) {
+	public ResponseEntity<ArrayList<CardDTO>> getAllUserFavorites(Long userId) {
 		try {
 			// new list of cards
-			ArrayList<FavoritesDTO> favorites = new ArrayList<FavoritesDTO>();
+			ArrayList<CardDTO> favorites = new ArrayList<CardDTO>();
 			// get all cards from the repository and add them to the list
 			favorites.addAll(favoritesService.getAllUserFavorites(userId));
 			if (favorites.isEmpty()) {

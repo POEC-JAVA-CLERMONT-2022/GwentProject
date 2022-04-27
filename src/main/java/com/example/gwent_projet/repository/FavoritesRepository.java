@@ -15,15 +15,15 @@ import com.example.gwent_projet.entity.pk.UserCardPK;
 public interface FavoritesRepository extends JpaRepository<Favorites, UserCardPK>  {
 
 	@Query(value="SELECT F.card_id, F.user_id FROM favorites AS F WHERE F.user_id = :id", nativeQuery=true)
-	 ArrayList<Favorites> getAllUserFavorites(@Param("id") Long userId);
-	 
-	 @Query(value="DELETE FROM favorites WHERE user_id = :id1 AND card_id = :id2", nativeQuery=true)
-	 @Modifying
-	 void deleteOneUserFavorite(@Param("id1") Long userId, @Param("id2") Long cardId);
-	 
-	 @Query(value="DELETE FROM favorites WHERE user_id = :id", nativeQuery=true)
-	 @Modifying
-	 void deleteAllUserFavorites(@Param("id") Long userId);
-	 
-	
+	ArrayList<Favorites> getAllUserFavorites(@Param("id") Long userId);
+
+	@Query(value="DELETE FROM favorites WHERE user_id = :id1 AND card_id = :id2", nativeQuery=true)
+	@Modifying
+	void deleteOneUserFavorite(@Param("id1") Long userId, @Param("id2") Long cardId);
+
+	@Query(value="DELETE FROM favorites WHERE user_id = :id", nativeQuery=true)
+	@Modifying
+	void deleteAllUserFavorites(@Param("id") Long userId);
+
+
 }
