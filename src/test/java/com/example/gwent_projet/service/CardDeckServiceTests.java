@@ -51,7 +51,7 @@ public class CardDeckServiceTests {
 
         CardDeckDTO cardDeckDTO = cardDeckService.createCardDeck(createCardDeckDTO);
 
-        CreateCardDeckDTO createCardDeckDTO = cardDeckService.getCardDeckById(1L);
+        CardDeckDTO createCardDeckDTO = cardDeckService.getCardDeckById(1L);
 
         // assertions
         assertThat(cardDeckDTO).isNotNull();

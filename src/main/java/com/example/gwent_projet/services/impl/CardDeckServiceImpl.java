@@ -2,7 +2,6 @@ package com.example.gwent_projet.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,11 +50,12 @@ public class CardDeckServiceImpl implements CardDeckService {
     }
 
     @Override
-    public CreateCardDeckDTO getCardDeckById(Long id) {
+    public CardDeckDTO getCardDeckById(Long id) {
 
         CardDeck cardDeckSearch = cardDeckRepository.findById(id).orElse(null);
 
-        CreateCardDeckDTO searchResult = new CreateCardDeckDTO(
+        CardDeckDTO searchResult = new CardDeckDTO(
+                cardDeckSearch.getId(),
                 cardDeckSearch.getName() );
 
         return searchResult;
