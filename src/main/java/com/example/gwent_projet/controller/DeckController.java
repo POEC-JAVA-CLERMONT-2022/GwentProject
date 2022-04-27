@@ -15,28 +15,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.gwent_projet.services.UserService;
-import com.example.gwent_projet.services.dto.user.UserCreationDTO;
-import com.example.gwent_projet.services.dto.user.UserDTO;
+import com.example.gwent_projet.services.DeckService;
+import com.example.gwent_projet.services.dto.deck.DeckCreationDTO;
+import com.example.gwent_projet.services.dto.deck.DeckDTO;
 
-@RequestMapping("/user")
-@RestController 
-public class UserController {
+@RequestMapping("/deck")
+@RestController
+public class DeckController {
 
 	@Autowired
-	UserService userService;
+	DeckService deckService;
 
-	// Create user -----------------------------------------------------------------------------------------------------------------
+	// Create deck -----------------------------------------------------------------------------------------------------------------
 	@PostMapping("/new")
-	// actual object is used instead of DTO so that the password (and more) can be set on creation
-	// -- what about the id?
-	// -- is this a security issue?
-	public ResponseEntity<UserDTO> createUser(@RequestBody UserCreationDTO user) {
+	public ResponseEntity<DeckDTO> createDeck(Long userId, @RequestBody DeckCreationDTO deck) {
 		try {
-			// create user in repository with data provided by method
-			UserDTO newUser = userService.createUser(user);
-			// then return a response entity with this user, and the CREATED HTTP status
-			return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+			// create deck in repository with data provided by method
+			DeckDTO newDeck = deckService.createDeck(userId, deck);
+			// then return a response entity with this deck, and the CREATED HTTP status
+			return new ResponseEntity<>(newDeck, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
 			e.printStackTrace();
@@ -44,21 +41,21 @@ public class UserController {
 		}
 	}
 
-	// Get user -----------------------------------------------------------------------------------------------------------------
-	// All users
+	// Get deck -----------------------------------------------------------------------------------------------------------------
+	// All decks
 	@GetMapping("")
-	public ResponseEntity<List<UserDTO>> getAllUsers() {
+	public ResponseEntity<List<DeckDTO>> getAllDecks() {
 		try {
 			// new list of users
-			List<UserDTO> users = new ArrayList<UserDTO>();
+			List<DeckDTO> decks = new ArrayList<DeckDTO>();
 			// get all users from the repository and add them to the list
-			users.addAll(userService.getAllUsers());
-			if (users.isEmpty()) {
+			decks.addAll(deckService.getAllDecks());
+			if (decks.isEmpty()) {
 				// if no results, return NO CONTENT HTTP status
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			// return all users with OK HTTP status
-			return new ResponseEntity<>(users, HttpStatus.OK);
+			return new ResponseEntity<>(decks, HttpStatus.OK);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -67,9 +64,9 @@ public class UserController {
 
 	// by ID
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
+	public ResponseEntity<DeckDTO> getDeckById(@PathVariable("id") Long id) {
 		try { 
-			UserDTO searchResult = userService.getUserById(id);
+			DeckDTO searchResult = deckService.getDeckById(id);
 			return new ResponseEntity<>(searchResult, HttpStatus.OK);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
@@ -77,31 +74,30 @@ public class UserController {
 		}
 	}
 
-	// Update user -----------------------------------------------------------------------------------------------------------------
+	// Update deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
 	@PutMapping("/update/{id}")
-	public ResponseEntity<UserDTO> updateUserById(@PathVariable("id") Long id, @RequestBody UserCreationDTO user) {
+	public ResponseEntity<DeckDTO> updateDeckById(@PathVariable("id") Long id, @RequestBody DeckCreationDTO deck) {
 		try {
 			// replace user at this ID with the new user
-			UserDTO updatedUser = userService.updateUser(id, user);
+			DeckDTO updatedDeck = deckService.updateDeck(id, deck);
 			// then return a response entity with this user, and the CREATED HTTP status
-			return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
+			return new ResponseEntity<>(updatedDeck, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	// Delete user -----------------------------------------------------------------------------------------------------------------
+	// Delete deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
+	public ResponseEntity<HttpStatus> deleteDeck(@PathVariable("id") Long id) {
 		try {
-			userService.deleteUserById(id);
+			deckService.deleteDeckById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 }

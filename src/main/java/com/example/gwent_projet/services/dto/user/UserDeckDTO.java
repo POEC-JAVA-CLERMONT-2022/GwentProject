@@ -1,21 +1,39 @@
 package com.example.gwent_projet.services.dto.user;
 
-import java.util.List;
-
-import com.example.gwent_projet.entity.card.Card;
-
 public class UserDeckDTO {
-
-	public String name;
-	public String owner;
-	public List<Card> cards;
 	
-	public UserDeckDTO(String name, String owner, List<Card> cards) {
+	public Long id;
+	public String username;
+	
+	public UserDeckDTO(Long id, String username) {
 		// TODO Auto-generated constructor stub
-		this.name = name;
-		this.owner = owner;
-		this.cards = cards;
+		this.id = id;
+		this.username = username;
 	}
-	
-	
+
+	public UserDeckDTO() {
+
+	}
+
+	// overrides -----------------------------------------------------------------------------
+
+
+	// getters & setters ----------------------------------------------------------------------
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 }

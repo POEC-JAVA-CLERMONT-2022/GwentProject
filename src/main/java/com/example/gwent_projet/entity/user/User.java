@@ -1,17 +1,19 @@
 package com.example.gwent_projet.entity.user;
 
-import java.util.List;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table (name = "user")
-@Inheritance (strategy = InheritanceType.JOINED)
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
+	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 
 	@Column (name = "role", length = 50, nullable = false)
@@ -25,11 +27,7 @@ public class User {
 
 	@Column (name = "password", nullable = false)
 	private String password;
-/*
-	@Column (name = "userDeck")
-	@OneToMany (fetch = FetchType.EAGER, mappedBy = "owner")
-	private List<UserDeck> userDeck;
-*/
+
 	public User (int role, String username, String email, String password) {
 		this.role = role;
 		this.username = username;
@@ -52,7 +50,6 @@ public class User {
 				'}';
 	}
 
-
 	// getters & setters ----------------------------------------------------------------------
 
 	public Long getId() {
@@ -62,7 +59,7 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public int getRole() {
 		return role;
 	}
@@ -96,13 +93,4 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-/*
-	public List<UserDeck> getUserDecks() {
-		return userDeck;
-	}
-
-	public void setUserDecks(List<UserDeck> userDeck) {
-		this.userDeck = userDeck;
-	}
-*/
 }

@@ -1,17 +1,18 @@
 package com.example.gwent_projet.services.dto.user;
 
-public class UserDTO {
-
+public class UserCreationDTO {
+	
 	public String username;
 	public String email;
-
-	public UserDTO(String username, String email) {
-		// TODO Auto-generated constructor stub
+	public String password;
+	
+	public UserCreationDTO(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
+		this.password = password;
 	}
 
-	public UserDTO() {
+	public UserCreationDTO() {
 
 	}
 
@@ -19,7 +20,6 @@ public class UserDTO {
 
 
 	// getters & setters ----------------------------------------------------------------------
-
 
 	public String getUsername() {
 		return username;
@@ -36,6 +36,13 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
+	public String getPassword() {
+		return password;
+	}
 
-
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
