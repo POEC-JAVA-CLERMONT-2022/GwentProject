@@ -1,5 +1,6 @@
 package com.example.gwent_projet.services;
 
+@Deprecated
 public enum MenuService {
 
 	CREATE_ACCOUNT("1", "Create account"),
