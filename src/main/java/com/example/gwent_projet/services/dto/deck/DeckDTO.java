@@ -4,14 +4,13 @@ import java.time.LocalDate;
 
 import com.example.gwent_projet.services.dto.user.UserDeckDTO;
 
-public class DeckDTO extends DeckCreationDTO {
+public class DeckDTO {
 
+	public String name;
 	public LocalDate createdAt;
 	public UserDeckDTO owner;
 	
 	public DeckDTO(String name, LocalDate createdAt, UserDeckDTO owner) {
-		// TODO Auto-generated constructor stub
-		super();
 		this.name = name;
 		this.createdAt = createdAt;
 		this.owner = owner;
@@ -26,6 +25,13 @@ public class DeckDTO extends DeckCreationDTO {
 
 	// getters & setters ----------------------------------------------------------------------
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public UserDeckDTO getOwner() {
 		return owner;

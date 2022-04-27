@@ -119,5 +119,5 @@ public class DeckServiceImpl implements DeckService {
 	@Override
 	public void deleteDeckById(Long id) {
 		deckRepository.deleteById(id);
-	}
+	}	
 }

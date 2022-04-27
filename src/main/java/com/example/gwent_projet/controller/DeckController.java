@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gwent_projet.services.DeckService;
 import com.example.gwent_projet.services.dto.deck.DeckCreationDTO;
 import com.example.gwent_projet.services.dto.deck.DeckDTO;
 
+@RequestMapping("/deck")
 @RestController
 public class DeckController {
 
@@ -25,7 +27,7 @@ public class DeckController {
 	DeckService deckService;
 
 	// Create deck -----------------------------------------------------------------------------------------------------------------
-	@PostMapping("/deck/new")
+	@PostMapping("/new")
 	public ResponseEntity<DeckDTO> createDeck(Long userId, @RequestBody DeckCreationDTO deck) {
 		try {
 			// create deck in repository with data provided by method
@@ -41,7 +43,7 @@ public class DeckController {
 
 	// Get deck -----------------------------------------------------------------------------------------------------------------
 	// All decks
-	@GetMapping("/deck")
+	@GetMapping("")
 	public ResponseEntity<List<DeckDTO>> getAllDecks() {
 		try {
 			// new list of users
@@ -61,7 +63,7 @@ public class DeckController {
 	}
 
 	// by ID
-	@GetMapping("/deck/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<DeckDTO> getDeckById(@PathVariable("id") Long id) {
 		try { 
 			DeckDTO searchResult = deckService.getDeckById(id);
@@ -74,7 +76,7 @@ public class DeckController {
 
 	// Update deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@PutMapping("/deck/update/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<DeckDTO> updateDeckById(@PathVariable("id") Long id, @RequestBody DeckCreationDTO deck) {
 		try {
 			// replace user at this ID with the new user
@@ -89,7 +91,7 @@ public class DeckController {
 
 	// Delete deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@DeleteMapping("/deck/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<HttpStatus> deleteDeck(@PathVariable("id") Long id) {
 		try {
 			deckService.deleteDeckById(id);
@@ -98,31 +100,4 @@ public class DeckController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	// Card actions in deck
-	// Add card to deck ------------------------------------------------------------------------------------------------------------
-	
-	@PutMapping("/deck/{id}/addCard")
-	public ResponseEntity<DeckDTO> addCardToDeck(/* deck id, card id */) {
-		try {
-			// add card to deck
-			return new ResponseEntity<>(/* card id ,*/HttpStatus.CREATED);
-		} catch (Exception e) {
-			// return null value with ERROR HTTP status
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	// Delete card from deck -------------------------------------------------------------------------------------------------------
-	
-	@DeleteMapping("/deck/{id}/removeCard")
-	public ResponseEntity<HttpStatus> deleteCardFromDeck(/* deck id, card id */) {
-		try {
-			// delete card from deck
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
 }

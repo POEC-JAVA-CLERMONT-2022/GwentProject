@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,8 @@ public class UserServiceTest {
 	private EasyRandom RNGenerator = new EasyRandom();
 
 	private consoleDisplay consoleDisplay = new consoleDisplay();
+	
+	private User user;
 
 	// --------------------------------------------------------------------------------
 	@BeforeEach
@@ -48,7 +51,7 @@ public class UserServiceTest {
 		consoleDisplay.separator();
 		System.out.println("initRepo - List of all users");
 		consoleDisplay.separator();
-		
+
 		System.out.println("Table length: " + tableLength);
 
 		// populate repository
@@ -57,8 +60,12 @@ public class UserServiceTest {
 			User tempUser = RNGenerator.nextObject(User.class);
 			tempUser.setId(null);
 			tempUser.setRole(0);
-
-			userRepository.save(tempUser);
+			
+			tempUser = userRepository.save(tempUser);
+			
+			if (user == null) {
+				user = tempUser;
+			}
 
 			User repoReturnValue = userRepository.findById(tempUser.getId()).orElse(null);
 			System.out.println("Name: " + repoReturnValue.getUsername());
@@ -68,6 +75,11 @@ public class UserServiceTest {
 			System.out.println("Id: " + repoReturnValue.getId());
 		}
 		System.out.println("Total repo size: " + userRepository.count());
+	}
+	
+	@AfterEach
+	public void cleanupRepo() {
+		userRepository.deleteAll();
 	}
 
 	// --------------------------------------------------------------------------------
@@ -104,12 +116,12 @@ public class UserServiceTest {
 		// create the testUser in the repository
 		UserCreationDTO creationUser = new UserCreationDTO("newUsername", "newEmail", "newPassword");
 
-		/*
-		System.out.println(creationUser.username);
-		System.out.println(creationUser.email);
-		System.out.println(creationUser.password);
-		*/
-		
+
+		// System.out.println(creationUser.username);
+		// System.out.println(creationUser.email);
+		// System.out.println(creationUser.password);
+
+
 		UserDTO newUser = userService.createUser(creationUser);
 
 		// assertions
@@ -122,7 +134,7 @@ public class UserServiceTest {
 
 		// DB entry
 		// get the user just saved at this ID from the repository
-		
+
 		// new user index is always current repo length + one
 		// -- this does not work if the test is run first. the method works but i have no idea how to retrieve the actual id from the repo
 		User repoReturnValue = userRepository.findById(userRepository.count() + 1).orElse(null);
@@ -178,26 +190,26 @@ public class UserServiceTest {
 		// get last user in repository
 		Long repoSizeBefore = userRepository.count();
 		UserDTO searchResultBefore = userService.getUserById(userRepository.count());
-		
-		/*
-		System.out.println("repo size: " + userRepository.count());
-		System.out.println("User: " + searchResultBefore.username);
-		System.out.println("Email: " + searchResultBefore.email);
-		*/
-		
+
+
+		// System.out.println("repo size: " + userRepository.count());
+		// System.out.println("User: " + searchResultBefore.username);
+		// System.out.println("Email: " + searchResultBefore.email);
+
+
 		// method to test
 		// delete the last user in the repository
 		userService.deleteUserById(userRepository.count());
 
 		Long repoSizeAfter = userRepository.count();
 		UserDTO searchResultAfter = userService.getUserById(userRepository.count());
-		
-		/*
-		System.out.println("repo size: " + userRepository.count());
-		System.out.println("User: " + searchResultAfter.username);
-		System.out.println("Email: " + searchResultAfter.email);
-		 */
-		
+
+
+		// System.out.println("repo size: " + userRepository.count());
+		// System.out.println("User: " + searchResultAfter.username);
+		// System.out.println("Email: " + searchResultAfter.email);
+
+
 		// assertions
 		// -- seemingly does not pass if there are two users or less in the repo at runtime
 		// -- actual method is working but the test might not be adequate
@@ -218,7 +230,7 @@ public class UserServiceTest {
 
 		// new user to test the update method
 		UserCreationDTO updatedUser = new UserCreationDTO("testUsername", "testEmail", "testPassword");
-		
+
 		// method to be tested
 		userService.updateUser(userRepository.count(), updatedUser);
 

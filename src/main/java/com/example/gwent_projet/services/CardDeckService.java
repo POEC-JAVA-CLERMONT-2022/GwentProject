@@ -1,9 +1,11 @@
 package com.example.gwent_projet.services;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.gwent_projet.services.dto.cardDeck.CardDeckDTO;
 import com.example.gwent_projet.services.dto.cardDeck.CreateCardDeckDTO;
-import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public interface CardDeckService {
