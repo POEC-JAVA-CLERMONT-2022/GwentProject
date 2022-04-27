@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
+@RequestMapping("cardDecks")
 @RestController
 public class CardDeckController {
 
@@ -22,7 +24,7 @@ public class CardDeckController {
     CardDeckService cardDeckService;
 
     // Get all cardDeck
-    @GetMapping("/cardDecks")
+    @GetMapping("")
     public ResponseEntity<List<CardDeckDTO>> getAllCardDeck(@RequestParam(required = false) Long id) {
         try {
             List<CardDeckDTO> cardDecks = new ArrayList<CardDeckDTO>();
@@ -39,10 +41,10 @@ public class CardDeckController {
 
 
     // Get CD by id
-    @GetMapping("/cardDecks/{id}")
-    public ResponseEntity<CreateCardDeckDTO> getCardDeckById(@PathVariable("id") long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<CardDeckDTO> getCardDeckById(@PathVariable("id") long id) {
         try {
-            CreateCardDeckDTO findCardDeck = cardDeckService.getCardDeckById(id);
+            CardDeckDTO findCardDeck = cardDeckService.getCardDeckById(id);
             return new ResponseEntity<>(findCardDeck, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +52,7 @@ public class CardDeckController {
         }
     }
 
-    @PostMapping("/cardDecks")
+    @PostMapping("")
     public ResponseEntity<CardDeckDTO> createCardDeck(@RequestBody CreateCardDeckDTO createCardDeckDTO) {
         try {
             CardDeckDTO newCardDeck = cardDeckService.createCardDeck(createCardDeckDTO);
@@ -62,7 +64,7 @@ public class CardDeckController {
     }
 
 
-    @PutMapping("/cardDecks/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CardDeckDTO> updateCardDeckById(@PathVariable("id") Long id, @RequestBody CreateCardDeckDTO cardDeck) {
 
         try {
@@ -76,7 +78,7 @@ public class CardDeckController {
 
 
     // Delete by id
-    @DeleteMapping("/cardDecks/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<CardDeck> deleteCardDeck(@RequestBody @PathVariable("id") Long id) {
         try {
             if (id != null){

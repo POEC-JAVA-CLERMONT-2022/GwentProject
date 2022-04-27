@@ -78,7 +78,7 @@ class CardApplicationTests {
     void testCardFindById() {
 
         CardDTO createdCard = cardService.createCard(createCardDTO1);
-        CreateCardDTO card = cardService.getCardById(1L);
+        CardDTO card = cardService.getCardById(1L);
 
         // assertions
         assertThat(createdCard).isNotNull();
@@ -128,7 +128,7 @@ class CardApplicationTests {
 
         // modifier
        CreateCardDTO cardUpdate = new CreateCardDTO(
-               "Momo", "Mama", 2, "description",
+                "Momo", "Mama", 2, "description",
                "location", null, Ability.BERSERKER, Row.AGILE, Type.HERO);
 
 

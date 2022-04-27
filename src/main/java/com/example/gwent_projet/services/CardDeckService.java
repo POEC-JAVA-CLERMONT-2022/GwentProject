@@ -12,7 +12,7 @@ public interface CardDeckService {
 
     CardDeckDTO createCardDeck(CreateCardDeckDTO createCardDeckDTO);
 
-    CreateCardDeckDTO getCardDeckById(Long id);
+    CardDeckDTO getCardDeckById(Long id);
 
     CardDeckDTO updateCardDeck(Long id, CreateCardDeckDTO createCardDeckDTO);
 

@@ -59,11 +59,12 @@ public class CardServiceImpl implements CardService {
 
 
     @Override
-    public CreateCardDTO getCardById(Long id) {
+    public CardDTO getCardById(Long id) {
 
         Card cardSearch = cardRepository.findById(id).orElse(null);
 
-        CreateCardDTO searchResult = new CreateCardDTO(
+        CardDTO searchResult = new CardDTO(
+                cardSearch.getId(),
                 cardSearch.getName(),
                 cardSearch.getPicture(),
                 cardSearch.getPowerLvl(),

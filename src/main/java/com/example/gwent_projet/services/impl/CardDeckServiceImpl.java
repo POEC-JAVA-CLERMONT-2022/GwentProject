@@ -2,6 +2,7 @@ package com.example.gwent_projet.services.impl;
 
 import com.example.gwent_projet.entity.card.CardDeck;
 import com.example.gwent_projet.repository.CardDeckRepository;
+import com.example.gwent_projet.services.dto.card.CardDTO;
 import com.example.gwent_projet.services.dto.cardDeck.CardDeckDTO;
 import com.example.gwent_projet.services.dto.cardDeck.CreateCardDeckDTO;
 import org.springframework.beans.BeanUtils;
@@ -50,11 +51,12 @@ public class CardDeckServiceImpl implements CardDeckService {
     }
 
     @Override
-    public CreateCardDeckDTO getCardDeckById(Long id) {
+    public CardDeckDTO getCardDeckById(Long id) {
 
         CardDeck cardDeckSearch = cardDeckRepository.findById(id).orElse(null);
 
-        CreateCardDeckDTO searchResult = new CreateCardDeckDTO(
+        CardDeckDTO searchResult = new CardDeckDTO(
+                cardDeckSearch.getId(),
                 cardDeckSearch.getName() );
 
         return searchResult;
