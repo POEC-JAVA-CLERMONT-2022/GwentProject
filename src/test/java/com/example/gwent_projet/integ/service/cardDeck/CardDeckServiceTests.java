@@ -1,4 +1,4 @@
-package com.example.gwent_projet.service;
+package com.example.gwent_projet.integ.service.cardDeck;
 
 import com.example.gwent_projet.repository.CardDeckRepository;
 import com.example.gwent_projet.services.CardDeckService;

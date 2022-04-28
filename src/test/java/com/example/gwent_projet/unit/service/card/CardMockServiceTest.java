@@ -1,4 +1,4 @@
-package com.example.gwent_projet.service;
+package com.example.gwent_projet.unit.service.card;
 import com.example.gwent_projet.entity.card.Ability;
 import com.example.gwent_projet.entity.card.Card;
 import com.example.gwent_projet.entity.card.Row;

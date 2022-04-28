@@ -1,4 +1,4 @@
-package com.example.gwent_projet.service;
+package com.example.gwent_projet.integ.service.card;
 
 
 import com.example.gwent_projet.entity.card.*;

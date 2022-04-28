@@ -1,4 +1,4 @@
-package com.example.gwent_projet.service;
+package com.example.gwent_projet.integ.service.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
