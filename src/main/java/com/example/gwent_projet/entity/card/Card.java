@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table (name = "card")
@@ -24,20 +22,19 @@ public class Card {
     @Column(name = "id")
     private Long id;
 
-    @Size(min=2, max=10)
+    // @Size(min=2, max=10)
     private String name;
-
 
     private String picture;
 
-    @Min(1)
+    // @Min(1)
     @Column(name = "power_lvl")
     private Integer powerLvl;
 
-    @Size(min=5, max=50)
+    // @Size(min=5, max=50)
     private String description;
 
-    @Size(min=5, max=20)
+    // @Size(min=5, max=20)
     private String location;
 
     @JoinColumn(name = "cardDeck_id")
