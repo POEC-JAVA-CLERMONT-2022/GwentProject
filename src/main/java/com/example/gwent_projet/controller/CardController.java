@@ -66,7 +66,7 @@ public class CardController {
 
 
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<CardDTO> createCard(@RequestBody CreateCardDTO createCardDTO) {
         try {
             CardDTO newCard = cardService.createCard(createCardDTO);
