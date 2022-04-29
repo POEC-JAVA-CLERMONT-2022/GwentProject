@@ -1,8 +1,7 @@
 package com.example.gwent_projet.unit.service.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,12 +30,8 @@ public class CreateUserServiceImplTest {
 	@Test
 	@DisplayName ("User - Creation")
 	public void createUserTest() {
-		System.out.println("--------------");
-		System.out.println("User - Creation");
-		System.out.println("--------------");
-
-		// when .save is used on a mocked userRepository, return a new User
-		when(mockUserRepository.save(Mockito.any(User.class))).thenReturn(new User(0, null, null, null));
+		// when save is invoked, return a new User with these values
+		when(mockUserRepository.save(any(User.class))).thenReturn(new User(0, null, null, null));
 
 		// method to test
 		// create the testUser in the repository
@@ -44,13 +39,13 @@ public class CreateUserServiceImplTest {
 		UserDTO newUser = userService.createUser(creationUser);
 		
 		// assertions
-		// assert that data is not empty and corresponding fields are matching
 		assertThat(newUser).isNotNull();
 		assertThat(newUser.username).isNotNull();
 		assertThat(newUser.email).isNotNull();
 		assertThat(newUser.username).isEqualTo(creationUser.username);
 		assertThat(newUser.email).isEqualTo(creationUser.email);
+		
 		// verify that the save method, when used once, saves an user
-		Mockito.verify(mockUserRepository, times(1)).save(Mockito.any(User.class)); 
+		verify(mockUserRepository, times(1)).save(Mockito.any(User.class)); 
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.gwent_projet.service;
+package com.example.gwent_projet.integ.service.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +19,7 @@ import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
-import com.example.gwent_projet.utils.consoleDisplay;
+// import com.example.gwent_projet.utils.consoleDisplay;
 
 @SpringBootTest
 public class UserServiceTest {
@@ -34,13 +34,18 @@ public class UserServiceTest {
 
 	private EasyRandom RNGenerator = new EasyRandom();
 
-	private consoleDisplay consoleDisplay = new consoleDisplay();
+	// private consoleDisplay consoleDisplay = new consoleDisplay();
 	
 	private User user;
 
 	// --------------------------------------------------------------------------------
 	@BeforeEach
 	public void initRepo() {
+		/*
+		consoleDisplay.separator();
+		System.out.println("initRepo - List of all users");
+		consoleDisplay.separator();
+		*/
 		// random index for table length
 		Random random = new Random();
 		tableLength = random.nextLong(20);
@@ -48,11 +53,8 @@ public class UserServiceTest {
 		if (tableLength == 0l) {
 			tableLength++;
 		}
-		consoleDisplay.separator();
-		System.out.println("initRepo - List of all users");
-		consoleDisplay.separator();
 
-		System.out.println("Table length: " + tableLength);
+		// System.out.println("Table length: " + tableLength);
 
 		// populate repository
 		for (Long sweeper = 0l; sweeper < tableLength; sweeper++) {
@@ -63,24 +65,38 @@ public class UserServiceTest {
 			
 			tempUser = userRepository.save(tempUser);
 			
+			// get the first user of each instance of the repo
+			// this will be used for our tests
 			if (user == null) {
 				user = tempUser;
 			}
-
+			
+			/*
 			User repoReturnValue = userRepository.findById(tempUser.getId()).orElse(null);
 			System.out.println("Name: " + repoReturnValue.getUsername());
 			System.out.println("Email: " + repoReturnValue.getEmail());
 			System.out.println("Password: " + repoReturnValue.getPassword());
 			System.out.println("Role: " + repoReturnValue.getRole());
 			System.out.println("Id: " + repoReturnValue.getId());
+			*/
 		}
+		/*
 		System.out.println("Total repo size: " + userRepository.count());
+		System.out.println("glb user: " + user.getId() + " " + user.getUsername());
+		*/
 	}
 	
 	@AfterEach
 	public void cleanupRepo() {
 		userRepository.deleteAll();
 	}
+	
+	/*
+	@AfterEach
+	public void displayEnd() {
+		System.out.println("----- end of task ------");
+	}
+	*/
 
 	// --------------------------------------------------------------------------------
 	public void userCreationAssertions(User repoReturnValue, UserCreationDTO testUser) {
@@ -108,22 +124,18 @@ public class UserServiceTest {
 	@Test
 	@DisplayName ("User - Creation")
 	public void createUserTest() {
+		/*
 		consoleDisplay.separator();
 		System.out.println("User - Creation");
 		consoleDisplay.separator();
-
-		// method to test
-		// create the testUser in the repository
+		*/
+		
+		// create a new user
 		UserCreationDTO creationUser = new UserCreationDTO("newUsername", "newEmail", "newPassword");
-
-
-		// System.out.println(creationUser.username);
-		// System.out.println(creationUser.email);
-		// System.out.println(creationUser.password);
-
-
+		// method to test
+		// insert creationUser in repository and save the result in a DTO
 		UserDTO newUser = userService.createUser(creationUser);
-
+		
 		// assertions
 		// assert that data is not empty and corresponding fields are matching
 		assertThat(newUser).isNotNull();
@@ -132,12 +144,11 @@ public class UserServiceTest {
 		assertThat(newUser.username).isEqualTo(creationUser.getUsername());
 		assertThat(newUser.email).isEqualTo(creationUser.getEmail());
 
-		// DB entry
-		// get the user just saved at this ID from the repository
-
-		// new user index is always current repo length + one
-		// -- this does not work if the test is run first. the method works but i have no idea how to retrieve the actual id from the repo
-		User repoReturnValue = userRepository.findById(userRepository.count() + 1).orElse(null);
+		// formula is:
+		// -- ID of the first user + (total size of present repository - the user we just created) 
+		// -- = the last user in repository
+		User repoReturnValue = userRepository.findById(user.getId() + (userRepository.count() - 1)).orElse(null);
+		
 		// then test all fields with userAssertions
 		userCreationAssertions(repoReturnValue, creationUser);
 	}
@@ -147,9 +158,11 @@ public class UserServiceTest {
 	@Test
 	@DisplayName ("User - Retrieve All")
 	public void getAllUsersTest() {
+		/*
 		consoleDisplay.separator();
 		System.out.println("User - Retrieve All");
 		consoleDisplay.separator();
+		*/
 
 		// get all users from the repository
 		List<UserDTO> users = new ArrayList<UserDTO>();
@@ -168,14 +181,16 @@ public class UserServiceTest {
 	@Test
 	@DisplayName ("User - Retrieve One")
 	public void getUserByIdTest() {
+		/*
 		consoleDisplay.separator();
 		System.out.println("User - Retrieve One");
 		consoleDisplay.separator();
+		*/
 
 		// get last user in repository
-		UserDTO searchResult = userService.getUserById(userRepository.count());
+		UserDTO searchResult = userService.getUserById(user.getId());
 
-		userDTOAssertions(searchResult, userService.getUserById(userRepository.count()));
+		userDTOAssertions(searchResult, userService.getUserById(user.getId()));
 	}
 
 
@@ -183,38 +198,24 @@ public class UserServiceTest {
 	@Test
 	@DisplayName ("User - Deletion")
 	public void deleteUserByIdTest() {
+		/*
 		consoleDisplay.separator();
 		System.out.println("User - Deletion");
 		consoleDisplay.separator();
+		*/
 
 		// get last user in repository
 		Long repoSizeBefore = userRepository.count();
-		UserDTO searchResultBefore = userService.getUserById(userRepository.count());
-
-
-		// System.out.println("repo size: " + userRepository.count());
-		// System.out.println("User: " + searchResultBefore.username);
-		// System.out.println("Email: " + searchResultBefore.email);
-
+		User searchResultBefore = userRepository.findById(user.getId()).orElse(null);
 
 		// method to test
-		// delete the last user in the repository
-		userService.deleteUserById(userRepository.count());
+		userService.deleteUserById(user.getId());
 
 		Long repoSizeAfter = userRepository.count();
-		UserDTO searchResultAfter = userService.getUserById(userRepository.count());
-
-
-		// System.out.println("repo size: " + userRepository.count());
-		// System.out.println("User: " + searchResultAfter.username);
-		// System.out.println("Email: " + searchResultAfter.email);
-
+		User searchResultAfter = userRepository.findById(user.getId()).orElse(null);
 
 		// assertions
-		// -- seemingly does not pass if there are two users or less in the repo at runtime
-		// -- actual method is working but the test might not be adequate
-		assertThat(searchResultBefore.username).isNotEqualTo(searchResultAfter.username);
-		assertThat(searchResultBefore.email).isNotEqualTo(searchResultAfter.email);
+		assertThat(searchResultBefore).isNotEqualTo(searchResultAfter);
 		assertThat(repoSizeBefore).isNotEqualTo(repoSizeAfter);
 	}
 
@@ -222,19 +223,20 @@ public class UserServiceTest {
 	@Test
 	@DisplayName ("User - Update")
 	public void updateUserTest() {
+		/*
 		consoleDisplay.separator();
 		System.out.println("User - Update");
 		consoleDisplay.separator();
-
-		User updatedUserBefore = userRepository.findById(userRepository.count()).orElse(null);
+		 */
+		User updatedUserBefore = userRepository.findById(user.getId()).orElse(null);
 
 		// new user to test the update method
 		UserCreationDTO updatedUser = new UserCreationDTO("testUsername", "testEmail", "testPassword");
 
 		// method to be tested
-		userService.updateUser(userRepository.count(), updatedUser);
+		userService.updateUser(user.getId(), updatedUser);
 
-		User updatedUserAfter = userRepository.findById(userRepository.count()).orElse(null);
+		User updatedUserAfter = userRepository.findById(user.getId()).orElse(null);
 
 		// assertions
 		assertThat(updatedUserBefore.getUsername()).isNotEqualTo(updatedUserAfter.getUsername());
