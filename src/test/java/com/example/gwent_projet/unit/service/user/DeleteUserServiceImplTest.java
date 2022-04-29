@@ -17,8 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.gwent_projet.entity.user.User;
 import com.example.gwent_projet.repository.UserRepository;
-import com.example.gwent_projet.services.dto.user.UserCreationDTO;
-import com.example.gwent_projet.services.dto.user.UserDTO;
 import com.example.gwent_projet.services.impl.UserServiceImpl;
 
 @SpringBootTest
@@ -39,9 +37,15 @@ public class DeleteUserServiceImplTest {
 		User user = new User(0, "testUsername","testEmail","testPwd");
 		user.setId(0l);
 		
+		// define a list to simulate the deleteById method on
 		List<User> repoList = new ArrayList<>();
 		repoList.add(user);
 		
+		// define what the deleteById method should do when invoked
+		// this will:
+		// -- execute a method that returns an Anwser<List<User>> on deleteById invocation
+		// -- the method removes the item at the index of "user", then returns that updated list
+		// -- then that list is thrown back to us.
 		Mockito.lenient().doAnswer(new Answer<List<User>>() {
 			public List<User> answer(InvocationOnMock invocation) throws Throwable {
 				repoList.remove(repoList.indexOf(user));
@@ -49,16 +53,15 @@ public class DeleteUserServiceImplTest {
 			}
 		}).when(mockUserRepository).deleteById(user.getId());
 		
-		// when .save is used on a mocked userRepository, return a new User
-		// when(mockUserRepository.save(any(User.class))).thenReturn(new User(0, null, null, null));
-		// doReturn(true).when(mockUserRepository).deleteById(user.getId()); // impossible condition
+		// assert that there is something in the list
+		assertThat(repoList.isEmpty()).isFalse();
 		
 		// method to test
 		userService.deleteUserById(user.getId());
 		
 		// assertions
-		// ?
-		// assertThat(mockUserRepository.existsById(user.getId())).isFalse(); // useless?
+		// assert that there is nothing in the list
+		assertThat(repoList.isEmpty()).isTrue();
 		verify(mockUserRepository).deleteById(user.getId());
 
 		// TODO: test when ID doesn't exist

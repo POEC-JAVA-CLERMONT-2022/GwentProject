@@ -20,7 +20,7 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class CardMockServiceTest {
+public class RetrieveAllCardsImplTest {
 
     @InjectMocks
     CardServiceImpl cardService;
