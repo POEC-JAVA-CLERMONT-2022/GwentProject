@@ -1,25 +1,31 @@
 package com.example.gwent_projet.controller;
 
 
-import com.example.gwent_projet.entity.*;
-import com.example.gwent_projet.repository.CardRepository;
-import com.example.gwent_projet.services.CardService;
-import com.example.gwent_projet.services.dto.CardDTO;
-import com.example.gwent_projet.services.dto.CreateCardDTO;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.gwent_projet.entity.card.Card;
+import com.example.gwent_projet.repository.CardRepository;
+import com.example.gwent_projet.services.CardService;
+import com.example.gwent_projet.services.dto.card.CardDTO;
+import com.example.gwent_projet.services.dto.card.CreateCardDTO;
 
+@CrossOrigin(origins = "http://localhost:4200/")
+@RequestMapping("cards")
 @RestController
 public class CardController {
 
@@ -28,8 +34,9 @@ public class CardController {
     @Autowired
     CardService cardService;
 
+
     // Get all cards
-    @GetMapping("/cards")
+    @GetMapping("")
     public ResponseEntity<List<CardDTO>> getAllCards(@RequestParam(required = false) Long id) {
         try {
             List<CardDTO> cards = new ArrayList<CardDTO>();
@@ -40,16 +47,16 @@ public class CardController {
             }
             return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
     // Get card by id
-    @GetMapping("/cards/{id}")
-    public ResponseEntity<CreateCardDTO> getCardById(@PathVariable("id") long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<CardDTO> getCardById(@PathVariable("id") long id) {
         try {
-            CreateCardDTO findCard = cardService.getCardById(id);
+            CardDTO findCard = cardService.getCardById(id);
             return new ResponseEntity<>(findCard, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,7 +66,7 @@ public class CardController {
 
 
 
-    @PostMapping("/cards")
+    @PostMapping("")
     public ResponseEntity<CardDTO> createCard(@RequestBody CreateCardDTO createCardDTO) {
         try {
             CardDTO newCard = cardService.createCard(createCardDTO);
@@ -71,7 +78,7 @@ public class CardController {
     }
 
 
-    @PutMapping("/cards/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CardDTO> updateCardById( @PathVariable("id") Long id, @RequestBody CreateCardDTO card) {
         try {
             CardDTO updatedCard = cardService.updateCard(id, card);
@@ -84,7 +91,7 @@ public class CardController {
 
 
     // Delete by id
-    @DeleteMapping("/cards/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Card> deleteCard(@RequestBody @PathVariable("id") Long id) {
         try {
             if (id != null){
@@ -92,13 +99,12 @@ public class CardController {
             }
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // Get card by card deck id
-    @GetMapping("/cards/card-deck/{id}")
+    @GetMapping("/card-deck/{id}")
     public ResponseEntity<List<Card>> findAllByCardDeckId(@PathVariable("id") long id) {
         //List<Card> cards = new ArrayList<Card>(cardRepository.findAllByCardDeckId(id));
         try {
@@ -110,7 +116,24 @@ public class CardController {
                 }
             return new ResponseEntity<>(cards, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Get cards by name LIKE
+    @GetMapping("/card-name/{name}")
+    public ResponseEntity<List<Card>> findCardsByName( String name) {
+        try {
+            List<Card> cards = new ArrayList<Card>();
+            if (name != null)
+                cards.addAll(cardService.findCardsByName(name));
+            if (cards.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(cards, HttpStatus.OK);
+        } catch (Exception e) {
+            //return ResponseEntity.status(400).build();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

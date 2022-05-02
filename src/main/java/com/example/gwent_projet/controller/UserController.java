@@ -6,17 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.gwent_projet.services.dto.UserDTO;
-import com.example.gwent_projet.entity.User;
 import com.example.gwent_projet.services.UserService;
+import com.example.gwent_projet.services.dto.user.UserCreationDTO;
+import com.example.gwent_projet.services.dto.user.UserDTO;
 
+@CrossOrigin(origins = "*")
+@RequestMapping("/user")
 @RestController 
 public class UserController {
 
@@ -24,12 +21,14 @@ public class UserController {
 	UserService userService;
 
 	// Create user -----------------------------------------------------------------------------------------------------------------
-	@PostMapping("/user/new")
-	public ResponseEntity<UserDTO> createUser(@RequestBody User user) {
+	@PostMapping("/new")
+	// actual object is used instead of DTO so that the password (and more) can be set on creation
+	// -- what about the id?
+	// -- is this a security issue?
+	public ResponseEntity<UserDTO> createUser(@RequestBody UserCreationDTO user) {
 		try {
 			// create user in repository with data provided by method
 			UserDTO newUser = userService.createUser(user);
-			// user to be returned (TEMP)
 			// then return a response entity with this user, and the CREATED HTTP status
 			return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -41,7 +40,7 @@ public class UserController {
 
 	// Get user -----------------------------------------------------------------------------------------------------------------
 	// All users
-	@GetMapping("/user")
+	@GetMapping("")
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
 		try {
 			// new list of users
@@ -61,7 +60,7 @@ public class UserController {
 	}
 
 	// by ID
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
 		try { 
 			UserDTO searchResult = userService.getUserById(id);
@@ -74,8 +73,8 @@ public class UserController {
 
 	// Update user -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@PostMapping("/user/update/{id}")
-	public ResponseEntity<UserDTO> updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
+	@PutMapping("/update/{id}")
+	public ResponseEntity<UserDTO> updateUserById(@PathVariable("id") Long id, @RequestBody UserCreationDTO user) {
 		try {
 			// replace user at this ID with the new user
 			UserDTO updatedUser = userService.updateUser(id, user);
@@ -89,7 +88,7 @@ public class UserController {
 
 	// Delete user -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@DeleteMapping("/user/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
 		try {
 			userService.deleteUserById(id);

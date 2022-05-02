@@ -1,17 +1,18 @@
 package com.example.gwent_projet.services.impl;
 
-import com.example.gwent_projet.entity.Card;
-import com.example.gwent_projet.repository.CardRepository;
-import com.example.gwent_projet.services.CardService;
-import com.example.gwent_projet.services.dto.CardDTO;
-import com.example.gwent_projet.services.dto.CreateCardDTO;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.gwent_projet.entity.card.Card;
+import com.example.gwent_projet.repository.CardRepository;
+import com.example.gwent_projet.services.CardService;
+import com.example.gwent_projet.services.dto.card.CardDTO;
+import com.example.gwent_projet.services.dto.card.CreateCardDTO;
 
 @Service
 public class CardServiceImpl implements CardService {
@@ -59,11 +60,12 @@ public class CardServiceImpl implements CardService {
 
 
     @Override
-    public CreateCardDTO getCardById(Long id) {
+    public CardDTO getCardById(Long id) {
 
         Card cardSearch = cardRepository.findById(id).orElse(null);
 
-        CreateCardDTO searchResult = new CreateCardDTO(
+        CardDTO searchResult = new CardDTO(
+                cardSearch.getId(),
                 cardSearch.getName(),
                 cardSearch.getPicture(),
                 cardSearch.getPowerLvl(),
@@ -102,6 +104,14 @@ public class CardServiceImpl implements CardService {
     public List<Card> findCardsByCardDeck(Long id) {
 
         List<Card> cards = new ArrayList<Card>(cardRepository.findByCardDeck_Id(id));
+
+        return cards;
+    }
+
+    @Override
+    public List<Card> findCardsByName(String name) {
+
+        List<Card> cards = new ArrayList<Card>(cardRepository.findByNameContaining(name));
 
         return cards;
     }

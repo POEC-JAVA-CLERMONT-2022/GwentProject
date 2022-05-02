@@ -1,21 +1,17 @@
 package com.example.gwent_projet.services.impl;
 
-import com.example.gwent_projet.entity.Card;
-import com.example.gwent_projet.entity.CardDeck;
-import com.example.gwent_projet.repository.CardDeckRepository;
-import com.example.gwent_projet.repository.CardRepository;
-import com.example.gwent_projet.services.dto.CardDTO;
-import com.example.gwent_projet.services.dto.CardDeckDTO;
-import com.example.gwent_projet.services.dto.CreateCardDTO;
-import com.example.gwent_projet.services.dto.CreateCardDeckDTO;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.gwent_projet.services.CardDeckService;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.gwent_projet.entity.card.CardDeck;
+import com.example.gwent_projet.repository.CardDeckRepository;
+import com.example.gwent_projet.services.CardDeckService;
+import com.example.gwent_projet.services.dto.cardDeck.CardDeckDTO;
+import com.example.gwent_projet.services.dto.cardDeck.CreateCardDeckDTO;
 
 @Service
 public class CardDeckServiceImpl implements CardDeckService {
@@ -54,11 +50,12 @@ public class CardDeckServiceImpl implements CardDeckService {
     }
 
     @Override
-    public CreateCardDeckDTO getCardDeckById(Long id) {
+    public CardDeckDTO getCardDeckById(Long id) {
 
         CardDeck cardDeckSearch = cardDeckRepository.findById(id).orElse(null);
 
-        CreateCardDeckDTO searchResult = new CreateCardDeckDTO(
+        CardDeckDTO searchResult = new CardDeckDTO(
+                cardDeckSearch.getId(),
                 cardDeckSearch.getName() );
 
         return searchResult;

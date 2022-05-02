@@ -1,12 +1,14 @@
 package com.example.gwent_projet.repository;
 
-import com.example.gwent_projet.entity.Card;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.example.gwent_projet.entity.card.Card;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
 
     List<Card> findByCardDeck_Id(Long id);
 
+    List<Card> findByNameContaining(String name);
 }
