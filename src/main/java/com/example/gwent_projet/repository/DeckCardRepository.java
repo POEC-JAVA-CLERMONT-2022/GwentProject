@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.example.gwent_projet.entity.deckCard.DeckCard;
+import com.example.gwent_projet.entity.deck.DeckCard;
 import com.example.gwent_projet.entity.pk.DeckCardPK;
 
 @Repository
