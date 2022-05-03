@@ -25,7 +25,7 @@ import com.example.gwent_projet.services.CardService;
 import com.example.gwent_projet.services.dto.card.CardDTO;
 import com.example.gwent_projet.services.dto.card.CreateCardDTO;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RequestMapping("cards")
 @RestController
 public class CardController {
@@ -38,7 +38,6 @@ public class CardController {
 
     // Get all cards
     @GetMapping("")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<List<CardDTO>> getAllCards(@RequestParam(required = false) Long id) {
         try {
             List<CardDTO> cards = new ArrayList<CardDTO>();
