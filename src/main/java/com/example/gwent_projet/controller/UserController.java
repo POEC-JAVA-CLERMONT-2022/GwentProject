@@ -21,12 +21,17 @@ public class UserController {
 	UserService userService;
 
 	// Create user -----------------------------------------------------------------------------------------------------------------
-	@PostMapping("/new")
+	@PostMapping("")
 	// actual object is used instead of DTO so that the password (and more) can be set on creation
 	// -- what about the id?
 	// -- is this a security issue?
 	public ResponseEntity<UserDTO> createUser(@RequestBody UserCreationDTO user) {
 		try {
+			
+			if (user == null) {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			}
+			
 			// create user in repository with data provided by method
 			UserDTO newUser = userService.createUser(user);
 			// then return a response entity with this user, and the CREATED HTTP status
@@ -47,10 +52,12 @@ public class UserController {
 			List<UserDTO> users = new ArrayList<UserDTO>();
 			// get all users from the repository and add them to the list
 			users.addAll(userService.getAllUsers());
+			
 			if (users.isEmpty()) {
 				// if no results, return NO CONTENT HTTP status
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
+			
 			// return all users with OK HTTP status
 			return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception e) {
@@ -73,9 +80,14 @@ public class UserController {
 
 	// Update user -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<UserDTO> updateUserById(@PathVariable("id") Long id, @RequestBody UserCreationDTO user) {
 		try {
+			
+			if (user == null) {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			}
+			
 			// replace user at this ID with the new user
 			UserDTO updatedUser = userService.updateUser(id, user);
 			// then return a response entity with this user, and the CREATED HTTP status
@@ -88,7 +100,7 @@ public class UserController {
 
 	// Delete user -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
 		try {
 			userService.deleteUserById(id);
