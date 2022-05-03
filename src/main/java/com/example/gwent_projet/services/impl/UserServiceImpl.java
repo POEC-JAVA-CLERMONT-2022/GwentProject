@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO createUser(UserCreationDTO createUser) {
 		
-		User user = new User(0, "", "", ""); // always set role to 0 on creation. might change if more roles are added
+		User user = new User(); // always set role to 0 on creation. might change if more roles are added
 		BeanUtils.copyProperties(createUser, user);
 		
 		userRepository.save(user);
