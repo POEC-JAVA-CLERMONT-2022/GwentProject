@@ -21,7 +21,7 @@ public class DeckCardController {
 
 	// Add card to deck ------------------------------------------------------------------------------------------------------------
 
-	@PutMapping("/add")
+	@PostMapping("")
 	public ResponseEntity<DeckCardCreationDTO> addCardToDeck(Long deckId, Long cardId) {
 		try {
 			DeckCardCreationDTO newDeckCard = deckCardService.addCardToDeck(deckId, cardId);
@@ -34,7 +34,7 @@ public class DeckCardController {
 
 	// Get all cards from deck -----------------------------------------------------------------------------------------------------
 
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<ArrayList<DeckCardDTO>> getAllCardsInDeck(Long deckId) {
 		try {
 			// new list of cards
@@ -56,7 +56,7 @@ public class DeckCardController {
 	
 	// Delete card from deck -------------------------------------------------------------------------------------------------------
 	// All cards
-	@DeleteMapping("/remove")
+	@DeleteMapping("")
 	public ResponseEntity<HttpStatus> deleteOneCardFromDeck(Long deckId, Long cardId) {
 		try {
 			deckCardService.deleteOneCardFromDeck(deckId, cardId);
@@ -68,7 +68,7 @@ public class DeckCardController {
 	}
 	
 	// One card
-	@DeleteMapping("/remove/all")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> deleteAllCardsFromDeck(Long deckId) {
 		try {
 			deckCardService.deleteAllCardsFromDeck(deckId);

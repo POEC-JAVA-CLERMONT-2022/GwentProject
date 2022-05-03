@@ -21,7 +21,7 @@ public class FavoritesController {
 
 	// Add favorite ----------------------------------------------------------------------------------------------------------------
 
-	@PutMapping("/add")
+	@PostMapping("")
 	public ResponseEntity<FavoritesDTO> addFavorite(Long userId, Long cardId) {
 		try {
 			FavoritesDTO newFavorite = favoritesService.addFavorite(userId, cardId);
@@ -34,7 +34,7 @@ public class FavoritesController {
 
 	// Get all favorites from user -------------------------------------------------------------------------------------------------
 
-	@GetMapping("/")
+	@GetMapping("/{id}")
 	public ResponseEntity<ArrayList<CardDTO>> getAllUserFavorites(Long userId) {
 		try {
 			// new list of cards
@@ -56,7 +56,7 @@ public class FavoritesController {
 
 	// Delete card from deck -------------------------------------------------------------------------------------------------------
 	// All cards
-	@DeleteMapping("/remove")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> deleteOneUserFavorite(Long userId, Long cardId) {
 		try {
 			favoritesService.deleteOneUserFavorite(userId, cardId);
@@ -68,7 +68,7 @@ public class FavoritesController {
 	}
 
 	// One card
-	@DeleteMapping("/remove/all")
+	@DeleteMapping("")
 	public ResponseEntity<HttpStatus> deleteAllUserFavorites(Long userId) {
 		try {
 			favoritesService.deleteAllUserFavorites(userId);
@@ -78,6 +78,4 @@ public class FavoritesController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-
 }

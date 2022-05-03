@@ -61,24 +61,18 @@ public class DeckServiceImpl implements DeckService {
 		// new, empty list of DeckDTOs
 		List<DeckDTO> returnList = new ArrayList<>();
 
-		for (int sweeper = 0; sweeper < repoList.size(); sweeper++) {
-			Deck repoDeck;
-			// get deck at index
-			repoDeck = repoList.get(sweeper);
 
-			// get the user who created this deck
-			// put it in a DTO to display in the return value
+		// for every favorite card in the list, populate a DTO and add it to the DTO list
+		for (Deck decks : repoList) {
 			UserDeckDTO returnOwner = new UserDeckDTO(
-					repoList.get(sweeper).getOwner().getId(),
-					repoList.get(sweeper).getOwner().getUsername()
+					decks.getOwner().getId(),
+					decks.getOwner().getUsername()
 					);
-
 			DeckDTO returnDeckDTO  = new DeckDTO(null , null, returnOwner);
-
 			// populate DTO values with retrieved user values
-			BeanUtils.copyProperties(repoDeck, returnDeckDTO);
+			BeanUtils.copyProperties(decks, returnDeckDTO);
 			// add newly populated DTO to DTO list
-			returnList.add(sweeper, returnDeckDTO);
+			returnList.add(returnDeckDTO);
 		}
 		// then return the new DTO list
 		return returnList;

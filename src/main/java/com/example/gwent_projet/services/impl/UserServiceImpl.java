@@ -46,16 +46,13 @@ public class UserServiceImpl implements UserService {
 		// new, empty list of UserDTOs
 		List<UserDTO> returnList = new ArrayList<>();
 		
-		for (int sweeper = 0; sweeper < repoList.size(); sweeper++) {
-			UserDTO returnUserDTO  = new UserDTO(null, null);
-			User repoUser;
-			// get user at index
-			repoUser = repoList.get(sweeper);
-			// populate DTO values with retrieved user values
+		// for every user in the list, populate a DTO and add it to the DTO list
+		for (User repoUser : repoList) {
+			UserDTO returnUserDTO  = new UserDTO();
 			BeanUtils.copyProperties(repoUser, returnUserDTO);
-			// add newly populated DTO to DTO list
-			returnList.add(sweeper, returnUserDTO);
+			returnList.add(returnUserDTO);
 		}
+		
 		// then return the new DTO list
 		return returnList;
 	}

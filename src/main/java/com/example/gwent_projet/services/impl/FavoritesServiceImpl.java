@@ -63,19 +63,14 @@ public class FavoritesServiceImpl implements FavoritesService {
 	public List<CardDTO> getAllUserFavorites(Long userId) {
 		// get the entire lit of cards corresponding to this deck
 		ArrayList<Favorites> favoritesList = favoritesRepository.getAllUserFavorites(userId);
-
 		// new, empty list of CardDTOs
 		List<CardDTO> returnList = new ArrayList<>();
-
-		for (int sweeper = 0; sweeper < favoritesList.size(); sweeper++) {
-			// get the card and convert it to a DTO
-			Card repoCard = favoritesList.get(sweeper).getId().getCard();
-			CardDTO returnCard = new CardDTO();
-			
-			BeanUtils.copyProperties(repoCard, returnCard);
-			
-			// populate list with DTO
-			returnList.add(sweeper, returnCard);
+		
+		// for every favorite card in the list, populate a DTO and add it to the DTO list
+		for (Favorites favorites : favoritesList) {
+			CardDTO returnCardDTO  = new CardDTO();
+			BeanUtils.copyProperties(favorites.getId().getCard(), returnCardDTO);
+			returnList.add(returnCardDTO);
 		}
 		return returnList;
 	}

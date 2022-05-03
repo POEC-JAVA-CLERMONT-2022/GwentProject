@@ -73,21 +73,21 @@ public class DeckCardServiceImpl implements DeckCardService {
 
 		// new, empty list of CardDTOs
 		List<DeckCardDTO> returnList = new ArrayList<>();
-
-		for (int sweeper = 0; sweeper < deckCardsList.size(); sweeper++) {
+		
+		
+		for (DeckCard deckCards : deckCardsList) {
 			// get the card and convert it to a DTO
-			Card repoCard = deckCardsList.get(sweeper).getId().getCard();
+			Card repoCard = deckCards.getId().getCard();
 			CardDTO returnCard = new CardDTO();
 			BeanUtils.copyProperties(repoCard, returnCard);
 
 			// get the amount of cards
-			int nbRepoCard = deckCardsList.get(sweeper).getNbItems();
-
+			int nbRepoCard = deckCards.getNbItems();
+			
 			// compile both into a DeckCard DTO
 			DeckCardDTO returnDeckCardDTO = new DeckCardDTO(returnCard, nbRepoCard);
-
 			// add newly populated DTO to DTO list
-			returnList.add(sweeper, returnDeckCardDTO);
+			returnList.add(returnDeckCardDTO);
 		}
 		return returnList;
 	}

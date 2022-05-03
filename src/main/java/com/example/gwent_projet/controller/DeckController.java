@@ -21,7 +21,7 @@ public class DeckController {
 	DeckService deckService;
 
 	// Create deck -----------------------------------------------------------------------------------------------------------------
-	@PostMapping("/new")
+	@PostMapping("")
 	public ResponseEntity<DeckDTO> createDeck(Long userId, @RequestBody DeckCreationDTO deck) {
 		try {
 			// create deck in repository with data provided by method
@@ -70,7 +70,7 @@ public class DeckController {
 
 	// Update deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<DeckDTO> updateDeckById(@PathVariable("id") Long id, @RequestBody DeckCreationDTO deck) {
 		try {
 			// replace user at this ID with the new user
@@ -85,7 +85,7 @@ public class DeckController {
 
 	// Delete deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> deleteDeck(@PathVariable("id") Long id) {
 		try {
 			deckService.deleteDeckById(id);
