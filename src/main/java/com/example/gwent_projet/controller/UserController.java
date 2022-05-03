@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.gwent_projet.services.UserService;
 import com.example.gwent_projet.services.dto.card.CardDTO;
-import com.example.gwent_projet.services.dto.favorites.FavoritesDTO;
+import com.example.gwent_projet.services.dto.user.FavoritesDTO;
 import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
 
@@ -40,7 +40,6 @@ public class UserController {
 			return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
-			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -156,7 +155,6 @@ public class UserController {
 				userService.deleteOneUserFavorite(userId, cardId);
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} catch (Exception e) {
-				e.printStackTrace();
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
@@ -168,7 +166,6 @@ public class UserController {
 				userService.deleteAllUserFavorites(userId);
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} catch (Exception e) {
-				e.printStackTrace();
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}

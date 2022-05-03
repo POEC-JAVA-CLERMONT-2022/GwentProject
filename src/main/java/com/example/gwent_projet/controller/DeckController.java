@@ -32,7 +32,6 @@ public class DeckController {
 			return new ResponseEntity<>(newDeck, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// return null value with ERROR HTTP status
-			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -142,7 +141,6 @@ public class DeckController {
 			deckService.deleteOneCardFromDeck(deckId, cardId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -154,7 +152,6 @@ public class DeckController {
 			deckService.deleteAllCardsFromDeck(deckId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

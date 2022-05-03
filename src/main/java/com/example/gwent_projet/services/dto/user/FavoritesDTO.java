@@ -1,7 +1,6 @@
-package com.example.gwent_projet.services.dto.favorites;
+package com.example.gwent_projet.services.dto.user;
 
 import com.example.gwent_projet.services.dto.card.CardDTO;
-import com.example.gwent_projet.services.dto.user.UserDTO;
 
 public class FavoritesDTO {
 	

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.gwent_projet.services.dto.card.CardDTO;
-import com.example.gwent_projet.services.dto.favorites.FavoritesDTO;
+import com.example.gwent_projet.services.dto.user.FavoritesDTO;
 import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
 
