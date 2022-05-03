@@ -1,4 +1,4 @@
-package com.example.gwent_projet.services.dto.deckCard;
+package com.example.gwent_projet.services.dto.deck;
 
 import com.example.gwent_projet.services.dto.card.CardDTO;
 

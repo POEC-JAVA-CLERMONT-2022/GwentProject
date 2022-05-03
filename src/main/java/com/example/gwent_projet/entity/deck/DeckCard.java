@@ -1,4 +1,4 @@
-package com.example.gwent_projet.entity.deckCard;
+package com.example.gwent_projet.entity.deck;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
