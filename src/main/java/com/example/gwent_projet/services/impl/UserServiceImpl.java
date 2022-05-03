@@ -9,15 +9,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.gwent_projet.entity.card.Card;
-import com.example.gwent_projet.entity.favorites.Favorites;
 import com.example.gwent_projet.entity.pk.UserCardPK;
+import com.example.gwent_projet.entity.user.Favorites;
 import com.example.gwent_projet.entity.user.User;
 import com.example.gwent_projet.repository.CardRepository;
 import com.example.gwent_projet.repository.FavoritesRepository;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.services.UserService;
 import com.example.gwent_projet.services.dto.card.CardDTO;
-import com.example.gwent_projet.services.dto.favorites.FavoritesDTO;
+import com.example.gwent_projet.services.dto.user.FavoritesDTO;
 import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
 

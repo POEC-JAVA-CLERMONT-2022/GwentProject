@@ -1,4 +1,4 @@
-package com.example.gwent_projet.entity.favorites;
+package com.example.gwent_projet.entity.user;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;

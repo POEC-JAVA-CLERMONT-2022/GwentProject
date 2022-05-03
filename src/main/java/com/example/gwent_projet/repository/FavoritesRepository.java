@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.example.gwent_projet.entity.favorites.Favorites;
 import com.example.gwent_projet.entity.pk.UserCardPK;
+import com.example.gwent_projet.entity.user.Favorites;
 
 @Repository
 public interface FavoritesRepository extends JpaRepository<Favorites, UserCardPK>  {
