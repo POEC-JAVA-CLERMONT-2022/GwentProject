@@ -1,0 +1,25 @@
+<div class="container mt-5">
+
+  <div>
+    <h2>Edit card deck :</h2>
+  </div>
+
+  <form *ngIf=" currentCardDeck != null">
+
+    <div class="col-sm-6 col-md-4" >
+      <label>Card deck id</label>
+      <input readonly type="text" [(ngModel)]="currentCardDeck.id" name="CardDeckId" class="form-control">
+    </div><!-- can be deleted -->
+
+    <div class="col-sm-6 col-md-4" >
+      <label>Card deck name</label>
+      <input type="text" [(ngModel)]= "currentCardDeck.name" name="CardDeckName" class="form-control">
+    </div>
+
+
+    <div class="mt-2">
+      <button type="submit" (click)="updateCardDeck()" class="btn btn-success">Edit</button>
+    </div>
+
+  </form>
+</div>

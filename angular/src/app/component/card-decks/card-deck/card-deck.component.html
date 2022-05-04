@@ -1,0 +1,28 @@
+<div class="container mt-5">
+
+  <h1 class="gwentTitle text-center mb-5">Gwent DB</h1>
+
+  <div class="card shadow mb-4">
+    <div class="scroll card-body">
+      <table class="table table-striped text-center">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th colspan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let cardDeck of cardDecks">
+          <tr>
+            <td class="col">{{cardDeck.id}}</td>
+            <td class="col">{{cardDeck.name}}</td>
+            <td><a class="btn btn-danger" (click)="deleteCardDeck(cardDeck)">Delete</a></td>
+            <td><a class="btn btn-success" [routerLink]="['/updateCardDeck',cardDeck.id]">Edit</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-success" [routerLink]="['/createCardDeck']">Create</a>
+    </div>
+  </div>
+
+</div>

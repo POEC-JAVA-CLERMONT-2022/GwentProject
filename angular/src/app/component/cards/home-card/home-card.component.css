@@ -1,0 +1,15 @@
+.homeCard {
+  position: relative;
+
+  width: 25rem;
+  height: 25rem;
+
+  display: flex;
+  justify-content: center;
+}
+
+.search-card {
+  max-width: 500px;
+  padding-bottom: 50px;
+  margin:auto;
+}

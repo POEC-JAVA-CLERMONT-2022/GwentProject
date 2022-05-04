@@ -1,0 +1,85 @@
+<div class="container mt-5">
+
+  <div>
+    <h2>Create card :</h2>
+  </div>
+
+  <form [formGroup]="creationForm" (submit)="creationCard()">
+
+    <div class="col-sm-6 col-md-4" >
+      <label>Card name</label>
+      <input type="text" class="form-control" formControlName="name">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card picture</label>
+      <input type="text" name="CardPicture" class="form-control" formControlName="picture">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card level</label>
+      <input type="number" min="1" name="CardLevel" class="form-control" formControlName="powerLvl">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card description</label>
+      <input type="text" name="CardDescription" class="form-control" formControlName="description">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card location</label>
+      <input type="text" name="CardLocation" class="form-control" formControlName="location">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label for="ability">Choose an ability:</label>
+      <select class="form-select" id="ability" formControlName="ability">
+         <option>Choose an option</option>
+         <option label="BERSERKER">BERSERKER</option>
+         <option label="COMMANDER">COMMANDER</option>
+         <option label="DECOY">DECOY</option>
+         <option label="MEDIC">MEDIC</option>
+         <option label="MORALE_BOOST">MORALE_BOOST</option>
+         <option label="MARDROEME">MARDROEME</option>
+         <option label="MUSTER">MUSTER</option>
+         <option label="SCORCH">SCORCH</option>
+         <option label="SPY">SPY</option>
+         <option label="TIGHT_BOND">TIGHT_BOND</option>
+         <option label="SUMMON_AVENGER">SUMMON_AVENGER</option>
+       </select>
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label for="row">Choose an row:</label>
+      <select class="form-select" id="row" formControlName="rowName">
+        <option>Choose an option</option>
+        <option label="CLOSE_COMBAT">CLOSE_COMBAT</option>
+        <option label="RANGED">RANGED</option>
+        <option label="AGILE">AGILE</option>
+        <option label="SIEGE">SIEGE</option>
+      </select>
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label for="type">Choose a type:</label>
+      <select class="form-select" id="type" formControlName="type">
+        <option>Choose an option</option>
+        <option label="UNIT">UNIT</option>
+        <option label="LEADER">LEADER</option>
+        <option label="HERO">HERO</option>
+        <option label="SPECIAL">SPECIAL</option>
+      </select>
+    </div>
+
+
+    <div *ngIf="error != ''">
+      <p>{{error}}</p>
+    </div>
+
+    <div class="mt-2">
+      <button type="submit" class="btn btn-success">Create</button>
+    </div>
+
+  </form>
+</div>
+

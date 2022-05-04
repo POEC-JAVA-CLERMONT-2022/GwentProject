@@ -1,0 +1,14 @@
+.scroll{
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.search-card {
+  max-width: 500px;
+  padding-bottom: 50px;
+  margin:auto;
+}
+
+.form-control {
+  box-shadow: 5px 5px 10px 0px #908f8f;
+}
