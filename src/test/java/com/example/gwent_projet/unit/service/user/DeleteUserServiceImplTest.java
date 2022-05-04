@@ -34,7 +34,7 @@ public class DeleteUserServiceImplTest {
 	@DisplayName ("User - Delete")
 	public void deleteUserByIdTest() {
 		// new user to test on
-		User user = new User(0, "testUsername","testEmail","testPwd");
+		User user = new User( "testUsername","testEmail","testPwd");
 		user.setId(0l);
 		
 		// define a list to simulate the deleteById method on

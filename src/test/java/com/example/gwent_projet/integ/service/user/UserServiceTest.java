@@ -61,7 +61,7 @@ public class UserServiceTest {
 			// new random user
 			User tempUser = RNGenerator.nextObject(User.class);
 			tempUser.setId(null);
-			tempUser.setRole(0);
+			//tempUser.setRoles();
 			
 			tempUser = userRepository.save(tempUser);
 			

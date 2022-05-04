@@ -31,7 +31,7 @@ public class RetrieveUserServiceImplTest {
 	@DisplayName ("User - Retrieve One")
 	public void getUserByIdTest() {
 		// new user to test on
-		User user = new User(0, "testUsername","testEmail","testPwd");
+		User user = new User( "testUsername","testEmail","testPwd");
 		user.setId(0l);
 		
 		// when findById is invoked, return "user"

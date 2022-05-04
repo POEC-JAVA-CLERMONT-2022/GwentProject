@@ -30,11 +30,11 @@ public class UpdateUserServiceImplTest {
 	@DisplayName ("User - Update")
 	public void updateUserTest() {
 		// new user to test on
-		User user = new User(0, null, null, null);
+		User user = new User();
 		user.setId(0l);
 
 		// when save is invoked, return a new User with these values
-		when(mockUserRepository.save(any(User.class))).thenReturn(new User(0, null, null, null));
+		when(mockUserRepository.save(any(User.class))).thenReturn(new User());
 		// when getById is invoked, return this user
 		when(mockUserRepository.getById(user.getId())).thenReturn(user);
 
