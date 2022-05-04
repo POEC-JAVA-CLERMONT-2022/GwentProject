@@ -1,0 +1,59 @@
+<div class="container mt-5">
+
+  <div>
+    <h2>Edit card :</h2>
+  </div>
+
+  <form *ngIf=" currentCard != null">
+
+    <div class="col-sm-6 col-md-4" >
+      <label>Card name</label>
+      <input type="text" [(ngModel)]= "currentCard.name" name="CardName" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card picture</label>
+      <input type="text" [(ngModel)]= "currentCard.picture" name="CardPicture" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card level</label>
+      <input type="number" min="0" [(ngModel)]= "currentCard.powerLvl" name="CardLevel" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card description</label>
+      <input type="text" [(ngModel)]= "currentCard.description" name="CardDescription" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card location</label>
+      <input type="text" [(ngModel)]= "currentCard.location" name="CardLocation" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card ability</label>
+      <input type="text" [(ngModel)]= "currentCard.ability" name="CardAbility" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card row name</label>
+      <input type="text" [(ngModel)]= "currentCard.rowName" name="CardRowname" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>Card type</label>
+      <input type="text" [(ngModel)]= "currentCard.type" name="CardType" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <label>CardDeck id</label>
+      <input type="number" min="0" *ngIf=" currentCard.cardDeck != null" [(ngModel)]= "currentCard.cardDeck.id" name="CardDeck" class="form-control">
+    </div>
+
+    <div class="mt-2">
+      <button type="submit" (click)="updateCard()" class="btn btn-success">Edit</button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,31 @@
+<div class="container mt-5">
+
+
+  <div class="productContainer container container-fluid mb-5">
+
+    <h1 class="gwentTitle text-center mb-5">Gwent DB</h1>
+
+
+    <div class="search-card mb-2">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Searching a card by id or name or other">
+    </div>
+
+
+    <div class="row">
+      <div class="homeCard card container mt-5" *ngFor="let card of cards | filter:searchText">
+
+        <div class="middle card-body">
+          <p class="card-text">{{ card.name }}</p>
+          <p>{{card.powerLvl}}</p>
+          <p>{{card.description}}</p>
+          <p>{{card.location}}</p>
+          <p>{{card.ability}}</p>
+          <p>{{card.rowName}}</p>
+          <p>{{card.type}}</p>
+          <p>{{card?.cardDeck?.name}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

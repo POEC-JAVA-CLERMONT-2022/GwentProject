@@ -1,0 +1,49 @@
+<div class="container mt-5">
+
+  <h1 class="gwentTitle text-center mb-5">Gwent DB</h1>
+
+  <div class="search-card mb-2">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Searching a card by id or name or other">
+  </div>
+
+  <div class="card shadow">
+    <div class="scroll card-body">
+      <table class="table table-striped text-center">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Picture</th>
+            <th>Power lvl</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Ability</th>
+            <th>Row</th>
+            <th>Type</th>
+            <th>Card deck name</th>
+            <th colspan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let card of cards | filter:searchText">
+          <tr>
+            <td>{{card.id}}</td>
+            <td>{{card.name}}</td>
+            <td>{{card.picture}}</td>
+            <td>{{card.powerLvl}}</td>
+            <td>{{card.description}}</td>
+            <td>{{card.location}}</td>
+            <td>{{card.ability}}</td>
+            <td>{{card.rowName}}</td>
+            <td>{{card.type}}</td>
+
+            <td>{{card?.cardDeck?.name}}</td>
+
+            <td><a class="btn btn-danger" (click)="deleteCard(card)">Delete</a></td>
+            <td><a class="btn btn-success" [routerLink]="['/updateCard',card.id]">Edit</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-success" [routerLink]="['/createCard']">Create</a>
+    </div>
+  </div>
+</div>
