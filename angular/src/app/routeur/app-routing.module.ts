@@ -9,6 +9,7 @@ import {CreateCardDeckComponent} from "../component/card-decks/create-card-deck/
 import {UserComponent} from "../component/users/user/user.component";
 import {HomeCardComponent} from "../component/cards/home-card/home-card.component";
 import {LoginComponent} from "../component/log/login/login.component";
+import {ProfileComponent} from "../component/users/profile/profile.component";
 
 const routes: Routes = [
 
@@ -24,6 +25,7 @@ const routes: Routes = [
 
   { path: 'user', component: UserComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent },
 
   { path: "", redirectTo: "card", pathMatch: "full" },
 ];

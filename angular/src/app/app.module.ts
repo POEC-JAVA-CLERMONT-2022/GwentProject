@@ -18,6 +18,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UserComponent } from './component/users/user/user.component';
 import { HomeCardComponent } from './component/cards/home-card/home-card.component';
 import { LoginComponent } from './component/log/login/login.component';
+import { ProfileComponent } from './component/users/profile/profile.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { LoginComponent } from './component/log/login/login.component';
     UserComponent,
     HomeCardComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [

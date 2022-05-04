@@ -1,0 +1,17 @@
+
+<div class="container mt-5">
+  <div class="container" *ngIf="currentUser; ">
+
+      <h2>Profile of {{ currentUser.username }}</h2>
+    <p>
+      <strong>Email:</strong>
+      {{ currentUser.email }}
+    </p>
+    <strong>Roles :</strong>
+    <ul>
+      <li *ngFor="let role of currentUser.roles">
+        {{ role }}
+      </li>
+    </ul>
+  </div>
+</div>

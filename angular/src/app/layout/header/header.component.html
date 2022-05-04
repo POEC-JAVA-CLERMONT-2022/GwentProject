@@ -22,6 +22,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" *ngIf="! isLoggedIn" routerLink="login">Login</a></li>
             <li><a class="dropdown-item" *ngIf="isLoggedIn" (click)="logout()">LogOut</a></li>
+            <li><a class="dropdown-item" *ngIf="isLoggedIn" routerLink="profile">Profile</a></li>
 
 
             <li><a class="dropdown-item" routerLink="user">Users</a></li>
