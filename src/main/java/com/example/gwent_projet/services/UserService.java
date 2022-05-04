@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.gwent_projet.services.dto.card.CardDTO;
+import com.example.gwent_projet.services.dto.user.FavoritesDTO;
 import com.example.gwent_projet.services.dto.user.UserCreationDTO;
 import com.example.gwent_projet.services.dto.user.UserDTO;
 
@@ -20,4 +22,14 @@ public interface UserService {
 
 	void deleteUserById(Long id);
 
+	// ----------------------------------------
+	
+	FavoritesDTO addFavorite(Long userId, Long cardId);
+	
+	List<CardDTO> getAllUserFavorites(Long userId);
+	
+	void deleteOneUserFavorite(Long userId, Long cardId);
+	
+	void deleteAllUserFavorites(Long userId);
+	
 }
