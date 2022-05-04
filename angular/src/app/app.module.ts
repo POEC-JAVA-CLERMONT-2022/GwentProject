@@ -17,6 +17,7 @@ import { CreateCardDeckComponent } from './component/card-decks/create-card-deck
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UserComponent } from './component/users/user/user.component';
 import { HomeCardComponent } from './component/cards/home-card/home-card.component';
+import { LoginComponent } from './component/log/login/login.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { HomeCardComponent } from './component/cards/home-card/home-card.compone
     CreateCardDeckComponent,
     UserComponent,
     HomeCardComponent,
+    LoginComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [

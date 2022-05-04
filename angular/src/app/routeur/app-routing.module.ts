@@ -8,6 +8,7 @@ import {UpdateCardDeckComponent} from "../component/card-decks/update-card-deck/
 import {CreateCardDeckComponent} from "../component/card-decks/create-card-deck/create-card-deck.component";
 import {UserComponent} from "../component/users/user/user.component";
 import {HomeCardComponent} from "../component/cards/home-card/home-card.component";
+import {LoginComponent} from "../component/log/login/login.component";
 
 const routes: Routes = [
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'createCardDeck', component: CreateCardDeckComponent },
 
   { path: 'user', component: UserComponent },
+  { path: 'login', component: LoginComponent },
 
   { path: "", redirectTo: "card", pathMatch: "full" },
 ];
