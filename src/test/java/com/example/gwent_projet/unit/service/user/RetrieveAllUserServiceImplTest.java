@@ -33,11 +33,11 @@ public class RetrieveAllUserServiceImplTest {
 	@DisplayName ("User - Retrieve All")
 	public void getAllUsersTest() {
 		// handful of users to test on
-		User user1 = new User(0, "testUsername1","testEmail1","testPwd1");
+		User user1 = new User( "testUsername1","testEmail1","testPwd1");
 		user1.setId(0l);
-		User user2 = new User(0, "testUsername2","testEmail2","testPwd2");
+		User user2 = new User( "testUsername2","testEmail2","testPwd2");
 		user2.setId(1l);
-		User user3 = new User(0, "testUsername3","testEmail3","testPwd3");
+		User user3 = new User( "testUsername3","testEmail3","testPwd3");
 		user3.setId(2l);
 
 		// populate new list

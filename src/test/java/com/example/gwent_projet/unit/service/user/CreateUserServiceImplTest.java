@@ -31,7 +31,7 @@ public class CreateUserServiceImplTest {
 	@DisplayName ("User - Creation")
 	public void createUserTest() {
 		// when save is invoked, return a new User with these values
-		when(mockUserRepository.save(any(User.class))).thenReturn(new User(0, null, null, null));
+		when(mockUserRepository.save(any(User.class))).thenReturn(new User());
 
 		// method to test
 		// create the testUser in the repository
