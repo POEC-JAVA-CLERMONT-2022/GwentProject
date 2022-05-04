@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.gwent_projet.services.dto.deck.DeckCardCreationDTO;
+import com.example.gwent_projet.services.dto.deck.DeckCardDTO;
 import com.example.gwent_projet.services.dto.deck.DeckCreationDTO;
 import com.example.gwent_projet.services.dto.deck.DeckDTO;
 
@@ -19,5 +21,15 @@ public interface DeckService {
 	DeckDTO updateDeck(Long id, DeckCreationDTO deck);
 
 	void deleteDeckById(Long id);
+
+	// -------------------------------------
+
+	DeckCardCreationDTO addCardToDeck(Long deckId, Long cardId);
+
+	List<DeckCardDTO> getAllCardsInDeck(Long deckId);
+
+	void deleteOneCardFromDeck(Long deckId, Long cardId);
+
+	void deleteAllCardsFromDeck(Long deckId);
 
 }
