@@ -14,9 +14,13 @@ import com.example.gwent_projet.services.dto.deck.DeckCardDTO;
 import com.example.gwent_projet.services.dto.deck.DeckCreationDTO;
 import com.example.gwent_projet.services.dto.deck.DeckDTO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @CrossOrigin(origins = "*")
 @RequestMapping("/deck")
 @RestController
+@Tag(name = "Decks", description = "Deck API")
 public class DeckController {
 
 	@Autowired
@@ -24,6 +28,7 @@ public class DeckController {
 
 	// Create deck -----------------------------------------------------------------------------------------------------------------
 	@PostMapping("")
+	@Operation(summary = "Create a deck", description = "Creates a Deck and returns a DTO of it.", tags = { "Decks" }) 
 	public ResponseEntity<DeckDTO> createDeck(Long userId, @RequestBody DeckCreationDTO deck) {
 		try {
 			// create deck in repository with data provided by method
@@ -39,6 +44,7 @@ public class DeckController {
 	// Get deck -----------------------------------------------------------------------------------------------------------------
 	// All decks
 	@GetMapping("")
+	@Operation(summary = "Get all decks", description = "Returns a list of DTOs of all Decks in the database.", tags = { "Decks" }) 
 	public ResponseEntity<List<DeckDTO>> getAllDecks() {
 		try {
 			// new list of users
@@ -59,6 +65,7 @@ public class DeckController {
 
 	// by ID
 	@GetMapping("/{deck_id}")
+	@Operation(summary = "Get one deck", description = "Returns a DTO of a deck by its id.", tags = { "Decks" })
 	public ResponseEntity<DeckDTO> getDeckById(@PathVariable("deck_id") Long id) {
 		try { 
 			DeckDTO searchResult = deckService.getDeckById(id);
@@ -72,6 +79,7 @@ public class DeckController {
 	// Update deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
 	@PutMapping("/{deck_id}")
+	@Operation(summary = "Update an deck", description = "Updates a deck in database by its id, then returns a DTO of it.", tags = { "Decks" })
 	public ResponseEntity<DeckDTO> updateDeckById(@PathVariable("deck_id") Long id, @RequestBody DeckCreationDTO deck) {
 		try {
 			// replace user at this ID with the new user
@@ -87,6 +95,7 @@ public class DeckController {
 	// Delete deck -----------------------------------------------------------------------------------------------------------------
 	// By ID
 	@DeleteMapping("/{deck_id}")
+	@Operation(summary = "Delete an user", description = "Deletes a deck in the database by its id.", tags = { "Decks" })
 	public ResponseEntity<HttpStatus> deleteDeck(@PathVariable("deck_id") Long id) {
 		try {
 			deckService.deleteDeckById(id);
@@ -97,10 +106,10 @@ public class DeckController {
 	}
 
 	// ---- Deck of cards -----
-	
 	// Add card to deck ------------------------------------------------------------------------------------------------------------
 
 	@PostMapping("{deck_id}/card/{card_id}")
+	@Operation(summary = "Add a card to a deck", description = "Adds a 'deckCard' relation between a deck and a card by their ids.", tags = { "Decks" })
 	public ResponseEntity<DeckCardCreationDTO> addCardToDeck(@PathVariable("deck_id") Long deckId, @PathVariable("card_id") Long cardId) {
 		try {
 			DeckCardCreationDTO newDeckCard = deckService.addCardToDeck(deckId, cardId);
@@ -114,6 +123,7 @@ public class DeckController {
 	// Get all cards from deck -----------------------------------------------------------------------------------------------------
 
 	@GetMapping("{deck_id}/cards")
+	@Operation(summary = "Get all cards from a deck", description = "Retrieves all the cards from a deck by the deck's id.", tags = { "Decks" })
 	public ResponseEntity<ArrayList<DeckCardDTO>> getAllCardsInDeck(@PathVariable("deck_id") Long deckId) {
 		try {
 			// new list of cards
@@ -136,6 +146,7 @@ public class DeckController {
 	// Delete card from deck -------------------------------------------------------------------------------------------------------
 	// One card
 	@DeleteMapping("/{deck_id}/card/{card_id}")
+	@Operation(summary = "Delete a card from a deck", description = "Deletes one card from a deck by their ids.", tags = { "Decks" })
 	public ResponseEntity<HttpStatus> deleteOneCardFromDeck(@PathVariable("deck_id") Long deckId, @PathVariable("card_id") Long cardId) {
 		try {
 			deckService.deleteOneCardFromDeck(deckId, cardId);
@@ -147,6 +158,7 @@ public class DeckController {
 
 	// All cards
 	@DeleteMapping("/{deck_id}/cards")
+	@Operation(summary = "Delete all the cards from a deck", description = "Deletes all cards from a deck by the deck id.", tags = { "Decks" })
 	public ResponseEntity<HttpStatus> deleteAllCardsFromDeck(@PathVariable("deck_id") Long deckId) {
 		try {
 			deckService.deleteAllCardsFromDeck(deckId);
