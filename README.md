@@ -1,7 +1,7 @@
 # GwentDB - Projet POEC Java Clermont 2022, Mars 2022
----
+
 Projet Angular correspondant: https://github.com/maoherve/GwentDB-Angular
----
+
 ## Description
 Le projet a pour but de recenser l’ensemble des cartes du jeu “Gwent” venant de l’univers de “The Witcher”, spécifiquement celles de “The Witcher 3”. (199 au total)
 Il s’agit d’un jeu de carte au tour par tour.
