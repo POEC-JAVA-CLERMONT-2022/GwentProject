@@ -1,5 +1,4 @@
-# GwentDB
-Projet POEC Java Clermont 2022, Mars 2022
+# GwentDB - Projet POEC Java Clermont 2022, Mars 2022
 ---
 Projet Angular correspondant: https://github.com/maoherve/GwentDB-Angular
 ---
