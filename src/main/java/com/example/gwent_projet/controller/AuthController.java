@@ -18,6 +18,10 @@ import com.example.gwent_projet.repository.RoleRepository;
 import com.example.gwent_projet.repository.UserRepository;
 import com.example.gwent_projet.security.jwt.JwtUtils;
 import com.example.gwent_projet.security.services.UserDetailsImpl;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +36,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authenticaton", description = "Auth API")
 public class AuthController {
 
     @Autowired
@@ -48,9 +53,11 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
-
+    
+    // Sign in - Authenticate an user ------------------------------------------------------------------------------
 
     @PostMapping("/signin")
+    @Operation(summary = "Authenticate an user", description = "Authenticates an user. Takes a LoginRequest entity, validates it using JWT then returns a corresponding entity with the role(s) allocated to the user.", tags = { "Authenticaton" })
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -70,8 +77,12 @@ public class AuthController {
                 userDetails.getEmail(),
                 roles));
     }
+    
+    // Sign up - Register an user ------------------------------------------------------------------------------
 
     @PostMapping("/signup")
+    @Operation(summary = "Register an user", description = "Creates a new user in the database, while also setting their role(s) and creating a hash of their password."
+    		+ "<br />" + "This is replacing the now deprecated createUser method in UserController.", tags = { "Authenticaton" })
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity

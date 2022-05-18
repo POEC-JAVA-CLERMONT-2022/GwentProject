@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.jeasy.random.EasyRandom;
+import org.jeasy.random.EasyRandomParameters;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,8 +32,13 @@ public class UserServiceTest {
 	UserRepository userRepository;
 
 	private Long tableLength;
+	
+	EasyRandomParameters parameters = new EasyRandomParameters()
+			// .excludeField(named("id").and(ofType(Long.class)).and(inClass(User.class))) this doesnt work
+			.stringLengthRange(5, 20)
+			.ignoreRandomizationErrors(true);
 
-	private EasyRandom RNGenerator = new EasyRandom();
+	private EasyRandom RNGenerator = new EasyRandom(parameters);
 
 	// private consoleDisplay consoleDisplay = new consoleDisplay();
 	
@@ -61,8 +67,9 @@ public class UserServiceTest {
 			// new random user
 			User tempUser = RNGenerator.nextObject(User.class);
 			tempUser.setId(null);
-			//tempUser.setRoles();
-			
+			// dumb stupid workaround because easyRandom has absolutely no clue how to respect database constraints
+			tempUser.setEmail(RNGenerator.nextObject(String.class) + "@" + RNGenerator.nextObject(String.class) + ".com");
+	
 			tempUser = userRepository.save(tempUser);
 			
 			// get the first user of each instance of the repo
@@ -131,7 +138,7 @@ public class UserServiceTest {
 		*/
 		
 		// create a new user
-		UserCreationDTO creationUser = new UserCreationDTO("newUsername", "newEmail", "newPassword");
+		UserCreationDTO creationUser = new UserCreationDTO("newUsername", "newEmail@test.com", "newPassword");
 		// method to test
 		// insert creationUser in repository and save the result in a DTO
 		UserDTO newUser = userService.createUser(creationUser);
@@ -231,7 +238,7 @@ public class UserServiceTest {
 		User updatedUserBefore = userRepository.findById(user.getId()).orElse(null);
 
 		// new user to test the update method
-		UserCreationDTO updatedUser = new UserCreationDTO("testUsername", "testEmail", "testPassword");
+		UserCreationDTO updatedUser = new UserCreationDTO("testUsername", "testEmail@update.com", "testPassword");
 
 		// method to be tested
 		userService.updateUser(user.getId(), updatedUser);

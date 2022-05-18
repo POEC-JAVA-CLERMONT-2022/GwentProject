@@ -18,113 +18,110 @@
         <java.version>17</java.version>
   		<sonar.organization>poec-java-clermont-2022</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-  		<!-- <start-class>com.example.gwent_projet\GwentProjetApplication</start-class> --> 
+  		<start-class>com.example.gwent_projet/GwentProjetApplication</start-class>  
     </properties>
     
     <dependencies>
-    <!-- default dependency (includes Tomcat container) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-    <!-- test dependency: JUnit, Mockito, etc... -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-    <!-- JPA dependency: allows use of Hibernate and repositories -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-    <!-- Thymeleaf dependency: allows use of Thymeleaf for MVC front-end -->
-    <!-- deprecated: replaced by Angular -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-  	 <!-- not sure what this does. might be for code coverage -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-  	 <!-- MySQL driver to connect automatically to DB -->
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-  	 <!-- allows the use of beans, complimentary to Hibernate -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-  	 <!-- allows the use of integrated H2 DB for tests -->
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
-  	 <!-- allows the use of JUnit for tests -->
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
-  	 <!-- allows the use of JUnit for tests -->
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
-  	 <!-- allows the use of Mockito for tests -->
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>3.4.3</version>
             <scope>test</scope>
         </dependency>
-  	 <!-- allows the use of Mockito with JUnit -->
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>3.4.3</version>
             <scope>test</scope>
         </dependency>
-  	 <!-- allows the use of EasyRandom -->
+
         <dependency>
             <groupId>org.jeasy</groupId>
             <artifactId>easy-random-core</artifactId>
             <version>4.0.0</version>
         </dependency>
-     <!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
-     <!-- common validators for user form checks -->
+        <!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
+        <!-- common validators for user form checks -->
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>1.6</version>
         </dependency>
-  	 <!-- allows the use of Swagger -->
+
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.6.4</version>
         </dependency>
-  	 <!-- allows the use of Spring Security -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-  	 <!-- allows the use of JWT for token validation -->        
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-  	 <!-- allows the use of Spring Security Test -->
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
